@@ -4,7 +4,7 @@ from django.http import request
 
 from orders.models import Order
 from products.models import Product
-from .forms import ProductModelForm
+from .forms import ProductForm
 
 # Create your views here.
 
@@ -12,10 +12,10 @@ from .forms import ProductModelForm
 
 
 def create(request):
-    form=ProductModelForm()
+    form=ProductForm()
  
     if(request.method=='POST'):
-        form=ProductModelForm(request.POST)
+        form=ProductForm(request.POST)
         if(form.is_valid()):
             form.save()
             

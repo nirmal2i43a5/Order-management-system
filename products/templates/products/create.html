@@ -1,48 +1,33 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}Add Products {% endblock %}
 
 {% block content %}
 
-<form method="POST" action="">
+<div class="container">
 
-    <!-- <div class="row">
+<form method="POST" action="" class=" col-md-4 mx-auto  form p-4">
+
+    <!-- col-xl-5 col-lg-4 col-md-10 col-sm-10  -->
+    <hr>
+            <h1>Add Products</h1>
+            <hr>
+            
+            
+    
 
 
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" required />
+            {{form|crispy}}
         
-        
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Price</label>
-                    <input type="text" class="form-control" required />
-                </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Category</label>
-                        <input type="text" class="form-control" required />
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Description</label>
-                            <input type="text" class="form-control" required />
-                        </div>
-                    </div>
-                </div>
-
-            </div> -->
-
-            {{form.as_p}}
             {% csrf_token %}
+           
 
  <button type="submit" class="btn btn-danger">Save</button>
 
 </form>
+</div>
 
 
 

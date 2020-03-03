@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+
+{% load crispy_forms_tags %}
+
+<!-- {% block title%}Add Order{% endblock %} -->
+
+{% block content %}
+
+<div class="container">
+
+<div class="col col-md-4 mx-auto form-4">
+    <hr>
+    <h1>Add Order</h1><hr>
+    <form method="POST">
+        {% csrf_token %}
+      
+            {{form|crispy}}
+ 
+
+       <a href="{% url 'customer_app:list' %}" class="btn btn-success">Save</a>
+    </form>
+</div>
+</div>
+
+{% endblock %}

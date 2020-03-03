@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
-{% block title %}Add customers{% endblock%}
-
-
-
-
+{% load crispy_forms_tags %}
+{% block title %}Edit customers{% endblock%}
 
 {% block content %}
-<div  class="page-header">
+
+    <hr>
     <h1>Edit Customer Details</h1>
-</div>
-<hr>
+    <hr>
 
+
+<div class="container">
+    <div class="col-md-6 mx-auto form-4">
 <form action="" method="POST">
-
-   {{form.as_p}}
     {% csrf_token %}
+   {{form | cripsy}}
+ 
 
     <button type="submit" class="btn btn-danger">Save</button>
     <a href="/customers/list/" class="btn btn-success">Back</a>
 
 </form>
+</div>
+</div>
 
 {% endblock%}
 

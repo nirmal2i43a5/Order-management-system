@@ -1,0 +1,5 @@
+-->Product is already available or added first
+-->Then you add the customers
+-->Now you order.Product and Customer are foreign key in Table(Model) because Particular Product is
+    order is Customer.So,attribute of Product and Customer should be available in Order Model
+-->

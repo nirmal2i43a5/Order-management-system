@@ -1,7 +1,9 @@
 
 
 {% extends 'base.html' %}
-{% block title %}Add customers{% endblock%}
+
+
+{% block title %}Add customers{% endblock %}
 
 
 
@@ -50,7 +52,7 @@
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Save</button>
         
-        <a href="/customers/list" class="btn btn-success">Back</a>
+        <a href="{% url 'customer_app:list'%}" class="btn btn-success">Back</a>
 
    
 </form>

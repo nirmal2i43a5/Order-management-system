@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from registers import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+   path('',views.dashboard),
     
-   
-     path('customers/',include('customers.urls')),
-     path('products/',include('products.urls')),
-    
+    path('user/',include('registers.urls',namespace='register_app')),
+    path('customers/',include('customers.urls', namespace="customer_app")),
+    path('products/',include('products.urls', namespace='product_app')),
+    path('orders/',include('orders.urls', namespace="order_app")),
 ]
+
+
+

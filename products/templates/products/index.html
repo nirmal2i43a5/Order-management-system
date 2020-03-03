@@ -13,7 +13,7 @@
 </div>
 <hr>
 
-<a href="/products/create/" class="btn btn-success float-right">+</a>
+<a href="{% url 'product_app:create' %}" class="btn btn-success float-right">+</a>
 <div class="container">
     <table class="table table-hover table-striped">
         <thead class="thead-light">
@@ -34,8 +34,8 @@
         <tbody>
             {% for product in products%}
 
-
             <tr>
+                
                 <!-- <td>{{order.product.name}}</td> -->
                 <!-- <td>{{product.id}}</td> -->
                 <td>{{product.name}}</td>
@@ -55,4 +55,5 @@
     </table>
 </div>
 
-{% endblock%}
+
+{% endblock %}

@@ -13,19 +13,20 @@
 </div>
 <hr>
 
-<a href="/customers/create/" class="btn btn-success float-right" >+</a>
+<a href="{% url 'customer_app:create' %}" class="btn btn-success float-right" >+</a>
 <div class="container">
-    <div class="col-md-9">
+    <div class="col-md-6">
     
 <table class="table table-hover table-striped">
     <thead class="thead-light" >
         <tr>
         <!-- <th>Id</th> -->
+        <th>View</th>
         <th>Name</th>
         
-        <th>Email</th>
+        <!-- <th>Email</th> -->
         <th>Conact No</th>
-        <th>Created</th>
+        <!-- <th>Created</th> -->
       
         <th>Action</th>
 
@@ -37,13 +38,15 @@
 
         <tr>
 
-       
+       <td><a href="" class="btn btn-primary">view</a></td>
         <td>{{customer.first_name}} {{customer.last_name}}</td>
-        <td>{{customer.email}}</th>
+        <!-- <td>{{customer.email}}</th> -->
         <td>{{customer.contact}}</td>
-        <td>{{customer.created_at}}</td>
+        <!-- <td>{{customer.created_at}}</td> -->
         <!-- <td>{{customer.status}}</td> -->
-        <td><a href="/customers/edit/{{customer.id}}" class="btn btn-success">Edit</a>
+        <td><a href="/customers/edit/{{customer.id}}" class="btn btn-success">
+            <i class="fas fa-edit fa-lg"></i>
+        </a>
              <a href="/customers/delete/{{customer.id}}" class="btn btn-danger">Delete</a>
         </td>
     </tr>
