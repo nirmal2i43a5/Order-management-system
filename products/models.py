@@ -14,7 +14,7 @@ class Product(models.Model):
     price=models.CharField(max_length=50,null=True)
     category=models.CharField(max_length=200,null=True,choices=category)
     description=models.CharField(max_length=50,null=True)
-    created_at=models.DateField(auto_now=True,null=True)
+    created_at=models.DateTimeField(auto_now=True,null=True)
 
 
         

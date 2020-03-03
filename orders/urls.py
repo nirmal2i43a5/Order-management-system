@@ -8,3 +8,7 @@ urlpatterns = [
     path('list/',views.index,name="list"),
     
 ]
+
+
+
+

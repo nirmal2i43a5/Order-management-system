@@ -6,6 +6,8 @@ from orders.models import Order
 from products.models import Product
 from .forms import ProductForm
 
+from .filters import ProductFilter
+
 # Create your views here.
 
 
@@ -27,8 +29,18 @@ def create(request):
 
 def index(request):
     products=Product.objects.all()
-    total_orders=Order.objects.all().count()
-    context={'products':products,'total_orders':total_orders}
+    myFilter = ProductFilter(request.GET,queryset=products)
+    products = myFilter.qs
+    '''
+    -->like form we render filterform
+    -->we use get because we see result on same page 
+    -->quertset because we have to see filter data that we search
+    -->
+    -->qs = queryset
+    '''
+
+
+    context={'products':products,'myFilter':myFilter}
     return render(request,'products/index.html',context)
 
 

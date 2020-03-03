@@ -13,7 +13,7 @@
 </div>
 <hr>
 
-<a href="{% url 'customer_app:create' %}" class="btn btn-success float-right" >+</a>
+
 <div class="container">
     <div class="col-md-6">
     
@@ -29,6 +29,7 @@
         <!-- <th>Created</th> -->
       
         <th>Action</th>
+        <a href="{% url 'customer_app:create' %}" class="btn btn-danger float-right" ><i class="fa fa-plus"></i></a>
 
     </tr>
     </thead>
@@ -45,9 +46,11 @@
         <!-- <td>{{customer.created_at}}</td> -->
         <!-- <td>{{customer.status}}</td> -->
         <td><a href="/customers/edit/{{customer.id}}" class="btn btn-success">
-            <i class="fas fa-edit fa-lg"></i>
+            <i class="fas fa-edit"></i>
         </a>
-             <a href="/customers/delete/{{customer.id}}" class="btn btn-danger">Delete</a>
+             <a href="/customers/delete/{{customer.id}}" class="btn btn-danger">
+                <i class="fa fa-trash-alt"></i>
+            </a>
         </td>
     </tr>
         
