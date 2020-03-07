@@ -36,9 +36,10 @@ def index(request):
     
     pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
     delivered=orders.filter(status="Delivered").count()
+    
     context={
         'customers':customers,'orders':orders,'total_orders':total_orders,
-        'orders_pending':pending,'orders_delivered':delivered,
+        'orders_pending':pending,'orders_delivered':delivered
         }
     return render(request,'customers/copindex.html',context)
 

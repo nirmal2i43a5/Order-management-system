@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<hr>
+<h1 style="text-align:center;background-color:grey;color:white;padding:50px;font-size:45px;">Are you sure want to delete {{name}} details</h1>
+<hr>
+
+
+<form  method="POST"><!--action is optional blc admin_views.py ma POST bata check garxa-->
+    <!-- action="/customers/delete/{{name.id}}/" -->
+    <a href="{% url 'product_app:list'%}" class="btn btn-danger">Cancel</a>
+
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-success" 
+    onclick="document.getElementById('id01').style.display='block'">
+    Confirm</button>
+    <!--when i confirm it goes to  return redirect('customer_app:list') used in delete() of views.py .I can also redirect it via action-->
+    <!--when i submit then it goes to action -->
+
+</form>
+
+{% endblock %}

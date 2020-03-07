@@ -8,12 +8,16 @@ from django.conf import settings
 
 from django.views.generic import CreateView
 
-from .forms import SignupForm
+from .forms import SignupForm,LoginForm
 from django.contrib import messages
 
 from customers.models import Customer
 from orders.models import Order
 from products.models import Product
+
+
+
+
 
 # Create your views here.
 
@@ -39,6 +43,7 @@ def dashboard(request):
 
 class UserLogin(LoginView):
     template_name = 'registers/login.html'
+    form_class = LoginForm
     
     # redirect_authenticated_user = False
     
@@ -60,7 +65,8 @@ class SignupView(CreateView):
         # contact = form.cleaned_data.get('contact')
         #various sms and others
         form.save()
-        messages.add_message(self.request, messages.INFO, ' Successfully register.')
+        # user = form.cleaned_data.get('username')
+        # messages.add_message(self.request, messages.INFO, ' Account successfully register for ' +user)
         return redirect('register_app:login')
     
   
@@ -74,9 +80,20 @@ class UserLogout(LogoutView):
     # template_name = 'logout.html'
     pass
     
-  
-    
-    
+#-------------------------------------password reset---------------------------------------------------------------------
+
+# class Passwordresetview(PasswordResetView):
+#     pass
+
+# class PasswordresetView(PasswordResetDoneView):
+#     pass
+
+# class Passwordresetconfirmview(PasswordResetConfirmView):
+#     pass
+
+# class Passwordresetcompleteview(PasswordResetCompleteView):
+#     pass
+
     
 
     
@@ -88,4 +105,4 @@ class UserLogout(LogoutView):
     
     
 
-# # Create your views here.
+

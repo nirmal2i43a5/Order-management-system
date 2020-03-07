@@ -8,5 +8,7 @@ app_name = 'product_app'
 
 urlpatterns=[
     path('create/',views.create, name='create'),
-    path('list/',views.index, name = "list"),    
+    path('list/',views.index, name = "list"),   
+    path('edit/<int:pid>/',views.edit,name="edit"),
+    path('delete/<int:pid>/',views.delete,name="delete")
 ]

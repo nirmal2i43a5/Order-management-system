@@ -13,4 +13,4 @@ def create(request):
 
 def index(request):#customer order index
     
-    return render(request,'orders/index.html')
+    pass

@@ -1,8 +1,9 @@
 {% load static %}
+{% load crispy_forms_tags %}
+
 
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
     <meta charset="utf-8" />
@@ -25,17 +26,27 @@
         <a class="navbar-brand" href="/">Grocery</a><button class="btn btn-link btn-sm order-1 order-lg-0"
             id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i></button><!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
-                    aria-describedby="basic-addon2" />
+
+            
+            <!--form search-->
+         
+        <form method="GET" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-4 my-2 my-md-0" >
+                <div class="input-group">
+                <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
+                    aria-describedby="basic-addon2" /> -->
+                
+                    {{myFilter.form.name}}
+                
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search"></i>
+                    <button class="btn btn-success" type="button">
+                        Search
+                        <!-- <i class="fas fa-search"></i> -->
                     </button>
                 </div>
-            </div>
+            </div> 
         </form>
+    
+       
         <!-- Navbar-->
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
@@ -123,109 +134,9 @@
             </nav>
         </div>
     
-        <div id="layoutSidenav_content">
-            <main>
-              
-                    <h1 class="mt-4">Grocery Management System</h1>
-                 <hr>
-
-                    <div class="row">
-                        <div class="col">
-                            <div class="col-md">
-                                <div class="card bg-primary text-center text-white  mb-3" id="total-orders">
-                                      <div class="card-header">
-                                          <h5 class="card-title">Total Products</h5>
-                                      </div>
-                                      <div class="card-body">
-                                        <h3 class="card-title">{{total_products}}</h3>
-                                      </div>
-                                </div>
-                            </div>
-                            <div class="mb-5 ml-3">
-                                <a href="{% url 'product_app:list' %}" class="btn btn-warning">View details</a>
-                            </div> 
-                            
-                        </div>
-                    
-                        <div class="col">
-                            <div class="col-md">
-                                <div class="card bg-secondary text-center text-white  mb-3" id="orders-delivered">
-                                      <div class="card-header">
-                                          <h5 class="card-title">Total Orders</h5>
-                                      </div>
-                                      <div class="card-body">
-                                        <h3 class="card-title">{{total_orders}}</h3>
-                                      </div>
-                                </div>
-                            </div>
-                            <div class="mb-5 ml-3">
-                                <a href="{% url 'customer_app:list' %}" class="btn btn-warning">View details</a>
-                            </div> 
-                            
-                        </div>
-                    
-                        <div class="col">
-                            <div class="col-md">
-                                <div class="card bg-success text-center text-white  mb-3" id="orders-pending">
-                                      <div class="card-header">
-                                          <h5 class="card-title">Total Customers</h5>
-                                      </div>
-                                      <div class="card-body">
-                                        <h3 class="card-title">{{total_customers}}</h3>
-                                      </div>
-                                </div>
-                            </div>
-                            <div class="mb-5 ml-3">
-                                <a href="" class="btn btn-warning">View details</a>
-                            </div> 
-                            
-                        </div>
-                    </div>
-                    
-                    
-                         
-                            
-                           
-
-
-                    <!--chart for content-->
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-area mr-1"></i>Products Chart
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="myAreaChart" width="100%" height="40"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar mr-1"></i>Customers Chart
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="myBarChart" width="100%" height="40"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                 
+       
             
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2019</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+         
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>

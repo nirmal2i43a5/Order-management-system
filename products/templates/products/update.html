@@ -2,12 +2,12 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}Edit customers{% endblock%}
+{% block title %}Edit Products{% endblock%}
 
 {% block content %}
 
     <hr>
-    <h1>Edit Customer Details</h1>
+    <h1>Edit Product Details</h1>
     <hr>
 
 
@@ -15,11 +15,11 @@
     <div class="col-md-6 mx-auto form-4">
 <form action="" method="POST">
     {% csrf_token %}
-   {{form|crispy}}
+   {{form | crispy}}
  
 
     <button type="submit" class="btn btn-danger">Save</button>
-    <a href="/customers/list/" class="btn btn-success">Back</a>
+    <a href="{% url 'product_app:list' %}" class="btn btn-success">Back</a>
 
 </form>
 </div>

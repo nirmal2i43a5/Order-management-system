@@ -1,16 +1,45 @@
 
 
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,PasswordResetForm,AuthenticationForm
 
 from django import forms
+from django.forms import EmailField,TextInput,PasswordInput
+
+
+from django.utils.translation import ugettext_lazy as _ #for protected-
+
+
+
+
+#if i dont login using email then i dont need to make LoginForm class --directly it will show username and password
+class LoginForm(AuthenticationForm):
+    
+    #although i write email field in models this field is compu;sary for extra email authentication
+    #if i want to add contact i can also add contact and other that should be in model
+    
+    email = EmailField(label=_("Email"), required=True, #Email address is protected
+        help_text=_("Required."))
+    
+    #writing meta for this is choosen
+    
+    # class Meta:
+    #     model = User
+    #     fields=('username','email','password')
+        
+   
+    
 
 class SignupForm(UserCreationForm):
-    # email = forms.CharField() maila add garako
+    
+    email = EmailField(label=_("Email"),required=True, #Email address is protected
+        help_text=_("Required."))
     
     class Meta:
         model = User
-        fields = ('username','password1','password2')#default
+        
+
+        fields = ('username','email','password1','password2')#'__all__' also
         
         #help_text will remove the default text in signup page
         help_texts= {
@@ -18,3 +47,5 @@ class SignupForm(UserCreationForm):
             # 'email':"Your email should contain @" if i add email and wants help_texts for that
            #to remove help text of password and password2 go to UserCreationForm  and comment help_text in 
         }
+        
+  

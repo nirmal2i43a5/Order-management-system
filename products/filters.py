@@ -7,6 +7,7 @@ from django_filters import DateFilter,CharFilter
 
 
 from products.models import Product
+from django.forms import DateInput
 
 class ProductFilter(django_filters.FilterSet):
     
@@ -19,6 +20,7 @@ class ProductFilter(django_filters.FilterSet):
     '''
     
     # end_date = DateFilter(field_name="created_at",lookup_expr='lte')#lte=less than equals
+    name = django_filters.DateFilter(widget=DateInput(attrs={'class':'datepicker','placeholder':'Search for ...'}))
     
     name = CharFilter(field_name="name",lookup_expr='icontains')
     # --->icontains means igonring casesensitive
@@ -29,4 +31,4 @@ class ProductFilter(django_filters.FilterSet):
         model = Product#make filter for model Product
         
         fields = '__all__'#generate filter form with all models
-        exclude = ['created_at','description','category']
+        exclude = ['created_at','description','category','price']

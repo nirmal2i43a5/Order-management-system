@@ -6,47 +6,57 @@
 
 
 {% block content %}
+
+{% include 'registers/navbar.html'%}
+
+
 <br>
 
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Supermarket</a><button class="btn btn-link btn-sm order-1 order-lg-0"
-        id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i></button><!-- Navbar Search-->
-
-   
-</nav>
 <br>
+<hr>
+<div class="page-header" style="margin-left:50%;">
+    
+    
+    <h3>Products Details</h3>
+    
+
+</div>
+
+<!-- <div class="col">
+    <div class="col-md" class="margin-left:30%;">
+       
+    </div>
+</div> -->
+<div style="margin-left:40%;">
+
+<!-- <form method="GET" class="col-md-6">
 
 
-<div class="page-header">
-    <hr>
-    <h1>Products Details</h1>
+    {{myFilter.form|crispy}}
 
+    <button class="btn btn-success"> Search</button>
+    
+</form> -->
+
+</div>
 </div>
 <hr>
-<div class="col">
-    <div class="col-md">
-        <form method="GET">
+<div class="mr-4">
+<a href="{% url 'product_app:create' %}" class=" btn btn-danger float-right " >
+    <i class="fas fa-plus"></i>
+</a>
 
-
-            {{myFilter.form}}
-
-            <button class="btn btn-primary"> Search</button>
-            <hr>
-        </form>
-    </div>
 </div>
 
-
-<div class="container ">
+<div class="container">
     <div class="row">
         <div class="col">
             <div class="col-md-9">
-                <table class="table table-hover table-striped ">
+                <table class="table table-hover table-striped  " style="margin-left:25%;">
                     <thead class="thead-light">
                         <tr>
                             <!-- <th>Id</th> -->
-
+                            <th>Id</th>
                             <th>Name</th>
 
                             <th>Price</th>
@@ -54,8 +64,6 @@
                             <th>Description</th>
                             <th>Created Date</th>
                             <th>Action</th>
-                            <a href="{% url 'product_app:create' %}" class=" btn btn-danger float-right "><i class="fas fa-plus"></i></a>
-
 
                         </tr>
                     </thead>
@@ -66,6 +74,7 @@
 
                             <!-- <td>{{order.product.name}}</td> -->
                             <!-- <td>{{product.id}}</td> -->
+                            <td>{{product.id}}</td>
                             <td>{{product.name}}</td>
                             <td>{{product.price}}</th>
                             <td>{{product.category}}</td>
@@ -73,8 +82,9 @@
                             <td>{{product.created_at}}</td>
 
 
-                            <td><a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                            <td><a href="{% url 'product_app:edit' product.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                <!--product.id   --+product is context-->
+                                <a href="{% url 'product_app:delete' product.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
 

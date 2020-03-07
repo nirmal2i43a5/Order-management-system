@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 
 from django.http import request
 
@@ -8,7 +8,7 @@ from .forms import ProductForm
 
 from .filters import ProductFilter
 
-# Create your views here.
+
 
 
 
@@ -42,6 +42,45 @@ def index(request):
 
     context={'products':products,'myFilter':myFilter}
     return render(request,'products/index.html',context)
+
+
+
+def edit(request, pid):    
+    # pro=Product.objects.get(id=pk) #i get all value and show that value to next page
+    pro = get_object_or_404(Product,pk = pid)
+    form=ProductForm(instance=pro)
+    
+    if(request.method=='POST'):
+        
+        form=ProductForm(request.POST,instance=pro)
+        if(form.is_valid()):
+            form.save()
+            
+        return redirect('product_app:list')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
+
+    # else:
+    #     form = ProductForm()
+        
+  
+    return render(request,'products/update.html',{'form':form})
+
+
+def delete(request, pid):
+    
+    
+    # cus=Customer.objects.get(id=pk)
+    pro = get_object_or_404(Product,pk = pid)
+    
+                                     # print(f'I am instance of {{cus}}')
+   
+    if request.method=='POST':  #if i confirm in delete.html page
+        pro.delete()   #grab customer details and delete and after deleting moves to /customers/list/
+     
+        return redirect('product_app:list')
+    
+    return render(request,'products/delete.html',{'name':pro })#urls.py ko url render ma url search garxa at first
+
+
 
 
 

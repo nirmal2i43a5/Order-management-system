@@ -27,13 +27,17 @@
                                       
                                         <form method="POST" class="justify-content-center" >
                                           {% csrf_token %}
-                                            {{form|crispy}}
-                                            <br>
+
+                                          {{form|crispy}}
+
+                                           
+                                            
                                             <input type="submit" name="submit" value="Login" class="btn btn-success">
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a class="small" href="password.html">Forgot Password?</a></div>
+                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a class="small" href="/reset_password/">Forgot Password?</a></div>
                                         </form>
                                         
                                     </div>
+                                 
                                     <div class="card-footer text-center">
                                         <div class="small"><a href="{% url 'register_app:register'%}">Need an account? Sign up!</a></div>
                                     </div>
