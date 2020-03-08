@@ -3,3 +3,7 @@
 -->Now you order.Product and Customer are foreign key in Table(Model) because Particular Product is
     order is Customer.So,attribute of Product and Customer should be available in Order Model
 -->
+
+Filter search
+-------------
+-->navbar search field include in every apps

@@ -4,22 +4,36 @@
 
 <!-- {% block title%}Add Order{% endblock %} -->
 
+
 {% block content %}
+<br>
+<div class="row">
 
-<div class="container">
+    <!-- <div class="col col-md-3 mx-auto form-4"> -->
+    <div class="col-md-6">
 
-<div class="col col-md-4 mx-auto form-4">
-    <hr>
-    <h1>Add Order</h1><hr>
-    <form method="POST">
-        {% csrf_token %}
-      
-            {{form|crispy}}
- 
+        <div class="card-header">Add Order</div>
 
-       <a href="{% url 'customer_app:list' %}" class="btn btn-success">Save</a>
-    </form>
+        <div class="card card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{formset.management_form}}
+                {% for form in formset %}
+                <!--line  by line lauxa-->
+                {{form}}
+                <hr>
+
+                {% endfor %}
+
+
+
+                <button type="submit" class="btn btn-success">Save</button>
+                <!--save huda post method hunxa and create views ko redirect ma janxa-->
+
+            </form>
+        </div>
+    </div>
 </div>
-</div>
+
 
 {% endblock %}

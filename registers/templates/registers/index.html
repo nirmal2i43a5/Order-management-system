@@ -76,8 +76,8 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{% url 'product_app:list'%}">Products</a>
-                                <a class="nav-link" href="{% url 'customer_app:list'%}">Orders</a>
-                                <a class="nav-link" href="#">Customers</a>
+                                <a class="nav-link" href="{% url 'order_app:list' %}">Orders</a>
+                                <a class="nav-link" href="{% url 'customer_app:list'%}">Customers</a>
                             </nav>
                         </div>
 
@@ -96,7 +96,7 @@
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
                                         <a class="nav-link" href="{% url 'register_app:register'%}">Register</a><a
-                                            class="nav-link" href="#">Forgot Password</a>
+                                            class="nav-link" href="/reset_password">Forgot Password</a>
                                     </nav>
                             
 
@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                             <div class="mb-5 ml-3">
-                                <a href="{% url 'customer_app:list' %}" class="btn btn-warning">View details</a>
+                                <a href="{% url 'order_app:list' %}" class="btn btn-warning">View details</a>
                             </div> 
                             
                         </div>
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                             <div class="mb-5 ml-3">
-                                <a href="" class="btn btn-warning">View details</a>
+                                <a href="{% url 'customer_app:list'%}" class="btn btn-warning">View details</a>
                             </div> 
                             
                         </div>

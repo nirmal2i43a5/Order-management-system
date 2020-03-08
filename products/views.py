@@ -28,7 +28,9 @@ def create(request):
 
 
 def index(request):
+    
     products=Product.objects.all()
+    
     myFilter = ProductFilter(request.GET,queryset=products)
     products = myFilter.qs
     '''

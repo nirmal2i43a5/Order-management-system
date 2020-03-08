@@ -7,6 +7,7 @@ from orders.models import Order
 
 
 from .forms import CustomerForm,CustomerModelForm
+from customers.filters import CustomerFilter
 
 
 def create(request):
@@ -29,17 +30,11 @@ def create(request):
 
 
 def index(request):
-    customers=Customer.objects.all()
-    orders=Order.objects.all()
-    total_orders=orders.count()
-   
-    
-    pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
-    delivered=orders.filter(status="Delivered").count()
-    
+    customers=Customer.objects.all()  
+    myFilter = CustomerFilter(request.GET,queryset=customers)
+    customers = myFilter.qs
     context={
-        'customers':customers,'orders':orders,'total_orders':total_orders,
-        'orders_pending':pending,'orders_delivered':delivered
+        'customers':customers,'myFilter':myFilter
         }
     return render(request,'customers/copindex.html',context)
 
@@ -93,7 +88,26 @@ def delete(request, cid):
     return render(request,'customers/delete.html',{'name':cus })#urls.py ko url render ma url search garxa at first
 
 
+def cus_ord_view(request, cid):
+    
+    
+    # order = Order.objects.filter(customer__first_name="Shankar") 
+    # -->maila particular person ko order retrieve garaxu--
+    customer = Customer.objects.get(pk = cid)#return a particular name according to choosen primary key
+    orders = customer.order_set.all()#particular customer ko particular order selct garxa
+   
+    order_count = orders.count()
 
+    context = {'customer':customer, 'orders':orders, 'order_count':order_count}
+ 
+    return render(request,'customers/orderview.html',context)
+
+    
+    
+    
+
+    
+  
 
 
 

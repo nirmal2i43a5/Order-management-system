@@ -11,5 +11,6 @@ urlpatterns=[
     path('list/',views.index,name='list'),
     path('edit/<int:cid>/',views.edit,name='edit'),#here i pass primary key
     path('delete/<int:cid>/',views.delete,name='delete'),
+    path('order/<int:cid>',views.cus_ord_view,name = 'view')
     
 ]

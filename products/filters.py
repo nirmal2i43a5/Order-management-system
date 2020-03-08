@@ -20,7 +20,7 @@ class ProductFilter(django_filters.FilterSet):
     '''
     
     # end_date = DateFilter(field_name="created_at",lookup_expr='lte')#lte=less than equals
-    name = django_filters.DateFilter(widget=DateInput(attrs={'class':'datepicker','placeholder':'Search for ...'}))
+    # name = django_filters.DateFilter(widget=DateInput(attrs={'class':'datepicker','placeholder':'Search for ...'}))
     
     name = CharFilter(field_name="name",lookup_expr='icontains')
     # --->icontains means igonring casesensitive

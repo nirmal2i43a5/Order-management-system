@@ -21,7 +21,7 @@ class Order(models.Model):
     '''
     Similarly if Product is deleted then order set to Null value'''
     
-    created_at=models.DateField(max_length=50,null=True)
+    created_at=models.DateTimeField(max_length=50,null=True)
     status=models.CharField(max_length=100,null=True,choices=status)
     
     
