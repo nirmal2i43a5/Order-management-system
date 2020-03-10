@@ -13,41 +13,57 @@
             id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i></button><!-- Navbar Search-->
 
-            
-            <!--form search-->
+          <!--form search in input form I place {{myFilter.form.status}}-->
          
-        <form method="GET" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-4 my-2 my-md-0" >
-                <div class="input-group">
-                <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
-                    aria-describedby="basic-addon2" /> -->
-            
-                    {{myFilter.form.customer__first_name}}
-              
-                
+          <form method="GEt" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" >
+               
+                        
+            <div class="input-group">
+                <input  class="form-control" type="text" placeholder="Search by status..." aria-label="Search"
+                    aria-describedby="basic-addon2" {{myFilter.form.status}} />
                 <div class="input-group-append">
-                    <button class="btn btn-success" type="button">
-                        Search
-                        <!-- <i class="fas fa-search"></i> -->
+                   
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search"></i>
                     </button>
                 </div>
-            </div> 
+            </div>
         </form>
-    
        
         <!-- Navbar-->
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <div data-toggle="modal" data-target="#logOutModal" class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#">Settings</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'register_app:login'%}">Logout</a>
+                    <a class="dropdown-item" style="cursor: pointer;">Logout</a>
                 </div>
             </li>
         </ul>
     </nav>
-
+<!--logout model js popup for confirm or stay-->
+<div id="logOutModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Want to leave ?</h4>
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                Press logout to leave !
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal"><!--model-dismiss la same page ma lauxa-->
+                    Stay Here
+                </button>
+                <a class="btn btn-danger"  href="{% url 'register_app:login'%}">
+                    Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -132,29 +148,23 @@
 
 {% include 'orders/card.html' %}
 <hr>
-<div class="page-header">
+<div class="card border-dark" style="margin-left:20%;margin-right:14%;padding:10px;margin-bottom:10px;">
+    <h3 class="card-header" > Orders Details</h3>
 
-    <h1 style="margin-left:40%;">Orders Details</h1>
-
+  </div> 
 </div>
-<hr>
 
-<!-- <div class="mt-3">
-    <a href="{% url 'order_app:create' 11 %}" class=" btn btn-danger " style="margin-left:75.5%;" >
-       
-        <i class="fas fa-plus"></i>
-       
-    </a>
-     -->
-     
+
+
+
 
 <div class="container">
  <div class="col-md-10">
-    <table class="table table-hover table-striped" style="margin-left:15%;">
+    <table class="table table-hover table-striped table-bordered" style="margin-left:15%;">
         <thead class="thead-dark">
             <tr>
                 <th>Order Id</th>
-                <th>Customer</th>
+                <th>Category</th>
                 <th>Product</th>
 
 
@@ -172,7 +182,7 @@
             
             <tr>    
                 <td>{{order.id}}</td>
-                <td>{{order.customer.first_name}} {{order.customer.last_name}}</td>
+                <td>{{order.product.category}}</td>
                 <td>{{order.product.name}}</th>
 
 <!--
@@ -184,14 +194,29 @@ product=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
 
                 <td>{{order.created_at}}</td>
                 <td>{{order.status}}</td>
-                <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                    <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
+                <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></a>
                 </td>
             </tr>
 
             {% endfor %}
         </tbody>
     </table>
+    <nav aria-label="..." style="margin-left:90%;">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Prev</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active">
+            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
 </div>
 

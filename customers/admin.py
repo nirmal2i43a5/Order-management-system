@@ -8,11 +8,11 @@ from customers.models import Customer
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     
-    def full_name(obj):
-        return obj
+    # def full_name(obj):
+    #     return obj
 
     # list_display=['first_name','last_name','email','contact','created_at','status']
-    list_display=[full_name,'email','contact','created_at','status']
+    list_display=['name','email','contact','created_at']
     #full_name la first name and last name lai concatenate garxa
     
     

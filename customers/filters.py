@@ -19,7 +19,7 @@ class CustomerFilter(django_filters.FilterSet):
     
     # end_date = DateFilter(field_name="created_at",lookup_expr='lte')#lte=less than equals
     
-    first_name = CharFilter(field_name="first_name",lookup_expr='icontains')
+    name = CharFilter(field_name="name",lookup_expr='icontains')
     # --->icontains means igonring casesensitive
     #u--->sing this i can search even with single character
     
@@ -27,5 +27,5 @@ class CustomerFilter(django_filters.FilterSet):
     class Meta:
         model = Customer#make filter for model Customer
         
-        fields = ('first_name',)#generate filter form with all first_name
+        fields = ('name',)#generate filter form with all first_name
        

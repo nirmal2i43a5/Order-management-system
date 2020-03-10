@@ -1,4 +1,15 @@
--->Product is already available or added first
+-->Things required to do in project
+1)deduct order product from total product==Model of Available Product
+2)quantity and total price with no of quantity customers bought
+3)print bill 
+4)Monthly and yearly sales report
+5)Import data from excel--I will not include but include somewhere else 
+6)ajax and so on
+
+
+
+
+->Product is already available or added first
 -->Then you add the customers
 -->Now you order.Product and Customer are foreign key in Table(Model) because Particular Product is
     order is Customer.So,attribute of Product and Customer should be available in Order Model

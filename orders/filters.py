@@ -24,13 +24,15 @@ class OrderFilter(django_filters.FilterSet):
     # end_date = DateFilter(field_name="created_at",lookup_expr='lte')#lte=less than equals
     # name = django_filters.DateFilter(widget=DateInput(attrs={'class':'datepicker','placeholder':'Search for ...'}))
     
-    customer = CharFilter(field_name="customer__first_name",lookup_expr='icontains')#double underscore
+    #customer = CharFilter(field_name="customer__first_name",lookup_expr='icontains')#double underscore
     # --->icontains means igonring casesensitive
     #u--->sing this i can search even with single character
+    status = CharFilter(field_name="status",lookup_expr="icontains")
     
     
     class Meta:
         model = Order#make filter for model Product
+        fields = ['status']
         
-        fields = ['customer__first_name']#generate filter form with all models
+        # fields = ['customer__first_name']#generate filter form with all models
        

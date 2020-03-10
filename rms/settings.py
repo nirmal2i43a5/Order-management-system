@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #later install
     'crispy_forms',
     'django_filters',
+    'bootstrap_modal_forms',
    
     'customers',
     'products',

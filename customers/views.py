@@ -6,35 +6,45 @@ from customers.models import Customer
 from orders.models import Order
 
 
-from .forms import CustomerForm,CustomerModelForm
+from customers.forms import CustomerModelForm
 from customers.filters import CustomerFilter
 
 
+
+'''
+-->Before i use go to customers/create url to get form and use this create function separately but when i use j query i have to render form in same page.i.e customers/list
+page.So,I only use index form as i render from there in context
 def create(request):
     
-    form=CustomerForm()
+    form=CustomerModelForm()
      
     if(request.method=='POST'):
-        form=CustomerForm(request.POST)#form post ma show hunxa 
+        form=CustomerModelForm(request.POST)#form post ma show hunxa 
         if(form.is_valid()):
-            customer=Customer()
-            customer.first_name=form.cleaned_data['first_name']
-            customer.last_name=form.cleaned_data['last_name']
-            customer.email=form.cleaned_data['email']
-            customer.contact=form.cleaned_data['contact']   
-            customer.status=form.cleaned_data['status']
-            customer.save()
+            form.save()
+           
         return redirect('/customers/list?success')
+    
             
     return render(request,'customers/create.html',{'form':form})#first ma yo page dekhinxa
+'''
 
 
 def index(request):
+    form = CustomerModelForm()
     customers=Customer.objects.all()  
     myFilter = CustomerFilter(request.GET,queryset=customers)
     customers = myFilter.qs
+    
+    if request.method=='POST':
+        form = CustomerModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/customers/list?customer added successfully')
+            
+    
     context={
-        'customers':customers,'myFilter':myFilter
+        'customers':customers,'myFilter':myFilter,'form':form
         }
     return render(request,'customers/copindex.html',context)
 
@@ -93,7 +103,10 @@ def cus_ord_view(request, cid):
     
     # order = Order.objects.filter(customer__first_name="Shankar") 
     # -->maila particular person ko order retrieve garaxu--
-    customer = Customer.objects.get(pk = cid)#return a particular name according to choosen primary key
+    
+    customer = get_object_or_404(Customer,pk=cid) #use to get beautiful error -u can also use below
+    # customer = Customer.objects.get(pk = cid)#return a particular name according to choosen primary key
+  
     orders = customer.order_set.all()#particular customer ko particular order selct garxa
    
     order_count = orders.count()

@@ -28,7 +28,7 @@ def create(request):
 
 
 def index(request):
-    
+    form = ProductForm()
     products=Product.objects.all()
     
     myFilter = ProductFilter(request.GET,queryset=products)
@@ -40,9 +40,16 @@ def index(request):
     -->
     -->qs = queryset
     '''
+    if(request.method=='POST'):
+        form=ProductForm(request.POST)
+        if(form.is_valid()):
+            form.save()
+            
+        return redirect('/products/list?Product added ')
+    
 
 
-    context={'products':products,'myFilter':myFilter}
+    context={'products':products,'myFilter':myFilter,'form':form}
     return render(request,'products/index.html',context)
 
 
