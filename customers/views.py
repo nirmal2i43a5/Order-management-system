@@ -50,16 +50,7 @@ def index(request):
 
 #I use function base view but use class base view to inherit index.I am just copying index code 
 
-
-  
-    
-    
-
-
-
 # @login_required(login_url="/admin/login")
-
-
 
 def edit(request, cid):    
     # cus=Customer.objects.get(id=pk) #i get all value and show that value to next page

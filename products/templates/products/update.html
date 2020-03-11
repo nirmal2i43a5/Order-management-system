@@ -6,24 +6,40 @@
 
 {% block content %}
 
-    <hr>
-    <h1>Edit Product Details</h1>
-    <hr>
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card shadow-lg border-0 rounded-lg mt-5 " >
+                    <div class="card-header"><h2 class="text-center font-weight-light my-4">Edit Product</h2></div>
+                    
+                    <div class="card-body">
+                      
+                        <form method="POST" class="justify-content-center" >
+                          {% csrf_token %}
 
+                          {{form|crispy}}
 
-<div class="container">
-    <div class="col-md-6 mx-auto form-4">
-<form action="" method="POST">
-    {% csrf_token %}
-   {{form | crispy}}
- 
-
-    <button type="submit" class="btn btn-danger">Save</button>
-    <a href="{% url 'product_app:list' %}" class="btn btn-success">Back</a>
-
-</form>
-</div>
-</div>
+                           
+                          <button type="submit" class="btn btn-danger">Save</button>
+                          <a href="/products/list/" class="btn btn-success">Back</a>
+                          
+                        </form>
+                        
+                    </div>
+                 
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- </body> -->
+<style>
+    body{
+        background:lightgrey;
+    }
+</style>
 
 {% endblock%}
 

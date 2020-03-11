@@ -3,19 +3,19 @@
 {% block content %}
 <br>
 
-<div class="card border-dark col-md-9 ">
+<div class="card border-dark col-md-9 " style="margin-left:12%;">
     
-    <h3 class="card-header bg-secondary" style="color:white;">Are you sure want to delete <strong style="font-size:35px; ">{{name}}</strong> details</h3>
+    <h3 class="card-header bg-secondary" style="color:white;">Are you sure want to delete <strong style="font-size:35px; ">{{name}}</strong> details ?</h3>
     
     <div class="card-body">
         <form  method="POST">
             <!--action is optional blc admin_views.py ma POST bata check garxa-->
             <!-- action="/customers/delete/{{name.id}}/" -->
-            <a href="{% url 'customer_app:list'%}" class="btn btn-success">Cancel</a>
+            <a href="{% url 'customer_app:list'%}" class="btn btn-outline-success">Cancel</a>
         
             {% csrf_token %}
         
-            <button type="submit" class="btn btn-outline-danger" 
+            <button type="submit" class="btn btn-danger" 
             onclick="document.getElementById('id01').style.display='block'">
             Confirm</button>
             <!--when i confirm it goes to  return redirect('customer_app:list') used in delete() of views.py .I can also redirect it via action-->
@@ -24,5 +24,10 @@
         </form>
     </div>
 </div>
+<style>
+    body{
+        background: lightgrey;
+    }
+</style>
 
 {% endblock %}

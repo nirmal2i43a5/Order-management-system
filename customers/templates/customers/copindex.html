@@ -252,7 +252,8 @@
                     <td>{{customer.contact}}</td>
                     <td>{{customer.created_at}}</td>
 
-                    <td><a href="{% url 'customer_app:edit' customer.id%}" class="btn btn-success btn-sm">
+                    <td>
+                        <a href="{% url 'customer_app:edit' customer.id%}" class="btn btn-success btn-sm">
                             <i class="fas fa-edit"></i>
                         </a>
                         <a href="{% url 'customer_app:delete' customer.id%}" class="btn btn-danger btn-sm">
@@ -291,6 +292,8 @@
 
 
 </div>
+
+
 
 
 {% endblock%}

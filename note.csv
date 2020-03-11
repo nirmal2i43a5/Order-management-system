@@ -2,9 +2,14 @@
 1)deduct order product from total product==Model of Available Product
 2)quantity and total price with no of quantity customers bought
 3)print bill 
+-->use getter and setter decorator for price concept
 4)Monthly and yearly sales report
 5)Import data from excel--I will not include but include somewhere else 
 6)ajax and so on
+7)available product (Stock)
+8)accessing api data
+8)if user is authenticated for hiding login or register
+9)Django with chart js for data analysis monthly and yearly
 
 
 
