@@ -8,6 +8,8 @@ from .forms import ProductForm
 
 from .filters import ProductFilter
 
+from django.contrib import messages
+
 
 
 
@@ -64,6 +66,7 @@ def edit(request, pid):
         form=ProductForm(request.POST,instance=pro)
         if(form.is_valid()):
             form.save()
+            messages.success(request,'Product is successfully updated.',extra_tags='alert')
             
         return redirect('product_app:list')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
 

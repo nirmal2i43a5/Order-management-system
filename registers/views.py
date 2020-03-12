@@ -20,7 +20,8 @@ from products.models import Product
 
 
 # Create your views here.
-
+def first_page(request):
+    return render(request,'registers/firstpage.html')
 
 # I copy this code from customers views of index function .So use class to inherit various class which prevent from copying
 def dashboard(request):
@@ -80,19 +81,7 @@ class UserLogout(LogoutView):
     # template_name = 'logout.html'
     pass
     
-#-------------------------------------password reset---------------------------------------------------------------------
 
-# class Passwordresetview(PasswordResetView):
-#     pass
-
-# class PasswordresetView(PasswordResetDoneView):
-#     pass
-
-# class Passwordresetconfirmview(PasswordResetConfirmView):
-#     pass
-
-# class Passwordresetcompleteview(PasswordResetCompleteView):
-#     pass
 
     
 

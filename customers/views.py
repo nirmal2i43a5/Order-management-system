@@ -4,10 +4,14 @@ from django.http import request
 
 from customers.models import Customer
 from orders.models import Order
+# from django.contrib.auth.models import User
 
 
 from customers.forms import CustomerModelForm
 from customers.filters import CustomerFilter
+from django.contrib import messages
+from django.views.generic import ListView #for pagination
+
 
 
 
@@ -61,8 +65,11 @@ def edit(request, cid):
         form=CustomerModelForm(request.POST,instance=cus)
         if(form.is_valid()):
             form.save()
+            messages.success(request, 'Customer record is successfully updated.',extra_tags='alert') #extra_tags assists uu to use alert
             
-        return redirect('/customers/list/?edited-successfully')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
+            return redirect('/customers/list/?edited-successfully')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
+      
+          
 
 
 
@@ -108,10 +115,16 @@ def cus_ord_view(request, cid):
 
     
     
-    
 
-    
-  
+
+class CustomerPagination(ListView):
+    model = Customer
+    template_name = 'customers/copindex.html'  # Default: <app_label>/<model_name>_list.html
+    context_object_name = 'customers'  # Default: object_list i.e contexxt i use in copindex.html--Customer.objects.all() ko data tanxa
+    paginate_by = 10
+    # queryset = Customer.objects.all()  # Default: Model.objects.all()
+   
+
 
 
 

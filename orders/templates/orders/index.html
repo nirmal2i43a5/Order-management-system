@@ -148,6 +148,16 @@
 
 {% include 'orders/card.html' %}
 <hr>
+<!--for django messages-->
+<div style="margin-left:15%;margin-right:40%;">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class=" alert-success {{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
 <div class="card border-dark" style="margin-left:20%;margin-right:14%;padding:10px;margin-bottom:10px;">
     <h3 class="card-header" > Orders Details</h3>
 

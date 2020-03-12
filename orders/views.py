@@ -4,6 +4,7 @@ from .models import Order,Customer
 from orders.forms import OrderForm
 from orders.filters import OrderFilter
 from django.forms import inlineformset_factory#It brings multiple form in group
+from django.contrib import messages
 
 
 def create(request,cid):
@@ -54,8 +55,9 @@ def edit(request, oid):
         form=OrderForm(request.POST,instance=ord)
         if(form.is_valid()):
             form.save()
+            messages.success(request,'Order is successfully updates.',extra_tags='alert')
             
-        return redirect('order_app:list')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
+            return redirect('order_app:list')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
 
     # else:
     #     form = ProductForm()

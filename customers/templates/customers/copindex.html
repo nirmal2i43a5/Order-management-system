@@ -155,6 +155,16 @@
 
 <br><br>
 <hr>
+<!--for messages tag-->
+<div style="margin-left:15%;margin-right:40%;">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class=" alert-success {{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
 <div class="row">
 
     <div class="col">
@@ -163,6 +173,9 @@
 
         </div>
     </div>
+
+
+
     <div class="col">
         <br>
 
@@ -196,7 +209,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button  class="btn btn-success">
+                        <button class="btn btn-success">
                             <!-- model-dismiss la same page ma lauxa -->
                             Save
                         </button>
@@ -215,7 +228,6 @@
 </div>
 
 </div>
-
 
 
 <div class="container">
@@ -272,28 +284,33 @@
                 {% endfor %}
             </tbody>
         </table>
-        <!--pagination at footer-->
-        <nav aria-label="" style="margin-left:90%;">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Prev</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
     </div>
 
 
 </div>
+<div style="margin-left:18%;">
+{% if is_paginated %}
 
+{% if page_obj.has_previous %}
+<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
 
+{% for num in page_obj.paginator.page_range %}
+{% if page_obj.number == num %}
+<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+{% endif %}
+
+{% endif %}
+</div>
 
 
 {% endblock%}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div style="margin-left:35%;margin-top:25%;">
+    <a href="{% url 'register_app:login'%}" class="btn btn-success btn-lg">
+
+        <span>
+        
+        <i class="fa fa-sign-in-alt"></i>Login
+        </span>
+    </a>
+    <a href="{% url 'register_app:register'%}" class="btn btn-danger btn-lg">
+        <span>
+        
+            <i class="fa fa-user-plus"></i> Signup
+            </span>
+       
+    </a>
+</div>
+
+{% endblock %}
