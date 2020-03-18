@@ -179,7 +179,7 @@
     <div class="col">
         <br>
 
-        <button data-toggle="modal" data-target="#customerModel" class=" btn btn-danger " style="margin-left:75%;">
+        <button data-toggle="modal" data-target="#customerModel" class=" btn btn-outline-danger " style="margin-left:75%;">
             <span>
                 <i class="fas fa-plus"></i>Add Customer
                 <!--I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
@@ -229,9 +229,21 @@
 
 </div>
 
+    <div class="form-group col-md-1"style="margin-left:18%;">
+        
+        <select class="form-control post_max">
+            <option> Page</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+ 
+
+
 
 <div class="container">
-    <div class="col-md-11">
+    <div class="col-md-12">
 
         <table class="table table-hover table-striped table-bordered" style="margin-left:10%;">
             <thead class="thead-dark">
@@ -284,11 +296,41 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div style="margin-left:18%;">
+        
+            {% if customers.has_other_pages %}
+            <ul class="pagination">
+              {% if customers.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>       
+                <a class="btn btn-outline-info mb-4" href="?page={{ customers.previous_page_number }}">Previous</a>
+              {% else %}
+           
+              {% endif %}
+
+              {% for i in customers.paginator.page_range %}
+                {% if customers.number == i %}<!--recent page ma dark dekhauxa-->
+                  <li class="btn btn-info mb-4"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                
+                  <li><a class="btn btn-outline-info mb-4" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              
+              {% if customers.has_next %}
+            
+                <a class="btn btn-outline-info mb-4" href="?page={{ customers.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ customers.paginator.num_pages }}">Last</a>
+              {% else %}
+                <!-- <li class="btn btn-outline-info mb-4"><span>&raquo;</span></li> -->
+              {% endif %}
+            </ul>
+            {% endif %}
+            </div>
     </div>
-
-
 </div>
-<div style="margin-left:18%;">
+
+    <!--below pagination  using class based view-->
+<!--
 {% if is_paginated %}
 
 {% if page_obj.has_previous %}
@@ -296,21 +338,26 @@
 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
 {% endif %}
 
+
 {% for num in page_obj.paginator.page_range %}
+
 {% if page_obj.number == num %}
 <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}    
 <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
 {% endif %}
+
 {% endfor %}
+
 
 {% if page_obj.has_next %}
 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
 {% endif %}
 
-{% endif %}
-</div>
+{% endif %}-->
+
 
 
 {% endblock%}

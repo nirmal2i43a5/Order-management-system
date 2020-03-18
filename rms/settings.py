@@ -137,6 +137,7 @@ LOGOUT_REDIRECT_URL = '/user/login'
 
 
 
+
 #SMTP configuration---django login to email and sent you response
 
 

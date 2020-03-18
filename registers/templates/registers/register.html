@@ -4,42 +4,49 @@
 {% load crispy_forms_tags %}
 
 
-
-
-
-{% block content %}
-
-<div class="col-xl-5 col-lg-4 col-md-8 col-sm-10 mx-auto  form p-4" >
-
-    <h1>Register</h1>
-    <hr>
-
-
-<form method="POST">
-    {% csrf_token %}
-
-    <!-- {{form|crispy}} -->
-
-    {{form.username.label}}
-    {{form.username}}<br>
-    {{form.email.label}}
-    {{form.email}}<br>
+    {% block content %}
     
-    {{form.password1.label}}
-    {{form.password1}}<br>
-    {{form.password2.label}}
-    {{form.password2}}<br> 
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5" >
+                                    <div class="card-header"><h2 class="text-center font-weight-light my-4">Register</h2></div>
+                                    
+                                    <div class="card-body">
+                                      
+                                        <form method="POST" class="justify-content-center" >
+                                          {% csrf_token %}
 
-    <input type="submit" name="submit" value="Register" class="btn btn-success">
-</form>
-</div>
+                                         
+                                                {{form|crispy}}
+                                           
+                                            
+                                            <input type="submit" name="submit" value="Login" class="btn btn-success">
+                                           
+                                        </form>
+                                        
+                                    </div>
+                                 
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            
+        </div>
+        <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script> -->
+    <style>
+        body{
+            background: lightgrey;;
+        }
+    </style>
 {% endblock %}
 
-
-
-
-
-
-
-
-
+<!-- 

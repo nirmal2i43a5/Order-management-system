@@ -14,16 +14,12 @@ from django.contrib import messages
 from customers.models import Customer
 from orders.models import Order
 from products.models import Product
+from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
-
-
-# Create your views here.
-def first_page(request):
-    return render(request,'registers/firstpage.html')
-
-# I copy this code from customers views of index function .So use class to inherit various class which prevent from copying
+@login_required
 def dashboard(request):
     customers=Customer.objects.all()
     total_customers=customers.count()
@@ -41,6 +37,14 @@ def dashboard(request):
     return render(request,'registers/index.html',context)
   
 
+# Create your views here.
+def first_page(request):
+    return render(request,'registers/firstpage.html')
+
+#
+#  I copy this code from customers views of index function .So use class to inherit various class which prevent from copyin
+
+
 
 class UserLogin(LoginView):
     template_name = 'registers/login.html'
@@ -52,7 +56,7 @@ class UserLogin(LoginView):
         
         if self.request.user.is_superuser:
             return '/admin/'
-        return reverse('customer_app:list')
+        return '/dashboard'
     
     
     

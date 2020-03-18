@@ -3,21 +3,40 @@
 {% block content %}
 
 
-<div style="margin-left:35%;margin-top:25%;">
+
+
+    
+    <div style="margin-top:2%;float:right;">
     <a href="{% url 'register_app:login'%}" class="btn btn-success btn-lg">
 
         <span>
         
-        <i class="fa fa-sign-in-alt"></i>Login
+            Login<i class="fa fa-sign-in-alt"></i>
         </span>
     </a>
     <a href="{% url 'register_app:register'%}" class="btn btn-danger btn-lg">
         <span>
         
-            <i class="fa fa-user-plus"></i> Signup
+            Signup<i class="fa fa-user-plus"></i> 
             </span>
        
     </a>
 </div>
+<br><br><br><br>
+<div class="card">
+    <h1 class="card-header border-dark" style="text-align: center;">Supermarket Management System</h1>
+</div>
+<img src="static/image/supermarket.jpg"  />
 
+<style>
+
+img{
+    width: 100%;  
+    height: 430px;
+    margin-top: 3%;
+} 
+body{
+    background-color:lightgrey;
+}
+</style>
 {% endblock %}

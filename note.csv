@@ -13,6 +13,24 @@
 10)Notification 
 11)Payment 
 12)somewhat api 
+13)showing data as i start search with certain keword and character
+14)Django pagination with entries at the top
+15)Admin can only add the employee--so use restrict for that    
+-------------------------------------------------------------
+Not working properly
+--------------------------------------------------------------
+1)login_required not working
+2)Pagination problems
+
+
+------------------------------Also acquaint with following-----------------------------
+Simple is better than complex site:
+1)How to add reCAPTCHA to a django site
+2)How to use restful and rest api with django---with its various precautions
+
+--------------------------------------------------------------------------------------
+Problem in flow-->when pagination appear in customers/list then i cant pop up form and search..but i can search and pop up form in customers/?page=1
+
 
 
 
@@ -26,3 +44,13 @@
 Filter search
 -------------
 -->navbar search field include in every apps
+
+
+-------------------------------------------------------------
+When customer order ---input field 
+-------------------------------------------------------------
+1) Product name 
+2)status pending 
+3)quantity
+4)price per quantity
+------>But its total price will be shown automatially when you click(view) to see the particular details of customers

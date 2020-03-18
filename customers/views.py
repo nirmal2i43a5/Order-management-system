@@ -10,7 +10,9 @@ from orders.models import Order
 from customers.forms import CustomerModelForm
 from customers.filters import CustomerFilter
 from django.contrib import messages
-from django.views.generic import ListView #for pagination
+from django.views.generic import ListView,DetailView#for pagination
+from django.views.generic import View
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -33,12 +35,55 @@ def create(request):
     return render(request,'customers/create.html',{'form':form})#first ma yo page dekhinxa
 '''
 
-
+# class CustomerPagination(ListView,DetailView):
+#     model = Customer
+#     # queryset = Customer.objects.all()--if I write i dont need to write query set ---use either
+#     template_name = 'customers/copindex.html'  # Default: <app_label>/<model_name>_list.html
+#     context_object_name = 'customers' #retrieve data from database
+#      # Default: object_list i.e contexxt i use in copindex.html--Customer.objects.all() ko data tanxa
+#     paginate_by = 5
+#     ordering = ['-created_at']#Suppose you want the books whhile concerning with the book to be ordered in the page by their created date descending.
+#      # Default: Model.objects.all()
+    
+   
+# this is the class based view
+# class IndexView(CustomerPagination,View):
+    
+    # def get(self,request,*args,**kwargs):
+    #     form = CustomerModelForm()
+    #     customers=Customer.objects.all()  
+    #     myFilter = CustomerFilter(request.GET,queryset=customers)
+    #     customers = myFilter.qs
+    #     context={
+    #     'customers':customers,'myFilter':myFilter,'form':form
+    #     }
+       
+    #     return render(request,'customers/copindex.html',context)
+    
+    # def post(self,request,*args,**kwargs):
+    #     form = CustomerModelForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #     return redirect('/customers/list?customer added successfully')
+            
+        
+        
 def index(request):
     form = CustomerModelForm()
     customers=Customer.objects.all()  
     myFilter = CustomerFilter(request.GET,queryset=customers)
     customers = myFilter.qs
+    
+    #pagination logic
+    page = request.GET.get('page', 1)
+    paginator = Paginator(customers, 5)
+    try:
+        customers = paginator.page(page)
+    except PageNotAnInteger:
+        customers = paginator.page(1)
+    except EmptyPage:
+        customers = paginator.page(paginator.num_pages)
+
     
     if request.method=='POST':
         form = CustomerModelForm(request.POST)
@@ -52,9 +97,10 @@ def index(request):
         }
     return render(request,'customers/copindex.html',context)
 
+
+
 #I use function base view but use class base view to inherit index.I am just copying index code 
 
-# @login_required(login_url="/admin/login")
 
 def edit(request, cid):    
     # cus=Customer.objects.get(id=pk) #i get all value and show that value to next page
@@ -116,13 +162,8 @@ def cus_ord_view(request, cid):
     
     
 
+#Use this concept from Corey Schafer you tube channel
 
-class CustomerPagination(ListView):
-    model = Customer
-    template_name = 'customers/copindex.html'  # Default: <app_label>/<model_name>_list.html
-    context_object_name = 'customers'  # Default: object_list i.e contexxt i use in copindex.html--Customer.objects.all() ko data tanxa
-    paginate_by = 10
-    # queryset = Customer.objects.all()  # Default: Model.objects.all()
    
 
 
