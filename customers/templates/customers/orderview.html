@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Supermarket</a><button class="btn btn-link btn-sm order-1 order-lg-0"
@@ -44,7 +45,8 @@
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
 
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{% url 'product_app:list'%}">Products</a>
                                 <a class="nav-link" href="{% url 'order_app:list'%}">Orders</a>
@@ -63,15 +65,15 @@
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
                             data-parent="#sidenavAccordion">
-                            
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
-                                        <a class="nav-link" href="{% url 'register_app:register'%}">Register</a><a
-                                            class="nav-link" href="/reset_password">Forgot Password</a>
-                                    </nav>
-                            
 
-                          
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
+                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a><a
+                                    class="nav-link" href="/reset_password">Forgot Password</a>
+                            </nav>
+
+
+
                         </div>
                         <div class="sb-sidenav-menu-heading">Addons</div>
                         <a class="nav-link" href="#">
@@ -93,73 +95,98 @@
                 </div>
             </nav>
         </div>
-    
-       
-            
-         
-        </div>
+
+
+
+
     </div>
-  
+    </div>
+
 
 </body>
 
 
 <br><br><br>
 
-    
+
 <div class="card border-dark" style="margin-left:18%;margin-right:17%;padding:10px;margin-bottom:10px;">
     <h3 class="card-header" style="text-align: center;"> Order Details of <strong>{{customer.name}}</strong></h3>
 
-  </div> 
+</div>
 
-  <div class="container">
+<div class="container">
     <div class="col-md-10" style="margin-right:5%;margin-left:9%;">
-       <table class="table table-hover table-striped table-bordered" >
-           <thead class="thead-dark">
-               <tr>
-                 
-                  
-                   <th>Product</th>
-   
+        <table class="table table-hover table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+
+
+                    <th>Product</th>
+
                     <th>Category</th>
-                   <th>Created</th>
-                   <th>Status</th>
-                   <th>Price</th>
-                   <th>Action</th>
-                 
-               </tr>
-              
-   
-           </thead>
-           <tbody>
-               
-               {% for order in orders %}
-               
-               <tr>    
-                   
-                   <td>{{order.product.name}}</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                    <th>Quantity</th>
+                    <th>Per Price</th>
+                    <th>Action</th>
+
+                </tr>
+
+
+            </thead>
+            <tbody>
+
+                {% for order in orders %}
+
+                <tr>
+
+                    <td>{{order.product.name}}</th>
                     <td>{{order.product.category}}</td>
-   
-   <!--
+
+                    <!--
         <td>{{order.product}}</th> also give same result for name
    maila order table ma Product table ko access garda use product object
    like above
    product=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
    -->
-   
-                   <td>{{order.created_at}}</td>
-                   <td>{{order.status}}</td>
-                   <td>{{order.product.price}}</td>
-                   <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                       <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></a>
-                   </td>
-               </tr>
-   
-               {% endfor %}
-           </tbody>
-       </table>
-       </div>
-   </div>
-   
-   
-   {% endblock%}
+
+                    <td>{{order.created_at}}</td>
+                    <td>{{order.status}}</td>
+                    <td>
+                        <a href="{% url 'customer_app:remove_single_item_from_cart' order.product.slug  %}"> <i class="fa fa-minus mr-2"></i></a>
+                        {{order.quantity}}
+                         <a><i class="fa fa-plus ml-2"></i></a>
+                </td>
+                    <td>{{order.product.price}}</td>
+
+
+                    <!-- <td>{{customer.per_total}}</td> -->
+
+
+                    <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success btn-sm"><i
+                                class="fa fa-edit"></i></a>
+                        <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i
+                                class="fa fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+
+            </tbody>
+
+
+
+        </table>
+        <div class="card" style="margin-right:70%;" >
+            <div class="card-body" >
+               <strong class="btn btn-success">Total</strong> = <strong style="font-size:20px;">{{customer.total}}</strong>
+            </div>
+        </div>
+       
+    </div>
+    
+</div>
+
+
+{% endblock%}

@@ -7,6 +7,8 @@ class ProductForm(forms.ModelForm):
         model=Product
         # fields=['name','price','category','description']
         fields = '__all__'
+        exclude = ('category',)
+    
         
     #i dont need to write form.CharField to show form only but to show design i need
    

@@ -1,16 +1,20 @@
 from django.shortcuts import render,redirect,get_object_or_404,reverse
-
-from .models import Order,Customer
+from .models import Order,Customer,Product
 from orders.forms import OrderForm
 from orders.filters import OrderFilter
 from django.forms import inlineformset_factory#It brings multiple form in group
 from django.contrib import messages
 
 
+
+
+
 def create(request,cid):
     '''Below I replace OrderForm with'''
     
-    OrderFormSet = inlineformset_factory(Customer,Order,fields=('product','status'),extra=2)#parent model and then child model---
+    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',extra=2)  
+    #it means maila customer lai click garda order ma bhako detail access garako xu with instance
+     #parent model and then child model---
     #we can have multiple order so we need to tell which to allow by fields
    
     cus = Customer.objects.get(pk=cid)
@@ -37,7 +41,6 @@ def index(request):
   
     pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
     delivered=orders.filter(status="Delivered").count()
-    
     context={
         'orders':orders,'total_orders':total_orders,
         'orders_pending':pending,'orders_delivered':delivered,

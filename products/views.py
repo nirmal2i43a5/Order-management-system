@@ -9,6 +9,7 @@ from .forms import ProductForm
 from .filters import ProductFilter
 
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -49,8 +50,13 @@ def index(request):
             
         return redirect('/products/list?Product added ')
     
-
-
+  
+     
+  
+    
+   
+    # 
+        
     context={'products':products,'myFilter':myFilter,'form':form}
     return render(request,'products/index.html',context)
 

@@ -4,12 +4,14 @@ from django.http import request
 
 from customers.models import Customer
 from orders.models import Order
+from products.models import Product
 # from django.contrib.auth.models import User
 
 
 from customers.forms import CustomerModelForm
 from customers.filters import CustomerFilter
 from django.contrib import messages
+from django.utils import timezone
 from django.views.generic import ListView,DetailView#for pagination
 from django.views.generic import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -72,7 +74,7 @@ def index(request):
     form = CustomerModelForm()
     customers=Customer.objects.all()  
     myFilter = CustomerFilter(request.GET,queryset=customers)
-    customers = myFilter.qs
+    customers = myFilter.qs#for searchng
     
     #pagination logic
     page = request.GET.get('page', 1)
@@ -82,6 +84,7 @@ def index(request):
     except PageNotAnInteger:
         customers = paginator.page(1)
     except EmptyPage:
+        #if page is out of range show last page
         customers = paginator.page(paginator.num_pages)
 
     
@@ -149,12 +152,39 @@ def cus_ord_view(request, cid):
     # -->maila particular person ko order retrieve garaxu--
     
     customer = get_object_or_404(Customer,pk=cid) #use to get beautiful error -u can also use below
-    # customer = Customer.objects.get(pk = cid)#return a particular name according to choosen primary key
+    # customer = Customer.objects.get(pk = cid)#return a particular customer name according to choosen primary key
   
-    orders = customer.order_set.all()#particular customer ko particular order selct garxa
+    orders = customer.order_set.all()#particular customer ko particular order select garxa--ot is possible with customer id
+    #here order in  order_set is attribute 
+    #Order ma Customer is foreign key so ot os possible to use order_set with customer
    
     order_count = orders.count()
+    
 
+    
+    new_total=0.00
+    for order in customer.order_set.all():
+        per_total_price = float(order.product.price) * order.quantity
+    
+        
+       
+        
+        
+       
+        
+        
+        # customer.per_total = per_total_price--to get the price of respective products
+        #return value of first product i.e first row
+        
+        
+        new_total += per_total_price
+        
+    customer.total = new_total#in orderview.html Total : {{customer.total}}--is the fianl result after loop completes
+    customer.save()
+    
+    
+    
+    
     context = {'customer':customer, 'orders':orders, 'order_count':order_count}
  
     return render(request,'customers/orderview.html',context)
@@ -162,7 +192,67 @@ def cus_ord_view(request, cid):
     
     
 
-#Use this concept from Corey Schafer you tube channel
+# @login_required
+def add_to_cart(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    order_item, created = Order.objects.get_or_create(
+        item=item,
+        user=request.user,
+        ordered=False
+    )
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items.filter(product__slug=product.slug).exists():
+            order_item.quantity += 1
+            order_item.save()
+            messages.info(request, "This item quantity was updated.")
+            return redirect("/customers/products/")
+        else:
+            order.items.add(order_item)
+            messages.info(request, "This item was added to your cart.")
+            return redirect("/customers/products/")
+    else:
+        ordered_date = timezone.now()
+        order = Order.objects.create(
+            user=request.user, ordered_date=ordered_date)
+        order.items.add(order_item)
+        messages.info(request, "This item was added to your cart.")
+        return redirect("core:order-summary")
+
+
+def remove_single_item_from_cart(request, slug):
+    print("I am in remove funstion")
+    product = get_object_or_404(Product, slug=slug)
+    order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items.filter(product__slug=product.slug).exists():
+            order_item = Order.objects.filter(
+                product=product,
+                user=request.user,
+                ordered=False
+            )[0]
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+            else:
+                order.Order.remove(order_item)
+            messages.info(request, "This item quantity was updated.")
+            return redirect("/customers/orders/")
+        else:
+            messages.info(request, "This item was not in your cart")
+            return redirect("/customers/orders/")
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("/customers/orders/")
+    
+ 
 
    
 

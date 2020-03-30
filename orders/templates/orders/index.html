@@ -174,12 +174,14 @@
         <thead class="thead-dark">
             <tr>
                 <th>Order Id</th>
+                <th>Cus.Id</th>
                 <th>Category</th>
                 <th>Product</th>
 
-
+                <th>Quantity</th>
                 <th>Created</th>
                 <th>Status</th>
+                <!-- <th>Quantity</th> -->
                 <th>Action</th>
               
             </tr>
@@ -192,8 +194,12 @@
             
             <tr>    
                 <td>{{order.id}}</td>
+                <td>{{order.customer.id}}</td>
                 <td>{{order.product.category}}</td>
+               
+             
                 <td>{{order.product.name}}</th>
+                    <td>{{order.quantity}}</td>
 
 <!--
      <td>{{order.product}}</th> also give same result for name
@@ -204,6 +210,7 @@ product=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
 
                 <td>{{order.created_at}}</td>
                 <td>{{order.status}}</td>
+               
                 <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                     <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></a>
                 </td>

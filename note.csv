@@ -2,6 +2,7 @@
 1)deduct order product from total product==Model of Available Product
 2)quantity and total price with no of quantity customers bought
 3)print bill 
+4)Profile of each employee
 -->use getter and setter decorator for price concept
 4)Monthly and yearly sales report
 5)Import data from excel--I will not include but include somewhere else 
@@ -51,6 +52,6 @@ When customer order ---input field
 -------------------------------------------------------------
 1) Product name 
 2)status pending 
-3)quantity
+3)quantity--->reduce quantity when i order the product
 4)price per quantity
 ------>But its total price will be shown automatially when you click(view) to see the particular details of customers

@@ -23,6 +23,9 @@ class Order(models.Model):
     
     created_at=models.DateTimeField(max_length=50,null=True,auto_now=True)
     status=models.CharField(max_length=100,null=True,choices=status)
+    quantity = models.IntegerField(default=1,blank=False)
+    total_price = models.DecimalField(default=0.00,max_digits=10000,decimal_places=2)
+    
     
     
         
