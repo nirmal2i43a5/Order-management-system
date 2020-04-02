@@ -149,30 +149,44 @@
 {% include 'orders/card.html' %}
 <hr>
 <!--for django messages-->
-<div style="margin-left:15%;margin-right:40%;">
+<div style="margin-left:15%;margin-right:2%;">
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-        <li {% if message.tags %} class=" alert-success {{ message.tags }}"{% endif %}>{{ message }}</li>
+        <li {% if message.tags %} class=" alert-success {{ message.tags }}"{% endif %}>{{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        </li>
         {% endfor %}
     </ul>
     {% endif %}
 </div>
-<div class="card border-dark" style="margin-left:20%;margin-right:14%;padding:10px;margin-bottom:10px;">
-    <h3 class="card-header" > Orders Details</h3>
 
-  </div> 
-</div>
 
+<div class="row">
+    <div class="col">
+        <div class="card border-dark" style="margin-left:41%;padding-right:15%;padding:10px;margin-bottom:10px;">
+            <h3 class="card-header"> Order Details</h3>
+
+        </div>
+    </div>
+    <div class="col">
+        <br>
+        PDF : <a href = "{% url 'order_app:pdf' %} " class="btn  btn-sm btn-outline-danger"> <i class="fas fa-file-pdf fa-2x"></i></a> 
+
+      </div>
+        
+
+
+    </div>
 
 
 
 
 <div class="container">
  <div class="col-md-10">
-    <table class="table table-hover table-striped table-bordered" style="margin-left:15%;">
+    <table class="table table-sm table-hover table-striped table-bordered" style="margin-left:15%;">
         <thead class="thead-dark">
-            <tr>
+            <tr style="text-align: center;">
                 <th>Order Id</th>
                 <th>Cus.Id</th>
                 <th>Category</th>
@@ -192,7 +206,7 @@
             
             {% for order in orders %}
             
-            <tr>    
+            <tr style="text-align: center;">   
                 <td>{{order.id}}</td>
                 <td>{{order.customer.id}}</td>
                 <td>{{order.product.category}}</td>
@@ -219,23 +233,57 @@ product=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
             {% endfor %}
         </tbody>
     </table>
-    <nav aria-label="..." style="margin-left:90%;">
-        <ul class="pagination">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Prev</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item active">
-            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col">
+
+        <div class="mt-2" style="margin-left:38%">
+          <Strong>  Showing {{start}} to {{end}} of {{total_orders}} orders</Strong>
+        </div>
+
+    </div>
+
+    <div class="col">
+
+
+        <div style="margin-right:32%;" class="float-right">
+
+            {% if orders.has_other_pages %}
+            <ul class="pagination">
+                {% if orders.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4"
+                    href="?page={{ orders.previous_page_number }}">Previous</a>
+                {% else %}
+
+                {% endif %}
+
+                {% for i in orders.paginator.page_range %}
+                {% if orders.number == i %}
+                <!--recent page ma dark dekhauxa-->
+                <li class="btn btn-info mb-4"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+
+                <li><a class="btn btn-outline-info mb-4" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if products.has_next %}
+
+                <a class="btn btn-outline-info mb-4" href="?page={{ orders.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ orders.paginator.num_pages }}">Last</a>
+                {% else %}
+                <!-- <li class="btn btn-outline-info mb-4"><span>&raquo;</span></li> -->
+                {% endif %}
+                <hr>
+            </ul>
+            {% endif %}
+        </div>
     </div>
 </div>
 
+</div>
 
 {% endblock%}

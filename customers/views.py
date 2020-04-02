@@ -77,8 +77,20 @@ def index(request):
     customers = myFilter.qs#for searchng
     
     #pagination logic
-    page = request.GET.get('page', 1)
+    customer_count = customers.count()
+      
+
+       
+    page = request.GET.get('page', 1)#means page  number 1
+    
+    # if page and page.isdigit():
+    #     page = int(page)
+    # else:
+    #     page = 5
+        
+    # paginator = Paginator(customers, 5)#5 data per page
     paginator = Paginator(customers, 5)
+  
     try:
         customers = paginator.page(page)
     except PageNotAnInteger:
@@ -96,7 +108,9 @@ def index(request):
             
     
     context={
-        'customers':customers,'myFilter':myFilter,'form':form
+        'customers':customers,'myFilter':myFilter,'form':form,'page':page,'customer_count':customer_count,
+        'start': customers.start_index(),
+        'end': customers.end_index(),
         }
     return render(request,'customers/copindex.html',context)
 
@@ -158,33 +172,16 @@ def cus_ord_view(request, cid):
     #here order in  order_set is attribute 
     #Order ma Customer is foreign key so ot os possible to use order_set with customer
    
-    order_count = orders.count()
-    
-
-    
+    order_count = orders.count()    
     new_total=0.00
     for order in customer.order_set.all():
         per_total_price = float(order.product.price) * order.quantity
-    
-        
-       
-        
-        
-       
-        
-        
         # customer.per_total = per_total_price--to get the price of respective products
         #return value of first product i.e first row
-        
-        
         new_total += per_total_price
         
     customer.total = new_total#in orderview.html Total : {{customer.total}}--is the fianl result after loop completes
     customer.save()
-    
-    
-    
-    
     context = {'customer':customer, 'orders':orders, 'order_count':order_count}
  
     return render(request,'customers/orderview.html',context)
@@ -222,35 +219,58 @@ def add_to_cart(request, slug):
         return redirect("core:order-summary")
 
 
-def remove_single_item_from_cart(request, slug):
-    print("I am in remove funstion")
-    product = get_object_or_404(Product, slug=slug)
-    order_qs = Order.objects.filter(
-        user=request.user,
-        ordered=False
-    )
-    if order_qs.exists():
-        order = order_qs[0]
-        # check if the order item is in the order
-        if order.items.filter(product__slug=product.slug).exists():
-            order_item = Order.objects.filter(
-                product=product,
-                user=request.user,
-                ordered=False
-            )[0]
-            if order_item.quantity > 1:
-                order_item.quantity -= 1
-                order_item.save()
-            else:
-                order.Order.remove(order_item)
-            messages.info(request, "This item quantity was updated.")
-            return redirect("/customers/orders/")
-        else:
-            messages.info(request, "This item was not in your cart")
-            return redirect("/customers/orders/")
-    else:
-        messages.info(request, "You do not have an active order")
-        return redirect("/customers/orders/")
+def remove_single_item_from_cart(request, cid):
+ 
+    product = get_object_or_404(Product, pk=cid)  
+    customer = get_object_or_404(Customer,pk=cid)     
+    for order_item in customer.order_set.all(): 
+        order_item.quantity -= 1
+        order_item.save()
+    
+    # if order_item.quantity > 1:#if quantity o then remove product
+    
+            
+    # else:
+    #     order.items.remove(order_item)
+        messages.info(request, "This item quantity was updated.")
+        return redirect("/customers/orders/",id = cid)
+            
+        
+        
+   
+                
+        
+        
+        
+       
+            
+            
+           
+    #     else:
+    #         messages.info(request, "This item was not in your cart")
+    #         return redirect("/customers/orders/",pk = cid)
+    # else:
+    #     messages.info(request, "You do not have an active order")
+    #     return redirect("/customers/orders/",pk = cid)
+
+        
+        
+    
+    
+    # order_item = get_object_or_404(Order, pk=cid)
+    # if order_item.quantity > 1:
+    #     order_item.quantity -= 1
+    #     order_item.save()
+                
+    # else:
+    #     order.Order.remove(order_item)
+        
+        
+    # messages.info(request, "This item quantity was updated.")
+    # return redirect("/customers/orders/",pk = cid)
+    
+    
+    
     
  
 

@@ -5,6 +5,8 @@ from orders.filters import OrderFilter
 from django.forms import inlineformset_factory#It brings multiple form in group
 from django.contrib import messages
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
@@ -12,7 +14,7 @@ from django.contrib import messages
 def create(request,cid):
     '''Below I replace OrderForm with'''
     
-    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',extra=2)  
+    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=2)  
     #it means maila customer lai click garda order ma bhako detail access garako xu with instance
      #parent model and then child model---
     #we can have multiple order so we need to tell which to allow by fields
@@ -34,6 +36,7 @@ def create(request,cid):
 def index(request):
     
     orders=Order.objects.all()
+    
     total_orders=orders.count()
     myFilter = OrderFilter(request.GET,queryset=orders)
     orders = myFilter.qs
@@ -41,10 +44,34 @@ def index(request):
   
     pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
     delivered=orders.filter(status="Delivered").count()
+    
+    
+       
+    page = request.GET.get('page', 1)#means page  number 1
+    paginator = Paginator(orders, 5)
+  
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        #if page is out of range show last page
+        orders = paginator.page(paginator.num_pages)
+
+    
+    if request.method=='POST':
+        form = CustomerModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/customers/list?customer added successfully')
+            
     context={
         'orders':orders,'total_orders':total_orders,
         'orders_pending':pending,'orders_delivered':delivered,
-        'myFilter':myFilter
+        'myFilter':myFilter,
+        'start':orders.start_index(),
+        'end':orders.end_index()
+        
         }
     return render(request,'orders/index.html',context)
 
@@ -52,6 +79,8 @@ def edit(request, oid):
     # ord=Order.objects.get(pk=oid) #i get all value and show that value to next page
     ord = get_object_or_404(Order,pk = oid)
     form=OrderForm(instance=ord)
+    # cus = get_object_or_404(Customer,pk = cid)
+   
     
     if(request.method=='POST'):
         
@@ -60,7 +89,9 @@ def edit(request, oid):
             form.save()
             messages.success(request,'Order is successfully updates.',extra_tags='alert')
             
-            return redirect('order_app:list')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
+            return redirect('order_app:list')
+            
+            # return redirect("/customers/order/", pk = cid)#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
 
     # else:
     #     form = ProductForm()

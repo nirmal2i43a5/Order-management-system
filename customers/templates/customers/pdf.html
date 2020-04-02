@@ -1,0 +1,95 @@
+
+
+
+
+{% extends 'base.html' %}
+{% block title%}Customer Details{% endblock %}
+{% block content %}
+      
+        <style type="text/css">
+            body {
+                
+                font-size: 13px;
+            
+            }
+            .header {
+                font-size: 25px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+
+            tr:first-child{
+                outline: thin solid transparent;
+                height: 40px;
+              }
+           
+        </style>
+        
+
+         
+            
+
+       
+        <div class='wrapper'>
+            <div class='header'>
+                
+                <p class='title'>Customers Invoice </p>
+            </div>
+            <div class='details'>
+              Date : {{myDate}}
+                <hr class='hrItem' />
+            </div>
+        </div>
+        <br>
+
+        <div class="container">
+            <div class="col-md-12">
+        
+                <table class="table" border="1">
+                    <thead>
+                        <tr>
+        
+                       
+                            <th>S.N</th>
+                            <th>Name</th>
+        
+                            <th colspan="2" >Email</th>
+                            <th>Conact No</th>
+                            <th>Created At </th>
+        
+                         
+        
+        
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                        {% for customer in customers %}
+                        <tr style="text-align: center;">
+        
+                        
+                            <td>{{customer.id}}</td>
+                            <td >{{customer.name}} </td>
+                            <td colspan="2">{{customer.email}}</th>
+                            <td>{{customer.contact}}</td>
+                            <td>{{customer.created_at}}</td>
+        
+                           
+        
+        
+                        </tr>
+        
+                        {% endfor %}
+                    </tbody>
+                </table>
+        
+    </div>
+</div> 
+
+{% endblock %}

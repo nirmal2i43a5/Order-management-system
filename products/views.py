@@ -11,6 +11,8 @@ from .filters import ProductFilter
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
@@ -33,9 +35,11 @@ def create(request):
 def index(request):
     form = ProductForm()
     products=Product.objects.all()
+    product_count = products.count()
     
     myFilter = ProductFilter(request.GET,queryset=products)
     products = myFilter.qs
+    
     '''
     -->like form we render filterform
     -->we use get because we see result on same page 
@@ -43,21 +47,37 @@ def index(request):
     -->
     -->qs = queryset
     '''
+    page = request.GET.get('page', 1)#means page  number 1
+    
+    # if page and page.isdigit():
+    #     page = int(page)
+    # else:
+    #     page = 5
+        
+    # paginator = Paginator(customers, 5)#5 data per page
+    paginator = Paginator(products, 5)
+  
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        #if page is out of range show last page
+        products = paginator.page(paginator.num_pages)
+
     if(request.method=='POST'):
         form=ProductForm(request.POST)
         if(form.is_valid()):
             form.save()
             
-        return redirect('/products/list?Product added ')
-    
-  
-     
-  
-    
-   
-    # 
-        
-    context={'products':products,'myFilter':myFilter,'form':form}
+        return redirect('/products/list?Product added ')    
+    context={'products':products,
+             'myFilter':myFilter,
+             'form':form,
+             'start':products.start_index(),
+             'end':products.end_index(),
+             'products_count':product_count
+             }
     return render(request,'products/index.html',context)
 
 

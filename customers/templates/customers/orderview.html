@@ -109,16 +109,35 @@
 <br><br><br>
 
 
-<div class="card border-dark" style="margin-left:18%;margin-right:17%;padding:10px;margin-bottom:10px;">
-    <h3 class="card-header" style="text-align: center;"> Order Details of <strong>{{customer.name}}</strong></h3>
+<div class="row">
+    <div class="col">
+        
 
-</div>
+        <div class="card border-dark" style="margin-left:36%; margin-right:10%;padding:10px;margin-bottom:10px;">
+            <h3 class="card-header" style="text-align: center;"> Order Details of <strong>{{customer.name}}</strong></h3>
+
+        
+        </div>
+        
+      
+    </div>
+
+    <div class="col-md-2"  style="margin-right:14%;"> 
+ <Strong><div style="display: inline-block;">Print Invoice : </div> </Strong> <a   href = " {% url 'customer_app:bill' customer.id  %}"class="btn  btn-sm btn-outline-danger mt-4" >  <i class="fas fa-file-invoice fa-3x"></i></a> 
+
+    </div>
+    </div>
+
+
+ 
+
+      
 
 <div class="container">
     <div class="col-md-10" style="margin-right:5%;margin-left:9%;">
-        <table class="table table-hover table-striped table-bordered">
+        <table class="table table-sm table-hover table-striped table-bordered">
             <thead class="thead-dark">
-                <tr>
+                <tr style="text-align: center;">
 
 
                     <th>Product</th>
@@ -128,6 +147,7 @@
                     <th>Status</th>
                     <th>Quantity</th>
                     <th>Per Price</th>
+                    <th> Subtotal</th>
                     <th>Action</th>
 
                 </tr>
@@ -153,20 +173,24 @@
                     <td>{{order.created_at}}</td>
                     <td>{{order.status}}</td>
                     <td>
-                        <a href="{% url 'customer_app:remove_single_item_from_cart' order.product.slug  %}"> <i class="fa fa-minus mr-2"></i></a>
+                        <a href="{% url 'customer_app:remove-single-item-from-cart' order.customer.id  %}"> <i class="fa fa-minus mr-2"></i></a>
                         {{order.quantity}}
-                         <a><i class="fa fa-plus ml-2"></i></a>
+                         <a href=""><i class="fa fa-plus ml-2"></i></a>
                 </td>
-                    <td>{{order.product.price}}</td>
-
-
+                <td>{{order.product.price}}</td>
+                    <td>{{order.get_total_item_price}}</td><!--to get price for each row product call get_total_item_price in models.py of orders-->
+                    
                     <!-- <td>{{customer.per_total}}</td> -->
-
-
                     <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success btn-sm"><i
                                 class="fa fa-edit"></i></a>
                         <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i
                                 class="fa fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" style="text-align: center;">
+                       <strong > {{customer.name }} </strong> Order is empty.Please Place the Order!
                     </td>
                 </tr>
 

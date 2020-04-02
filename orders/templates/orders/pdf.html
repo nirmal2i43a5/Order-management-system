@@ -1,0 +1,100 @@
+
+
+
+
+{% extends 'base.html' %}
+{% block title%}Customer Details{% endblock %}
+{% block content %}
+      
+        <style type="text/css">
+            body {
+                
+                font-size: 13px;
+            
+            }
+            .header {
+                font-size: 25px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+
+            tr:first-child{
+                outline: thin solid transparent;
+                height: 40px;
+              }
+           
+        </style>
+        
+
+         
+            
+
+       
+        <div class='wrapper'>
+            <div class='header'>
+                
+                <p class='title'>Orders Invoice </p>
+            </div>
+            <div class='details'>
+              Date : {{myDate}}
+                <hr class='hrItem' />
+            </div>
+        </div>
+        <br>
+
+        <div class="container">
+            <div class="col-md-12">
+        
+                <table class="table" border="1">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Cus.Id</th>
+                            <th>Category</th>
+                            <th>Product</th>
+            
+                            <th>Quantity</th>
+                          
+                            <th>Status</th>
+                            <!-- <th>Quantity</th> -->
+                         
+                          
+                        </tr>
+                       
+            
+                    </thead>
+                    <tbody>
+                        
+                        {% for order in orders %}
+                        
+                        <tr style="text-align: center;">    
+                            <td>{{order.id}}</td>
+                            <td>{{order.customer.id}}</td>
+                            <td>{{order.product.category}}</td>
+                           
+                         
+                            <td>{{order.product.name}}</th>
+                                <td>{{order.quantity}}</td>
+            
+        
+            
+                            
+                            <td>{{order.status}}</td>
+                           
+                         
+                        </tr>
+            
+                        {% endfor %}
+                    </tbody>
+                </table>
+        
+    </div>
+</div> 
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block title%}Customer Details{% endblock %}
+{% block content %}
+
+<style type="text/css">
+    body {
+
+        font-size: 13px;
+
+    }
+
+    .header {
+        font-size: 25px;
+     
+        text-align: center;
+        color: red;
+    }
+
+    .details {
+        padding: 10px 20px 0px 20px;
+        text-align: left !important;
+        /*margin-left: 40%;*/
+    }
+
+    tr:first-child {
+        outline: thin solid transparent;
+        height: 40px;
+    }
+</style>
+
+
+
+
+
+
+<div class='wrapper'>
+    
+        <strong>
+            <p class='title' style="font-size: 40px;text-align:center;"> Pharsatikar Supermarket </p>
+        </strong>
+   
+
+    <strong><p style="text-align: center;">Butwal,Suddhodhan-1,Rupandehi</p></strong><hr>
+
+    <div class='details'>
+        <strong style="font-size: 16px;;"> Customer Name : {{customers.name}}<br></strong>
+        <strong style="font-size: 16px;;"> Customer Id : {{customers.id}}<br></strong>
+       
+        <strong style="font-size: 16px;"> Date : {{myDate}}</strong>
+        
+    </div>
+</div>
+
+<strong> <p style="margin-left:20px;font-size:30px; text-align: center;"> Invoice </p></strong>
+<div class="container">
+    <div class="col-md-12">
+
+        <table class="table table-sm table-hover table-striped " border="1">
+            <thead class="thead-dark">
+                <tr>
+
+
+                    <th>Product</th>
+
+                    <th>Quantity</th>
+                    <th>Per Price</th>
+                    <th> Subtotal</th>
+
+
+                </tr>
+
+
+            </thead>
+            <tbody>
+
+                {% for order in customers_order %}
+
+                <tr style="text-align:center;">
+
+                    <td>{{order.product.name}}</th>
+
+                    <td>{{order.quantity}}</td>
+                    <td>{{order.product.price}}</td>
+                    <td>{{order.get_total_item_price}}</td>
+                    <!--it call for item per price in models.py of order-->
+
+
+                    {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        <strong> {{customers.name }} </strong> record is empty ! Please place the order
+                    </td>
+                </tr>
+
+               
+                {% endfor %}
+              
+
+            </tbody>
+            <tr>
+              
+               <td style="font-size:20px;text-align:center;" colspan="3"><strong>Total Price</strong>  </td>
+                <td colspan="1" style="font-size:20px;margin-left:50px;"> <strong>  {{ customers.total}} </strong></td>
+            </tr>
+        </table>
+
+
+
+    </div>
+</div>
+
+
+{% endblock %}
