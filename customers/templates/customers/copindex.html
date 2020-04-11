@@ -176,7 +176,7 @@
     
 
     <!--For form pop up -->
-    <form method="POST" action="">
+    <form method="POST" action=""><!--data-url work same as edirect in views-->
         {% csrf_token %}
 
         <div id="customerModel" class="modal fade">
@@ -297,7 +297,7 @@
             </thead>
             <tbody>
 
-                {% for customer in customers%}
+                {% for customer in customers %}
                 <tr>
 
                     <td><a href="{% url 'customer_app:view' customer.id %}" class="btn btn-primary btn-sm"><i
@@ -309,10 +309,10 @@
                     <td>{{customer.created_at}}</td>
 
                     <td>
-                        <a href="{% url 'customer_app:edit' customer.id%}" class="btn btn-success btn-sm">
+                        <a href="{% url 'customer_app:edit' customer.id %}" class="btn btn-success btn-sm">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="{% url 'customer_app:delete' customer.id%}" class="btn btn-danger btn-sm">
+                        <a href="{% url 'customer_app:delete' customer.id %}" class="btn btn-danger btn-sm ">
                             <i class="fa fa-trash-alt"></i>
                         </a>
                         <a href="{% url 'order_app:create' customer.id %}" class="btn btn-success btn-sm">
@@ -381,30 +381,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
 {% endblock%}
 
 
-
-{% block js %}
-<script>
-$(document).ready( function () {
-$('#table_id').DataTable({
-
-dom: 'B<"clear">lfrtip',
-buttons: {
-    name: 'primary',
-    buttons: [ 'copy', 'csv', 'excel', 'pdf' ]
-
-    }}
-);
-} );
-</script>
-</div>
-{% endblock %}

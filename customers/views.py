@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from django.http import request
+from django.http import request,JsonResponse
+from django.core import serializers
 # from django.contrib.auth.decorators import login_required
 
 from customers.models import Customer
@@ -103,12 +104,16 @@ def index(request):
     if request.method=='POST':
         form = CustomerModelForm(request.POST)
         if form.is_valid():
-            form.save()
+            instance = form.save()
+           
+        
         return redirect('/customers/list?customer added successfully')
-            
     
+     # some error occured
     context={
-        'customers':customers,'myFilter':myFilter,'form':form,'page':page,'customer_count':customer_count,
+        'customers':customers,'myFilter':myFilter,
+        'form':form,'page':page,
+        'customer_count':customer_count,
         'start': customers.start_index(),
         'end': customers.end_index(),
         }

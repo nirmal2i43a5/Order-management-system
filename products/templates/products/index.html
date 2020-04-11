@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 
-
-{% block title %}Products{% endblock %}
 {% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block javascript %}
+
+<script src="{% static 'products/products.js' %}"></script>
+
+{% endblock %}
+
 
 
 {% block content %}
@@ -26,7 +33,7 @@
                     aria-describedby="basic-addon2" {{myFilter.form.name}} />
                 <div class="input-group-append">
 
-                    <button class="btn btn-primary" type="button">
+                    <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -98,10 +105,10 @@
 
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'product_app:list'%}">Products</a>
-                                <a class="nav-link" href="{% url 'order_app:list'%}">Orders</a>
-                                <a class="nav-link" href="{% url 'customer_app:list'%}">Customers</a>
+                          <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'product_app:list' %}">Products</a>
+                                <a class="nav-link" href="{% url 'order_app:list' %}">Orders</a>
+                                <a class="nav-link" href="{% url 'customer_app:list' %}">Customers</a>
                             </nav>
                         </div>
 
@@ -162,7 +169,7 @@
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-        <li {% if message.tags %} class=" alert-success {{ message.tags }}"{% endif %}>{{ message }}
+        <li {% if message.tags %} class=" alert-success {{ message.tags }}" {% endif %}>{{ message }}
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         </li>
         {% endfor %}
@@ -178,64 +185,26 @@
     </div>
     <div class="col">
         <br>
-        PDF : <a href = "{% url 'product_app:pdf' %}"class="btn  btn-sm btn-outline-danger"> <i class="fas fa-file-pdf fa-2x"></i></a> 
+        PDF : <a href="{% url 'product_app:pdf' %}" class="btn  btn-sm btn-outline-danger"> <i
+                class="fas fa-file-pdf fa-2x"></i></a>
 
-        <button data-toggle="modal" data-target="#productModel" class=" btn btn-outline-danger " >
+        <button type = " button " data-url="{% url 'product_app:create' %}" class=" btn btn-outline-danger js-product-create ">
             
-                <i class="fas fa-plus"></i> Add Product 
-                <!--I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
-            
+                <i class=" fas fa-plus "></i> Add Product
+            <!--I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
         </button>
-        
+
 
 
     </div>
-
-    <!--For form pop up -->
-    <form method="POST" action="">
-        {% csrf_token %}
-
-        <div id="productModel" class="modal fade">
-
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Product</h4>
-                        <button class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-
-
-                        {{form|crispy}}
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-success">
-                            <!-- model-dismiss la same page ma lauxa -->
-                            Save
-                        </button>
-                        <button class="btn btn-danger" data-dismiss="modal">
-                            <!-- model-dismiss la same page ma lauxa -->
-                            Cancel
-                        </button>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </form>
-
 </div>
-
 
 
 <div class="container">
     <div class="row">
         <div class="col">
             <div class="col-md-10">
-                <table class="table table-sm table-hover table-striped  table-bordered" style="margin-left:12%;">
+                <table class="table table-sm table-hover table-striped  table-bordered" id ="product-table" style="margin-left:12%;">
                     <thead class="thead-dark">
                         <tr>
                             <!-- <th>Id</th> -->
@@ -243,7 +212,7 @@
                             <th>Name</th>
 
                             <th>Per Price</th>
-                           
+
                             <th>Description</th>
                             <th>Quantity</th>
                             <th>Created Date</th>
@@ -261,16 +230,17 @@
                             <td>{{product.id}}</td>
                             <td>{{product.name}}</td>
                             <td>{{product.price}}</th>
-                          
+
                             <td>{{product.description}}</td>
                             <td>{{product.quantity}}</td>
                             <td>{{product.created_at}}</td>
 
 
-                            <td><a href="{% url 'product_app:edit' product.id %}" class="btn btn-success btn-sm"><i
-                                        class="fas fa-edit"></i></a>
-                                <!--product.id   --+product is context-->
-                                <a href="{% url 'product_app:delete' product.id %}" class="btn btn-danger btn-sm"><i
+                            <td>
+                                <button type="button" data-url ="{% url 'product_app:edit' product.id %}" class="btn btn-success btn-sm js-product-update ">
+                                    <i class="fas fa-edit"></i></a>
+                               
+                                <button type= "button" data-url ="{% url 'product_app:delete_product' product.id %}" class="ml-1 btn btn-danger btn-sm js-product-delete "><i
                                         class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
@@ -278,34 +248,44 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            
+<!-- modal fade is for popu which can be place anywhere and can be identified via id and class -->
+                <div class="modal fade" id="modal-product">
+                    <!--for form pop up -->
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>  
             </div>
         </div>
 
 
     </div>
 </div>
+
+
+
+
 <div class="row">
 
-    <div class="col">
+    <div class="col mt-2" style="margin-left:19%">
 
-        <div class="mt-2" style="margin-left:38%">
-          <Strong>  Showing {{start}} to {{end}} of {{products_count}} products</Strong>
-        </div>
+
+        <Strong> Showing {{start}} to {{end}} of {{products_count}} products</Strong>
+
 
     </div>
 
     <div class="col">
 
 
-        <div style="margin-right:32%;" class="float-right">
+        <div style="float:right;margin-right:40%;">
 
             {% if products.has_other_pages %}
             <ul class="pagination">
                 {% if products.has_previous %}
                 <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                <a class="btn btn-outline-info mb-4"
-                    href="?page={{ products.previous_page_number }}">Previous</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ products.previous_page_number }}">Previous</a>
                 {% else %}
 
                 {% endif %}
@@ -334,7 +314,9 @@
     </div>
 </div>
 
-</div>
+
+
 
 
 {% endblock %}
+

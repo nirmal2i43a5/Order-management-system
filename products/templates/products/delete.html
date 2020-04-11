@@ -1,35 +1,31 @@
 {% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 
-<br>
+<form method="post" action="{% url 'product_app:delete_product' pro.id %}" class="js-product-delete-form"><!--pro is respective data-->
+    {% csrf_token %}
 
-<div class="card border-dark col-md-8 " style="margin-left:12%;">
-    
-    <h3 class="card-header bg-secondary " style="color:white;">Are you sure want to delete <strong style="font-size:35px; ">{{name}}</strong> details ? </h3>
-    
-    <div class="card-body">
-        <form  method="POST">
-            <!--action is optional blc admin_views.py ma POST bata check garxa-->
-            <!-- action="/customers/delete/{{name.id}}/" -->
-            <a href="{% url 'product_app:list'%}" class="btn btn-success">Cancel</a>
-        
-            {% csrf_token %}
-        
-            <button type="submit" class="btn btn-outline-danger" 
-            onclick="document.getElementById('id01').style.display='block'">
-            Confirm</button>
-            <!--when i confirm it goes to  return redirect('customer_app:list') used in delete() of views.py .I can also redirect it via action-->
-            <!--when i submit then it goes to action -->
-        
-        </form>
+    <div class="modal-header">
+     
+      <h4 class="modal-title">Confirm book deletion</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-</div>
 
-<style>
-    body{
-        background-color: lightgray;
-    }
-</style>
+    <div class="modal-body" style="width: 200%;">
+      <p class="lead">Are you sure you want to delete the product <b>{{pro.name }}</b>?</p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success" data-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-danger">Delete book</button>
+    </div>
+
+  </form>
+
+
 
 {% endblock %}
