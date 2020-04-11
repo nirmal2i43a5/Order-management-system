@@ -12,7 +12,7 @@ $(function () {
         type: 'get',
         dataType: 'json',
         beforeSend: function () {
-          $("#modal-product .modal-content").html("");
+          // $("#modal-product .modal-content").html("");
           $("#modal-product").modal("show");
         },
         success: function (data) {
@@ -34,14 +34,14 @@ $(function () {
         success: function (data) {
           if (data.form_is_valid) {
             $("#product-table tbody").html(data.html_product_list);
-            $("#modal-product").modal("hide");
+            $("#modal-product").hide();
 
           
           }
           else {
             $("#modal-product .modal-content").html(data.html_form);
           }
-        }
+        } 
       });
       return false;
     };

@@ -105,7 +105,7 @@
 
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
-                          <nav class="sb-sidenav-menu-nested nav">
+                            <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{% url 'product_app:list' %}">Products</a>
                                 <a class="nav-link" href="{% url 'order_app:list' %}">Orders</a>
                                 <a class="nav-link" href="{% url 'customer_app:list' %}">Customers</a>
@@ -188,9 +188,10 @@
         PDF : <a href="{% url 'product_app:pdf' %}" class="btn  btn-sm btn-outline-danger"> <i
                 class="fas fa-file-pdf fa-2x"></i></a>
 
-        <button type = " button " data-url="{% url 'product_app:create' %}" class=" btn btn-outline-danger js-product-create ">
-            
-                <i class=" fas fa-plus "></i> Add Product
+        <button type=" button " data-url="{% url 'product_app:create' %}"
+            class=" btn btn-outline-danger js-product-create ">
+
+            <i class=" fas fa-plus "></i> Add Product
             <!--I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
         </button>
 
@@ -204,7 +205,8 @@
     <div class="row">
         <div class="col">
             <div class="col-md-10">
-                <table class="table table-sm table-hover table-striped  table-bordered" id ="product-table" style="margin-left:12%;">
+                <table class="table table-sm table-hover table-striped  table-bordered" id="product-table"
+                    style="margin-left:12%;">
                     <thead class="thead-dark">
                         <tr>
                             <!-- <th>Id</th> -->
@@ -237,25 +239,27 @@
 
 
                             <td>
-                                <button type="button" data-url ="{% url 'product_app:edit' product.id %}" class="btn btn-success btn-sm js-product-update ">
+                                <button type="button" data-url="{% url 'product_app:edit' product.id %}"
+                                    class="btn btn-success btn-sm js-product-update ">
                                     <i class="fas fa-edit"></i></a>
-                               
-                                <button type= "button" data-url ="{% url 'product_app:delete_product' product.id %}" class="ml-1 btn btn-danger btn-sm js-product-delete "><i
-                                        class="fas fa-trash-alt"></i></a>
+
+                                    <button type="button" data-url="{% url 'product_app:delete_product' product.id %}"
+                                        class="ml-1 btn btn-danger btn-sm js-product-delete "><i
+                                            class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
 
                         {% endfor %}
                     </tbody>
                 </table>
-<!-- modal fade is for popu which can be place anywhere and can be identified via id and class -->
-                <div class="modal fade" id="modal-product">
+                <!-- modal fade is for popu which can be place anywhere and can be identified via id and class -->
+                <div class="modal fade" id="modal-product"><!--fade is for doing popup-->
                     <!--for form pop up -->
                     <div class="modal-dialog">
                         <div class="modal-content">
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
 
@@ -319,4 +323,3 @@
 
 
 {% endblock %}
-

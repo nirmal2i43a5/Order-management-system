@@ -103,6 +103,12 @@ def save_product_form(request, form, template_name):
         else:
             data['form_is_valid'] = False
             
+        '''if valid is false then go to  else {
+            $("#modal-product .modal-content").html(data.html_form);}----> in products.js
+            -->If value is invallid then without refreshing filled form it tells field is invalid in form 
+            -->also apply for edit page and check edit data before submit and if error in editing then give same message like as adding data in form
+          '''
+            
     context = {'form': form}
     data['html_form'] = render_to_string(template_name, context, request=request)
     
@@ -116,11 +122,19 @@ def create(request):
     return save_product_form(request,form,'products/create.html')
 
 
+    '''whenever i come to create views with respective url then first ma form and template liyara save_product_form call hunxa.so,products/create show json data
+          return JsonResponse(data) in save_product_form-- if request.method == 'POST': in create garda we pass form data in save_product_form and check for 
+          validation of that data--in the same view retrieve save data and render to products/index.html
+        '''
+    
+
+
 
 def edit(request, pid):
    
     pro = get_object_or_404(Product, pk=pid)
-    if request.method == 'POST':
+    
+    if request.method == 'POST':#means when  submit in edit page
         form = ProductForm(request.POST, instance=pro)
         
     else:
@@ -192,8 +206,10 @@ def edit(request, pid):
   
     return render(request,'products/update.html',{'form':form})
     
-    
     '''
+    
+    
+    
 
 
 
