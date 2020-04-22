@@ -194,59 +194,6 @@ def cus_ord_view(request, cid):
     
     
 
-# @login_required
-def add_to_cart(request, slug):
-    product = get_object_or_404(Product, slug=slug)
-    order_item, created = Order.objects.get_or_create(
-        item=item,
-        user=request.user,
-        ordered=False
-    )
-    order_qs = Order.objects.filter(user=request.user, ordered=False)
-    if order_qs.exists():
-        order = order_qs[0]
-        # check if the order item is in the order
-        if order.items.filter(product__slug=product.slug).exists():
-            order_item.quantity += 1
-            order_item.save()
-            messages.info(request, "This item quantity was updated.")
-            return redirect("/customers/products/")
-        else:
-            order.items.add(order_item)
-            messages.info(request, "This item was added to your cart.")
-            return redirect("/customers/products/")
-    else:
-        ordered_date = timezone.now()
-        order = Order.objects.create(
-            user=request.user, ordered_date=ordered_date)
-        order.items.add(order_item)
-        messages.info(request, "This item was added to your cart.")
-        return redirect("core:order-summary")
-
-
-def remove_single_item_from_cart(request, cid):
- 
-    product = get_object_or_404(Product, pk=cid)  
-    customer = get_object_or_404(Customer,pk=cid)     
-    for order_item in customer.order_set.all(): 
-        order_item.quantity -= 1
-        order_item.save()
-    
-    # if order_item.quantity > 1:#if quantity o then remove product
-    
-            
-    # else:
-    #     order.items.remove(order_item)
-        messages.info(request, "This item quantity was updated.")
-        return redirect("/customers/orders/",id = cid)
-            
-        
-        
-   
-                
-        
-        
-        
        
             
             

@@ -7,6 +7,9 @@
 {% block javascript %}
 
 <script src="{% static 'products/products.js' %}"></script>
+<script src="{% static 'products/search.js' %}"></script>
+<script src="{% static 'vendor/js/scripts.js' %}"></script>
+
 
 {% endblock %}
 
@@ -25,20 +28,7 @@
 
         <!--form search in input form I place {{myFilter.form.first_name}}-->
 
-        <form method="GET" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-
-
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search by name..." aria-label="Search"
-                    aria-describedby="basic-addon2" {{myFilter.form.name}} />
-                <div class="input-group-append">
-
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
+         {% include "products/formsearch.html" %}
 
         <!-- Navbar-->
         <ul class="navbar-nav ml-auto ml-md-0">
@@ -248,8 +238,15 @@
                                             class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" style="text-align: center;font-size:25px;">
+                               <strong > No result found ! Please search with appropriate keywords. </strong>
+                            </td>
+                        </tr>
 
                         {% endfor %}
+
                     </tbody>
                 </table>
                 <!-- modal fade is for popu which can be place anywhere and can be identified via id and class -->

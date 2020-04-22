@@ -16,7 +16,5 @@ urlpatterns=[
     path('order/<int:cid>',views.cus_ord_view,name = 'view'),
     path('pdf/',pdfviews.GeneratePDF.as_view(),name="pdf"),
     path('orders/bill/<int:cid>',billviews.GenerateBILL.as_view(),name="bill"),
-     path('add-to-cart/<slug>/',views.add_to_cart, name='add-to-cart'),
-    path('remove-single-item-from-cart/<int:cid>/',views.cus_ord_view,
-         name='remove-single-item-from-cart'), 
+    
 ]

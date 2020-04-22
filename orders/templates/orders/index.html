@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
-
+{% load static %}
 {% block title %}Orders{% endblock %}
 
-
+{% block javascript %}
+<script src="{% static 'vendor/js/scripts.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 <!--Nav bar and side bar which include search and others-->

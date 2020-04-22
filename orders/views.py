@@ -14,7 +14,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def create(request,cid):
     '''Below I replace OrderForm with'''
     
-    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=2)  
+    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=1)  
     #it means maila customer lai click garda order ma bhako detail access garako xu with instance
      #parent model and then child model---
     #we can have multiple order so we need to tell which to allow by fields
@@ -29,7 +29,7 @@ def create(request,cid):
         formset = OrderFormSet(request.POST,instance=cus)
         if formset.is_valid():
             formset.save()
-        return redirect('order_app:list')
+        return redirect('customer_app:view', cid)
     
     return render(request,'orders/create.html',{'formset':formset})
 

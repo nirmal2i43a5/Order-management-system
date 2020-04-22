@@ -61,3 +61,14 @@ When customer order ---input field
 ------------------------------------
 json site link
   1 => https://www.pluralsight.com/guides/work-with-ajax-django
+
+
+  search ajax
+  -->https://github.com/njogumbau/simple-ajax-search
+  -->https://osama-ecommerce.herokuapp.com/
+  -->https://github.com/SHxKM/django-ajax-search
+
+
+
+  pagination sort and search perfect link
+  =>https://github.com/Macainian/Django-Search-Filter-Sort

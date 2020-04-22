@@ -173,7 +173,7 @@
                     <td>{{order.created_at}}</td>
                     <td>{{order.status}}</td>
                     <td>
-                        <a href="{% url 'customer_app:remove-single-item-from-cart' order.customer.id  %}"> <i class="fa fa-minus mr-2"></i></a>
+                        <a href="#"> <i class="fa fa-minus mr-2"></i></a>
                         {{order.quantity}}
                          <a href=""><i class="fa fa-plus ml-2"></i></a>
                 </td>
@@ -189,7 +189,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="8" style="text-align: center;">
+                    <td colspan="8" style="text-align: center;" >
                        <strong > {{customer.name }} </strong> Order is empty.Please Place the Order!
                     </td>
                 </tr>

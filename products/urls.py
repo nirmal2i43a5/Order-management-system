@@ -14,4 +14,5 @@ urlpatterns=[
     path('pdf/',pdfviews.GeneratePDF.as_view(),name="pdf"),
     path('edit/<int:pid>/',views.edit,name="edit"),
     path('delete/<int:pid>/',views.delete_product,name="delete_product"),
+  
 ]
