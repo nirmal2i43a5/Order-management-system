@@ -13,6 +13,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 
 
@@ -38,9 +39,7 @@ def index(request):
     products=Product.objects.all()
     product_count = products.count()
     
-    myFilter = ProductFilter(request.GET,queryset=products)
-    products = myFilter.qs
-    
+    products = getPaginator(request,products)
     '''
     -->like form we render filterform
     -->we use get because we see result on same page 
@@ -48,23 +47,7 @@ def index(request):
     -->
     -->qs = queryset
     '''
-    page = request.GET.get('page', 1)#means page  number 1
-    
-    # if page and page.isdigit():
-    #     page = int(page)
-    # else:
-    #     page = 5
-        
-    # paginator = Paginator(customers, 5)#5 data per page
-    paginator = Paginator(products, 10)
   
-    try:
-        products = paginator.page(page)
-    except PageNotAnInteger:
-        products = paginator.page(1)
-    except EmptyPage:
-        #if page is out of range show last page
-        products = paginator.page(paginator.num_pages)
 
     if(request.method=='POST'):
         form=ProductForm(request.POST)
@@ -73,7 +56,7 @@ def index(request):
             
         # return redirect('/products/list?Product added ')    
     context={'products':products,
-             'myFilter':myFilter,
+           
              'form':form,
              'start':products.start_index(),
              'end':products.end_index(),
@@ -83,7 +66,52 @@ def index(request):
 
 
 
+def getPaginator(request,object):
+    page = request.GET.get('page', 1)#means page  number 1
+    paginator = Paginator(object, 1)
+  
+    try:
+        products = paginator.page(page)
+        
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        #if page is out of range show last page
+        products = paginator.page(paginator.num_pages)
+        
+    return products#aflter pagination return object
 
+
+    
+def search(request):
+    data = dict()
+    field_value = request.GET.get('query')
+    print(field_value)
+  
+  
+    if field_value:
+        products = Product.objects.filter(
+                                            Q(name__icontains=field_value)
+                                           | Q(price__icontains=field_value) 
+                                           | Q(description__icontains=field_value)
+                                           | Q(quantity__icontains=field_value)
+                                           )
+
+        context = {'products': products}
+        
+        data['html_list'] = render_to_string('products/get_search_products.html',context,request=request)
+
+   
+
+        return JsonResponse(data)
+
+    else:
+        products = Product.objects.all()
+        # products = getPaginator(request, products)
+        context = {'products': products}
+        data['html_list'] = render_to_string('products/get_search_products.html',context,request=request)
+
+        return JsonResponse(data)
 
 
 def save_product_form(request, form, template_name):

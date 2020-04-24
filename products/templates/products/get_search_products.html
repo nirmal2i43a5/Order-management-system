@@ -1,0 +1,27 @@
+{% for product in products%}
+
+<tr>
+
+    <!-- <td>{{order.product.name}}</td> -->
+    <!-- <td>{{product.id}}</td> -->
+    <td>{{product.id}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.price}}</th>
+
+    <td>{{product.description}}</td>
+    <td>{{product.quantity}}</td>
+    <td>{{product.created_at}}</td>
+
+
+    <td>
+        <button type="button" data-url="{% url 'product_app:edit' product.id %}"
+            class="btn btn-success btn-sm js-product-update ">
+            <i class="fas fa-edit"></i></a>
+
+            <button type="button" data-url="{% url 'product_app:delete_product' product.id %}"
+                class="ml-1 btn btn-danger btn-sm js-product-delete "><i
+                    class="fas fa-trash-alt"></i></a>
+    </td>
+</tr>
+
+{% endfor %}
