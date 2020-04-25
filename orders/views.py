@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404,reverse
+
+from django.http import JsonResponse
 from .models import Order,Customer,Product
 from orders.forms import OrderForm
 from orders.filters import OrderFilter
@@ -6,6 +8,10 @@ from django.forms import inlineformset_factory#It brings multiple form in group
 from django.contrib import messages
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from django.db.models import Q
+
+from django.template.loader import render_to_string
 
 
 
@@ -38,9 +44,9 @@ def index(request):
     orders=Order.objects.all()
     
     total_orders=orders.count()
-    myFilter = OrderFilter(request.GET,queryset=orders)
-    orders = myFilter.qs
-    # customers=Customer.objects.all()
+    # myFilter = OrderFilter(request.GET,queryset=orders)
+    # orders = myFilter.qs
+    # # customers=Customer.objects.all()
   
     pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
     delivered=orders.filter(status="Delivered").count()
@@ -68,17 +74,58 @@ def index(request):
     context={
         'orders':orders,'total_orders':total_orders,
         'orders_pending':pending,'orders_delivered':delivered,
-        'myFilter':myFilter,
+        # 'myFilter':myFilter,
         'start':orders.start_index(),
         'end':orders.end_index()
         
         }
     return render(request,'orders/index.html',context)
 
+
+def search(request):
+    data = dict()
+    field_value = request.GET.get('query')
+    print(field_value)
+    
+    # products = Product.objects.all()
+    # myFilter = ProductFilter(request.GET,queryset=products)
+    # products = myFilter.qs
+  
+  
+    if field_value:
+        orders = Order.objects.filter(
+                                            Q(product__name__contains=field_value)
+                                           |Q(status__icontains=field_value) 
+                                           | Q(total_price__contains=field_value)
+                                           | Q(quantity__contains=field_value)
+                                            | Q(customer__name__contains=field_value)
+                                             
+                                        
+                                           )
+        
+        
+
+        context = {'orders': orders}
+            
+        data['html_list'] = render_to_string('orders/get_search_orders.html',context,request=request)
+        return JsonResponse(data)
+
+    else:
+        orders = Order.objects.all()
+       
+        context = {'orders': orders}
+        data['html_list'] = render_to_string('orders/get_search_orders.html',context,request=request)
+
+        return JsonResponse(data)
+
+
 def edit(request, oid):    
     # ord=Order.objects.get(pk=oid) #i get all value and show that value to next page
+    
     ord = get_object_or_404(Order,pk = oid)
+    
     form=OrderForm(instance=ord)
+    
     # cus = get_object_or_404(Customer,pk = cid)
    
     

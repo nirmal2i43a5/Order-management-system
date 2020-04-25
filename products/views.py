@@ -68,7 +68,7 @@ def index(request):
 
 def getPaginator(request,object):
     page = request.GET.get('page', 1)#means page  number 1
-    paginator = Paginator(object, 1)
+    paginator = Paginator(object, 10)
   
     try:
         products = paginator.page(page)
@@ -87,6 +87,10 @@ def search(request):
     data = dict()
     field_value = request.GET.get('query')
     print(field_value)
+    
+    # products = Product.objects.all()
+    # myFilter = ProductFilter(request.GET,queryset=products)
+    # products = myFilter.qs
   
   
     if field_value:
@@ -95,10 +99,12 @@ def search(request):
                                            | Q(price__icontains=field_value) 
                                            | Q(description__icontains=field_value)
                                            | Q(quantity__icontains=field_value)
+                                           | Q(id__icontains=field_value)
+                                           | Q(category__icontains=field_value)
                                            )
 
         context = {'products': products}
-        
+            
         data['html_list'] = render_to_string('products/get_search_products.html',context,request=request)
 
    
@@ -107,7 +113,7 @@ def search(request):
 
     else:
         products = Product.objects.all()
-        # products = getPaginator(request, products)
+       
         context = {'products': products}
         data['html_list'] = render_to_string('products/get_search_products.html',context,request=request)
 

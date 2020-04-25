@@ -1,0 +1,14 @@
+  <!--form search in input form I place {{myFilter.form.first_name}}-->
+
+  <form method="GET" action="{% url 'customer_app:search' %}" id="js-search-form" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+
+    <div class="input-group">
+        <input class="form-control"name="query" type="search" placeholder="Search by name..." aria-label="Search"/>
+        <div class="input-group-append">
+
+            <button class="btn btn-primary" type="button">
+                Search
+            </button>
+        </div>
+    </div>
+</form>

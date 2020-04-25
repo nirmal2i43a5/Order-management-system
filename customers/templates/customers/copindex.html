@@ -7,6 +7,8 @@
 
 {% block javascript %}
 <script src="{% static 'vendor/js/scripts.js' %}"></script>
+<script src="{% static 'products/search.js' %}"></script>
+<script src="{% static 'customers/scroll.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -19,37 +21,13 @@
             <i class="fas fa-bars"></i></button><!-- Navbar Search-->
 
 
-        <!--form search in input form I place {{myFilter.form.first_name}}-->
+      
 
-        <form method="GET" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
 
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search by name..." aria-label="Search"
-                    {{myFilter.form.name}} />
-                <div class="input-group-append">
-
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+     
+            <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
+                <a class="btn btn-primary float-right" style="cursor: pointer;color:white;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
             </div>
-        </form>
-
-
-
-        <!-- Navbar-->
-        <ul class="navbar-nav ml-auto ml-md-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <div data-toggle="modal" data-target="#logOutModal" class="dropdown-menu dropdown-menu-right"
-                    aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" style="cursor: pointer;">Logout</a>
-                </div>
-            </li>
-        </ul>
     </nav>
     <!--logout model js popup for confirm or stay-->
     <div id="logOutModal" class="modal fade">
@@ -133,7 +111,7 @@
                                 <i class="fas fa-chart-area"></i>
                             </div>
                             Charts
-                        </a><a class="nav-link" href="tables.html">
+                        </a><a class="nav-link" href="#">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-table"></i>
                             </div>
@@ -198,14 +176,15 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-success">
-                            <!-- model-dismiss la same page ma lauxa -->
-                            Save
-                        </button>
                         <button class="btn btn-danger" data-dismiss="modal">
                             <!-- model-dismiss la same page ma lauxa -->
                             Cancel
                         </button>
+                        <button class="btn btn-success">
+                            <!-- model-dismiss la same page ma lauxa -->
+                            Save
+                        </button>
+                      
 
                     </div>
                 </div>
@@ -246,41 +225,61 @@
 
 </div> -->
 
-<div class="row">
 
-    <div class="col">
-        <div class="card border-dark" style="margin-left:36%;padding-right:15%;padding:10px;margin-bottom:10px;">
-            <h3 class="card-header"> Customers Details</h3>
 
-        </div>
+<div class="col">
+    <div class="card border-dark" style="margin-left:18%;padding-right:15%;padding:10px;margin-bottom:10px;">
+        <h3 class="card-header"> Customers Details</h3>
+
     </div>
+</div>
+<hr>
 
+<div class="row " style="margin-left:18%;">
 
+   
+      
+  
 
     <div class="col">
-        <br>
-       PDF : <a href = " {% url 'customer_app:pdf' %}" class="btn  btn-sm btn-outline-danger"> <i class="fas fa-file-pdf fa-2x"></i></a> 
-        <button data-toggle="modal" data-target="#customerModel" class=" btn btn-outline-danger ">
-            <span>
-                <i class="fas fa-plus"></i>Add Customer
-                <!--I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
-            </span>
-        </button>
+
+        {% include "customers/formsearch.html" %}
        
-    
+        <button data-toggle="modal" data-target="#customerModel" class=" btn btn-primary ">
+
+        <i class=" fas fa-plus "></i> Add Customer
+        <!-- I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
+        </button>
+
+     <a href="{% url 'customer_app:pdf' %}" class="btn  btn-danger ml-3" style="margin-right:5%;" > PDF</a>
+
+   
+
+           <button  style="margin-left:40%;" onclick = " scrollToBottom()" class="btn btn-primary"> <i class="fas fa-arrow-alt-circle-down fa-1x "></i>
+           </button>
+           
 
     </div>
     
      
 
+    
+<script>
+  
+       
+</script>
+ 
+
+
 </div>
+<hr>
 
 
 
 <div class="container">
-    <div class="col-md-12">
+    <div class="col-md-10">
 
-        <table class="table table-sm table-hover table-striped table-bordered display" style="margin-left:10%;"  id="table_id" border='2' align="center"  style="width:100%">
+        <table class="table table-sm table-hover table-striped table-bordered display" style="margin-left:12%;"  id="table_id" border='2' align="center"  style="width:100%">
             <thead class="thead-dark">
                 <tr style="text-align: center;">
 
@@ -298,7 +297,7 @@
 
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="get_table_body">
 
                 {% for customer in customers %}
                 <tr>
@@ -383,6 +382,11 @@
 
     </div>
 </div>
+
+
+<button  id="back-to-top" style="float:right;margin-right:1%;" class="btn btn-primary"> <i class="fas fa-arrow-alt-circle-up fa-1x"></i>
+</button>
+
 
 {% endblock%}
 

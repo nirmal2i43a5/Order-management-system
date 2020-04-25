@@ -8,6 +8,7 @@ urlpatterns = [
     path('list/',views.index,name="list"),
     path('pdf/',pdfviews.GeneratePDF.as_view(),name="pdf"),
     path('edit/<int:oid>/',views.edit,name="edit"),
+    path('search/',views.search,name="search"),
     path('delete/<int:oid>/',views.delete,name="delete"),
     
 ]

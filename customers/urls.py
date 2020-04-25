@@ -12,6 +12,7 @@ urlpatterns=[
     # path('',views.CustomerPagination.as_view(),name="customer_pagination"),#it assists to show page
     path('list/',views.index,name='list'),#assists to show data
     path('edit/<int:cid>/',views.edit,name='edit'),#here i pass primary key
+    path('search/',views.search,name="search"),
     path('delete/<int:cid>/',views.delete,name='delete'),
     path('order/<int:cid>',views.cus_ord_view,name = 'view'),
     path('pdf/',pdfviews.GeneratePDF.as_view(),name="pdf"),

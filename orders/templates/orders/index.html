@@ -5,6 +5,7 @@
 
 {% block javascript %}
 <script src="{% static 'vendor/js/scripts.js' %}"></script>
+<script src = "{% static 'orders/search.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -15,35 +16,10 @@
             id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i></button><!-- Navbar Search-->
 
-          <!--form search in input form I place {{myFilter.form.status}}-->
-         
-          <form method="GEt" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" >
-               
-                        
-            <div class="input-group">
-                <input  class="form-control" type="text" placeholder="Search by status..." aria-label="Search"
-                    aria-describedby="basic-addon2" {{myFilter.form.status}} />
-                <div class="input-group-append">
-                   
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+      
+            <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
+                <a class="btn btn-primary float-right" style="cursor: pointer;color:white;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
             </div>
-        </form>
-       
-        <!-- Navbar-->
-        <ul class="navbar-nav ml-auto ml-md-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <div data-toggle="modal" data-target="#logOutModal" class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" style="cursor: pointer;">Logout</a>
-                </div>
-            </li>
-        </ul>
     </nav>
 <!--logout model js popup for confirm or stay-->
 <div id="logOutModal" class="modal fade">
@@ -149,7 +125,7 @@
 </body>
 
 {% include 'orders/card.html' %}
-<hr>
+
 <!--for django messages-->
 <div style="margin-left:15%;margin-right:2%;">
     {% if messages %}
@@ -164,57 +140,66 @@
 </div>
 
 
-<div class="row">
-    <div class="col">
-        <div class="card border-dark" style="margin-left:41%;padding-right:15%;padding:10px;margin-bottom:10px;">
-            <h3 class="card-header"> Order Details</h3>
 
-        </div>
-    </div>
-    <div class="col">
-        <br>
-        PDF : <a href = "{% url 'order_app:pdf' %} " class="btn  btn-sm btn-outline-danger"> <i class="fas fa-file-pdf fa-2x"></i></a> 
-
-      </div>
-        
-
+<div class="col">
+    <div class="card border-dark" style="margin-left:18%;padding-right:15%;padding:10px;margin-bottom:10px;">
+        <h3 class="card-header"> Order Details</h3>
 
     </div>
+</div>
+<hr>
 
+<div class="row " style="margin-left:20%;">
 
+    <div class="col">
+        {% include 'orders/formsearch.html' %}
+       
 
+        <a href="{% url 'order_app:pdf' %}" class="btn  btn-danger ml-3" style="margin-right:5%;" > PDF</a>
+
+            <button onclick="ScrollToBottom()" style="margin-left:32%;" class="btn btn-primary"> <i class="fas fa-arrow-alt-circle-down fa-1x"></i>
+            </button>
+
+    </div>
+   
+
+      
+</div>
+
+<hr>
 
 <div class="container">
  <div class="col-md-10">
-    <table class="table table-sm table-hover table-striped table-bordered" style="margin-left:15%;">
+    <table class="table table-sm table-hover table-striped table-bordered" style="margin-left:12%;">
         <thead class="thead-dark">
             <tr style="text-align: center;">
                 <th>Order Id</th>
                 <th>Cus.Id</th>
-                <th>Category</th>
+                <!-- <th>Category</th> -->
                 <th>Product</th>
-
+                <th>Category</th>
                 <th>Quantity</th>
                 <th>Created</th>
                 <th>Status</th>
-                <!-- <th>Quantity</th> -->
+             
                 <th>Action</th>
               
             </tr>
            
 
         </thead>
-        <tbody>
+        <tbody id="order_table_body">
             
             {% for order in orders %}
             
             <tr style="text-align: center;">   
                 <td>{{order.id}}</td>
                 <td>{{order.customer.id}}</td>
-                <td>{{order.product.category}}</td>
+             
                
              
                 <td>{{order.product.name}}</th>
+                    <td>{{order.product.category}}</td>
                     <td>{{order.quantity}}</td>
 
 <!--

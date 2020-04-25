@@ -17,7 +17,9 @@ from django.views.generic import ListView,DetailView#for pagination
 from django.views.generic import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.template.loader import render_to_string
 
+from django.db.models import Q
 
 
 '''
@@ -90,7 +92,7 @@ def index(request):
     #     page = 5
         
     # paginator = Paginator(customers, 5)#5 data per page
-    paginator = Paginator(customers, 5)
+    paginator = Paginator(customers, 21 )
   
     try:
         customers = paginator.page(page)
@@ -122,7 +124,40 @@ def index(request):
 
 
 #I use function base view but use class base view to inherit index.I am just copying index code 
+def search(request):
+    data = dict()
+    field_value = request.GET.get('query')
+    print(field_value)
+    
+    # products = Product.objects.all()
+    # myFilter = ProductFilter(request.GET,queryset=products)
+    # products = myFilter.qs
+  
+  
+    if field_value:
+        customers = Customer.objects.filter(
+                                            Q(name__contains=field_value)
+                                           |Q(email__icontains=field_value) 
+                                           | Q(contact__contains=field_value)
+                                         
+                                             
+                                        
+                                           )
+        
+        
 
+        context = {'customers': customers}
+            
+        data['html_list'] = render_to_string('customers/get_search_customers.html',context,request=request)
+        return JsonResponse(data)
+
+    else:
+        customers = Customer.objects.all()
+       
+        context = {'customers': customers}
+        data['html_list'] = render_to_string('customers/get_search_customers.html',context,request=request)
+
+        return JsonResponse(data)
 
 def edit(request, cid):    
     # cus=Customer.objects.get(id=pk) #i get all value and show that value to next page

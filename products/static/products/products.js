@@ -106,9 +106,9 @@ $(function () {
 //       success: function (data) {
 //         if (data.form_is_valid) {//means if data['form_is_valid'] = True in views.py
 //           $('#product-table tbody').html(data.html_product_list);
-//           //Goto id="product-table"  tbody and then pass data in tbody contain in data.html_product_list
+          //Goto id="product-table"  tbody and then pass data in tbody contain in data.html_product_list
 //           $("#modal-product .close").click();
-//          // $("#modal-product").modal('hide');--similar but differ in some version
+         // $("#modal-product").modal('hide');--similar but differ in some version
 //         }
 //         else {// data['form_is_valid'] = False
           
