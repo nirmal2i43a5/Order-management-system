@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title %}Home{% endblock%}
 {% block content %}
 
 
@@ -12,20 +12,28 @@
         <ul class="navbar-nav" style="margin-left:60%;">
 
             <div style="margin-top:2%;">
-                <a href="{% url 'register_app:login'%}" class=" border btn btn-primary btn-lg" style="color:white;">
-            
+                {% if user.is_authenticated %}
+                <a href="{% url 'register_app:logout'%}" class=" btn btn-sm btn-warning " style="color:black;width:100px;">
+                    
+                    <span><i class="fa fa-sign-out-alt"></i>  LOGOUT</span>
+                
+             </a>
+
+             {% else %}
+                <a href="{% url 'register_app:login'%}" class=" btn btn-sm btn-warning " style="color:black;width:100px;">
+                    
+                       <span><i class="fa fa-sign-in-alt"></i>  LOGIN</span>
+                   
+                </a>
+                <a href="{% url 'register_app:register'%}" class=" btn btn-sm btn-warning" style="color:black;width:100px;">
                     <span>
             
-                        <i class="fa fa-sign-in-alt"></i> LOGIN
-                    </span>
-                </a>
-                <a href="{% url 'register_app:register'%}" class="border btn btn-outline-danger btn-lg" style="color:white;">
-                    <span>
-            
-                        <i class="fa fa-user-plus"></i> SIGNUP
+                        <i class="fa fa-user-plus"></i>  SIGNUP
                     </span>
             
                 </a>
+
+                {% endif %}
             
             </div>
 
@@ -37,13 +45,15 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Functions</div>
-                        <a class="nav-link" href="/">
+                        <!-- <div class="sb-sidenav-menu-heading">Functions</div> -->
+                        {% if request.user.is_superuser %}
+                        <a class="nav-link" href="/dashboard">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-tachometer-alt"></i>
                             </div>
                             Dashboard
                         </a>
+                        {% endif %}
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
                             aria-expanded="false" aria-controls="collapseLayouts">
@@ -63,6 +73,7 @@
                                 <a class="nav-link" href="{% url 'customer_app:list'%}">Customers</a>
                             </nav>
                         </div>
+                        
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                             aria-expanded="false" aria-controls="collapsePages">
@@ -77,9 +88,16 @@
                             data-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
+                                {% if user.is_authenticated %}
+                                <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
+                                <a class="nav-link" href="/reset_password">Forgot Password</a>
+
+                                {% else %}
+
                                 <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
-                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a><a
-                                    class="nav-link" href="#">Forgot Password</a>
+                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a>
+                                {% endif %}
+                                  
                             </nav>
 
 

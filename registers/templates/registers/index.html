@@ -15,34 +15,37 @@
         crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
         crossorigin="anonymous"></script>
+        
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Supermarket</a><button class="btn btn-link btn-sm order-1 order-lg-0"
-            id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i></button>
+    <div class="row">
+      
+            <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Supermarket</a><button class="btn btn-link btn-sm order-1 order-lg-0"
+                    id="sidebarToggle" href="#">
+                    <i class="fas fa-bars"></i></button>
 
-        <!-- Navbar-->
-        <div style="margin-left:78%;">
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user fa-fw"></i>
-                    </a>
-                    <div data-toggle="modal" data-target="#logOutModal" class="dropdown-menu dropdown-menu-right"
-                        aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <!-- <a class="dropdown-item" href="#">Logout</a> -->
-                        <a class="dropdown-item" style="cursor: pointer;">Logout</a>
+                    {% if user.is_authenticated %}
+                    <div class="col">
+                
+                        <a class="btn btn-sm btn-warning float-right"> Hey, {{request.user.email}} </a>
+                       
                     </div>
-                </li>
-            </ul>
+                    <a href="/user-profile/" class="btn btn-sm btn-warning float-right"> <i class="fas fa-eye"></i> User profile </a>
+                  {% endif %}
+                    <div class="col">
+                       <a class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#logOutModal" style="cursor: pointer;">  <i class="fa fa-sign-in-alt"></i> LOGOUT</a>
+                    </div>
+                    
+                 
+        
+            </nav>
         </div>
-    </nav>
-
+     
+    </div>
+  
+   
 
     <!--logout model js popup for confirm or stay-->
     <div id="logOutModal" class="modal fade">
@@ -59,7 +62,7 @@
                     <button class="btn btn-success" data-dismiss="modal"><!--model-dismiss la same page ma lauxa-->
                         Stay Here
                     </button>
-                    <a class="btn btn-danger"  href="{% url 'register_app:login'%}">
+                    <a class="btn btn-danger"  href="{% url 'register_app:logout' %}">
                         Logout</a>
                 </div>
             </div>
@@ -73,7 +76,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Functions</div>
-                        <a class="nav-link" href="/">
+                        <a class="nav-link" href="/dashboard">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-tachometer-alt"></i>
                             </div>
@@ -111,9 +114,14 @@
                             data-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
+                                {% if user.is_authenticated %}
+
+                                <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
+
+                                {% else %}
                                 <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
-                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a><a
-                                    class="nav-link" href="/reset_password">Forgot Password</a>
+                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a>
+                                {% endif %}
                             </nav>
 
                             <div class="sb-sidenav-menu-heading">Addons</div>
@@ -160,7 +168,7 @@
                             </div>
                         </div>
                         <div class="mb-5 ml-4">
-                            <a href="{% url 'product_app:list' %}" class="btn btn-warning">View details</a>
+                            <a href="{% url 'product_app:list' %}" class="btn btn-warning"><i class="fas fa-eye"></i>  View details</a>
                         </div>
 
                     </div>
@@ -177,7 +185,7 @@
                             </div>
                         </div>
                         <div class="mb-5 ml-3">
-                            <a href="{% url 'order_app:list' %}" class="btn btn-warning">View details</a>
+                            <a href="{% url 'order_app:list' %}" class="btn btn-warning"><i class="fas fa-eye"></i>  View details</a>
                         </div>
 
                     </div>
@@ -194,7 +202,7 @@
                             </div>
                         </div>
                         <div class="mb-5 ml-3">
-                            <a href="{% url 'customer_app:list'%}" class="btn btn-warning">View details</a>
+                            <a href="{% url 'customer_app:list'%}" class="btn btn-warning"><i class="fas fa-eye"></i>  View details</a>
                         </div>
 
                     </div>

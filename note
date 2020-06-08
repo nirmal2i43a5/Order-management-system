@@ -11,7 +11,7 @@
 8)accessing api data
 8)if user is authenticated for hiding login or register
 9)Django with chart js for data analysis monthly and yearly
-10)Notification 
+10)Notification via customer added email for offering various products==>https://www.digitalocean.com/community/tutorials/how-to-send-web-push-notifications-from-django-applications
 11)Payment 
 12)somewhat api 
 13)showing data as i start search with certain keword and character
@@ -22,6 +22,8 @@ Not working properly
 --------------------------------------------------------------
 1)login_required not working
 2)Pagination problems
+
+
 
 
 ------------------------------Also acquaint with following-----------------------------
@@ -72,3 +74,7 @@ json site link
 
   pagination sort and search perfect link
   =>https://github.com/Macainian/Django-Search-Filter-Sort
+
+
+#djangotables_sorting and multiple select box
+  https://www.youtube.com/watch?v=9S7OFBY9atM

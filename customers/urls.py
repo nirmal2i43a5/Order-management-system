@@ -2,6 +2,7 @@ from django.urls import path
 
 from customers import views
 from customers import pdfviews,billviews
+from customers import exportviews
 
 
 
@@ -14,8 +15,9 @@ urlpatterns=[
     path('edit/<int:cid>/',views.edit,name='edit'),#here i pass primary key
     path('search/',views.search,name="search"),
     path('delete/<int:cid>/',views.delete,name='delete'),
-    path('order/<int:cid>',views.cus_ord_view,name = 'view'),
+    path('<int:cid>/order/',views.cus_ord_view,name = 'view'),
     path('pdf/',pdfviews.GeneratePDF.as_view(),name="pdf"),
     path('orders/bill/<int:cid>',billviews.GenerateBILL.as_view(),name="bill"),
+    path('export/',exportviews.export,name="export"),
     
 ]

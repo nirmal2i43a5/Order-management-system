@@ -13,7 +13,7 @@
 
 {% endblock %}
 
-
+{% block title %}Products{% endblock%}
 
 {% block content %}
 
@@ -21,7 +21,20 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Grocery</a><button class="btn btn-link btn-sm order-1 order-lg-0"
+        {% if request.user.is_superuser %}
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-home"></i> Home
+        </a>
+
+        {% else %}
+
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-home"></i> Home
+        </a>
+        
+        {% endif %}
+        <button class="btn btn-link btn-sm order-1 order-lg-0"
+
             id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i></button><!-- Navbar Search-->
 
@@ -30,7 +43,7 @@
           
          
             <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
-            <a class="btn btn-primary float-right" style="cursor: pointer;color:white;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
+            <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
         </div>
         <!-- Navbar-->
      
@@ -53,7 +66,7 @@
                         <!--model-dismiss la same page ma lauxa-->
                         Stay Here
                     </button>
-                    <a class="btn btn-danger" href="{% url 'register_app:login'%}">
+                    <a class="btn btn-danger" href="{% url 'register_app:logout'%}">
                         Logout</a>
                 </div>
             </div>
@@ -66,13 +79,19 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Functions</div>
-                        <a class="nav-link" href="/">
+
+                        {% if request.user.is_superuser %}
+                       
+                        <a class="nav-link" href="/dashboard">
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-tachometer-alt"></i>
+                                <i class="fas fa-tachometer-alt"></i> 
                             </div>
-                            Dashboard
+                           Dashboard
                         </a>
+
+                        {% endif %}
+
+
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
                             aria-expanded="false" aria-controls="collapseLayouts">
@@ -106,9 +125,14 @@
                             data-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
+                                {% if user.is_authenticated %}
+
+                                <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
+
+                                {% else %}
                                 <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
-                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a><a
-                                    class="nav-link" href="/reset_password">Forgot Password</a>
+                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a>
+                                {% endif %}
                             </nav>
 
 
@@ -170,12 +194,15 @@
 
         <div class="col">
             {% include "products/formsearch.html" %}
+
+            {% if request.user.is_superuser %}
             <button type=" button " data-url="{% url 'product_app:create' %}"
             class=" btn btn-primary js-product-create ">
-    
+           
             <i class=" fas fa-plus "></i> Add Product
             <!-- I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
             </button>
+            {% endif %}
 
             <a href="{% url 'product_app:pdf' %}" class="btn  btn-danger ml-3" style="margin-right:5%;" > PDF</a>
 
@@ -237,9 +264,11 @@
                                     class="btn btn-success btn-sm js-product-update ">
                                     <i class="fas fa-edit"></i></a>
 
+                                    {% if request.user.is_superuser %}
                                     <button type="button" data-url="{% url 'product_app:delete_product' product.id %}"
                                         class="ml-1 btn btn-danger btn-sm js-product-delete "><i
                                             class="fas fa-trash-alt"></i></a>
+                                    {% endif %}
                             </td>
                         </tr>
                         {% empty %}

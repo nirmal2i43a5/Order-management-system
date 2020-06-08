@@ -27,11 +27,10 @@ class Order(models.Model):
     total_price = models.DecimalField(default=0.00,max_digits=10000,decimal_places=2)
     
     
-    
         
         
-    def __str__(self):
-        return self.product.name  #w/ relationship
+    # def __str__(self):
+    #     return self.product.name  #w/ relationship
     
     
     def get_total_item_price(self):

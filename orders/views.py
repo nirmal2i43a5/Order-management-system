@@ -12,6 +12,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -39,6 +41,8 @@ def create(request,cid):
     
     return render(request,'orders/create.html',{'formset':formset})
 
+
+@login_required(login_url='/user/login/')
 def index(request):
     
     orders=Order.objects.all()

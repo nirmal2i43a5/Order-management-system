@@ -5,20 +5,33 @@
 
 {% block javascript %}
 <script src="{% static 'vendor/js/scripts.js' %}"></script>
-<script src = "{% static 'orders/search.js' %}"></script>
+<script src = "{% static 'products/search.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <!--Nav bar and side bar which include search and others-->
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Grocery</a><button class="btn btn-link btn-sm order-1 order-lg-0"
+
+        {% if request.user.is_superuser %}
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-home"></i> Home
+        </a>
+
+        {% else %}
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-home"></i> Home
+        </a>
+        {% endif %}
+
+
+        <button class="btn btn-link btn-sm order-1 order-lg-0"
             id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i></button><!-- Navbar Search-->
 
       
             <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
-                <a class="btn btn-primary float-right" style="cursor: pointer;color:white;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
+                <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
             </div>
     </nav>
 <!--logout model js popup for confirm or stay-->
@@ -36,7 +49,7 @@
                 <button class="btn btn-success" data-dismiss="modal"><!--model-dismiss la same page ma lauxa-->
                     Stay Here
                 </button>
-                <a class="btn btn-danger"  href="{% url 'register_app:login'%}">
+                <a class="btn btn-danger"  href="{% url 'register_app:logout'%}">
                     Logout</a>
             </div>
         </div>
@@ -47,13 +60,17 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Functions</div>
-                        <a class="nav-link" href="/">
+                     
+                        {% if request.user.is_superuser %}
+                     
+                        <a class="nav-link" href="/dashboard">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-tachometer-alt"></i>
                             </div>
                             Dashboard
                         </a>
+
+                        {% endif %}
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
                             aria-expanded="false" aria-controls="collapseLayouts">
@@ -86,9 +103,10 @@
                             data-parent="#sidenavAccordion">
                             
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
-                                        <a class="nav-link" href="{% url 'register_app:register'%}">Register</a><a
-                                            class="nav-link" href="/reset_password">Forgot Password</a>
+                                    
+
+                                        <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
+        
                                     </nav>
                             
 
@@ -188,7 +206,7 @@
            
 
         </thead>
-        <tbody id="order_table_body">
+        <tbody id="get_table_body">
             
             {% for order in orders %}
             

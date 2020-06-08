@@ -24,14 +24,4 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
-    def get_add_to_cart_url(self):
-        return reverse("customer_app:add-to-cart", kwargs={
-            'slug': self.slug
-        })
-
-    def get_remove_single_item_from_cart_url(self):
-        return reverse("customer_app:remove-single-item-from-cart", kwargs={
-            'slug': self.slug
-        })
-
-
+  

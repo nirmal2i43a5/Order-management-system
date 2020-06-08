@@ -14,6 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -33,7 +34,7 @@ from django.db.models import Q
 #     return render(request,'products/create.html',{'form':form})
     
 
-
+@login_required(login_url = '/user/login/')
 def index(request):   
     form = ProductForm()
     products=Product.objects.all()
@@ -128,7 +129,7 @@ def save_product_form(request, form, template_name):
             form.save()
             data['form_is_valid'] = True
             products = Product.objects.all()
-            data['html_product_list'] = render_to_string('products/index.html', {
+            data['html_list'] = render_to_string('products/index.html', {
                 #valid huda data goes to index.html else stay on template_name
                 'products': products
             })

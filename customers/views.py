@@ -20,6 +20,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.loader import render_to_string
 
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 
 '''
@@ -72,7 +73,7 @@ def create(request):
     #     return redirect('/customers/list?customer added successfully')
             
         
-        
+@login_required(login_url = '/user/login/')     
 def index(request):
     form = CustomerModelForm()
     customers=Customer.objects.all()  
@@ -92,7 +93,7 @@ def index(request):
     #     page = 5
         
     # paginator = Paginator(customers, 5)#5 data per page
-    paginator = Paginator(customers, 21 )
+    paginator = Paginator(customers, 10)
   
     try:
         customers = paginator.page(page)

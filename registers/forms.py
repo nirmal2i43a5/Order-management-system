@@ -12,17 +12,17 @@ from django.utils.translation import ugettext_lazy as _ #for protected-
 
 
 
-#if i dont login using email then i dont need to make LoginForm class --directly it will show username and password
+
 class LoginForm(AuthenticationForm):
     email = EmailField(label=_("Email"), required=True,help_text=_("Required.")) #Email address is protected
     
     
-    #although i write email field in models this field is compu;sary for extra email authentication
+    #although i write email field in models this field is compulsary for extra email authentication
     #if i want to add contact i can also add contact and other that should be in model
     
     
     
-    #writing meta for this is choosen
+    #writing meta for this is optional
     
     # class Meta:
     #     model = User

@@ -30,6 +30,7 @@ urlpatterns = [
     path('customers/',include('customers.urls', namespace="customer_app")),
     path('products/',include('products.urls', namespace="product_app")),#namespace is the app_name in products.urls
     path('orders/',include('orders.urls', namespace="order_app")),
+      path('user-profile/',views.userProfile,name="user-profile"),
     
     path('reset_password/',auth_views.PasswordResetView.as_view(template_name = 'passwordreset/password_reset_email.html'), 
          name = "password_reset"),
