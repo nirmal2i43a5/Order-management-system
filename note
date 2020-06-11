@@ -1,8 +1,7 @@
 -->Things required to do in project
 1)deduct order product from total product==Model of Available Product
 2)quantity and total price with no of quantity customers bought
-3)print bill 
-4)Profile of each employee
+
 -->use getter and setter decorator for price concept
 4)Monthly and yearly sales report
 5)Import data from excel--I will not include but include somewhere else 
@@ -17,12 +16,8 @@
 13)showing data as i start search with certain keword and character
 14)Django pagination with entries at the top
 15)Admin can only add the employee--so use restrict for that    
--------------------------------------------------------------
-Not working properly
---------------------------------------------------------------
-1)login_required not working
-2)Pagination problems
 
+3)My 9a66wo4d6 is ad3i2123 in major system for both admin and employee
 
 
 
@@ -78,3 +73,6 @@ json site link
 
 #djangotables_sorting and multiple select box
   https://www.youtube.com/watch?v=9S7OFBY9atM
+
+#In this project because of some irregular design while using ajax I comment this line in products.js.Due to which i have to do refresh after adding product
+$('#product-table tbody').html(data.html_product_list); 

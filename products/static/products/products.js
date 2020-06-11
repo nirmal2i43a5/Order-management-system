@@ -36,7 +36,9 @@ $(document).ready(function () {
       success : function (data) {
         if (data.form_is_valid) {//means if data['form_is_valid'] = True in views.py
          $("#modal-product .close").click();//hide modal i.e form
-        $('#product-table tbody').html(data.html_product_list);// <-- Replace the table body
+     
+        // $('#product-table tbody').html(data.html_product_list); // <-- Replace the table body
+    
        
         
           //Goto id="product-table"  tbody and then pass data in tbody contain in data.html_product_list

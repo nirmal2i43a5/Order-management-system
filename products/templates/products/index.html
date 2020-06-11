@@ -20,6 +20,8 @@
 <!--Nav bar and side bar which include search and others-->
 
 <body class="sb-nav-fixed">
+
+
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         {% if request.user.is_superuser %}
         <a class="navbar-brand" href="/">
@@ -31,22 +33,32 @@
         <a class="navbar-brand" href="/">
             <i class="fas fa-home"></i> Home
         </a>
-        
+
+
+
         {% endif %}
-        <button class="btn btn-link btn-sm order-1 order-lg-0"
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
 
-            id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i></button><!-- Navbar Search-->
+            <div class="col">
+                
+                <a class="float-right" style="color:white;"> Hello, {{request.user.username}} </a>
+               
+            </div>
+        <div class="col">
 
+            <div data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
+                <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i
+                        class="fa fa-sign-out-alt"></i> LOGOUT</a>
+            </div>
 
-      
-          
-         
-            <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
-            <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
         </div>
+
+       
+        
         <!-- Navbar-->
-     
+
     </nav>
 
 
@@ -81,12 +93,12 @@
                     <div class="nav">
 
                         {% if request.user.is_superuser %}
-                       
+
                         <a class="nav-link" href="/dashboard">
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-tachometer-alt"></i> 
+                                <i class="fas fa-tachometer-alt"></i>
                             </div>
-                           Dashboard
+                            Dashboard
                         </a>
 
                         {% endif %}
@@ -144,11 +156,8 @@
                                 <i class="fas fa-chart-area"></i>
                             </div>
                             Charts
-                        </a><a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-table"></i>
-                            </div>
-                            Tables
+                        </a><a class="nav-link" href="#">
+
                         </a>
                     </div>
                 </div>
@@ -182,43 +191,46 @@
     {% endif %}
 </div>
 
-    <div class="col">
-        <div class="card border-dark" style="margin-left:18%;padding-right:15%;padding:10px;margin-bottom:10px;">
-            <h3 class="card-header"> Product Details</h3>
+<div class="col">
+    <div class="card border-dark" style="margin-left:18%;padding-right:15%;padding:10px;margin-bottom:10px;">
+        <h3 class="card-header"> Product Details</h3>
 
-        </div>
     </div>
-   <hr>
+</div>
+<hr>
 
-    <div class="row " style="margin-left:18%;">
 
-        <div class="col">
-            {% include "products/formsearch.html" %}
 
-            {% if request.user.is_superuser %}
-            <button type=" button " data-url="{% url 'product_app:create' %}"
-            class=" btn btn-primary js-product-create ">
-           
+<div class="row " style="margin-left:18%;">
+
+    <div class="col">
+        
+        {% include "products/formsearch.html" %}
+
+        {% if request.user.is_superuser %}
+        <button type=" button " data-url="{% url 'product_app:create' %}" class=" btn btn-primary js-product-create ">
+
             <i class=" fas fa-plus "></i> Add Product
             <!-- I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
-            </button>
-            {% endif %}
+        </button>
+        {% endif %}
 
-            <a href="{% url 'product_app:pdf' %}" class="btn  btn-danger ml-3" style="margin-right:5%;" > PDF</a>
+        <a href="{% url 'product_app:pdf' %}" class="btn  btn-danger ml-3" style="margin-right:5%;"> PDF</a>
 
-               <button onclick="ScrollToBottom()" style="margin-left:30%;" class="btn btn-primary"> <i class="fas fa-arrow-alt-circle-down fa-1x"></i>
-               </button>
-    
-        </div>
-        
-         
-
-        
-          
-     
-
+        <button onclick="ScrollToBottom()" style="margin-left:30%;" class="btn btn-primary"> <i
+                class="fas fa-arrow-alt-circle-down fa-1x"></i>
+        </button>
 
     </div>
+
+
+
+
+
+
+
+
+</div>
 <hr>
 
 
@@ -226,7 +238,7 @@
     <div class="row">
         <div class="col">
             <div class="col-md-10">
-                <table class="table table-sm table-hover table-striped  table-bordered" id="product-table"
+                <table class="table table-sm table-responsive-sm table-hover table-striped  table-bordered" width="100%" id="product-table"
                     style="margin-left:12%;">
                     <thead class="thead-dark">
                         <tr>
@@ -268,13 +280,13 @@
                                     <button type="button" data-url="{% url 'product_app:delete_product' product.id %}"
                                         class="ml-1 btn btn-danger btn-sm js-product-delete "><i
                                             class="fas fa-trash-alt"></i></a>
-                                    {% endif %}
+                                        {% endif %}
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
                             <td colspan="8" style="text-align: center;font-size:25px;">
-                               <strong > No result found ! Please search with appropriate keywords. </strong>
+                                <strong> No result found ! Please search with appropriate keywords. </strong>
                             </td>
                         </tr>
 
@@ -283,7 +295,8 @@
                     </tbody>
                 </table>
                 <!-- modal fade is for popu which can be place anywhere and can be identified via id and class -->
-                <div class="modal fade" id="modal-product"><!--fade is for doing popup-->
+                <div class="modal fade" id="modal-product">
+                    <!--fade is for doing popup-->
                     <!--for form pop up -->
                     <div class="modal-dialog">
                         <div class="modal-content">

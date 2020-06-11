@@ -129,7 +129,7 @@ def save_product_form(request, form, template_name):
             form.save()
             data['form_is_valid'] = True
             products = Product.objects.all()
-            data['html_list'] = render_to_string('products/index.html', {
+            data['html_product_list'] = render_to_string('products/index.html', {
                 #valid huda data goes to index.html else stay on template_name
                 'products': products
             })

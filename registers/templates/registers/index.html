@@ -22,18 +22,20 @@
     <div class="row">
       
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">Supermarket</a><button class="btn btn-link btn-sm order-1 order-lg-0"
-                    id="sidebarToggle" href="#">
-                    <i class="fas fa-bars"></i></button>
+                <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Home</a>
+                <button type="button" id="sidebarToggle" class="btn btn-warning text-black-50">
+                    <i class="fas fa-align-left"></i>
+                  </button>
 
-                    {% if user.is_authenticated %}
+                 
                     <div class="col">
                 
-                        <a class="btn btn-sm btn-warning float-right"> Hey, {{request.user.email}} </a>
+                        <a class="btn btn-sm btn-warning float-right"> Hey, {{request.user.username}} </a>
                        
                     </div>
-                    <a href="/user-profile/" class="btn btn-sm btn-warning float-right"> <i class="fas fa-eye"></i> User profile </a>
-                  {% endif %}
+                    <a href="/admin-profile/" class="btn btn-sm btn-warning float-right"> <i class="fas fa-eye"></i> Admin profile </a>
+               
+                  
                     <div class="col">
                        <a class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#logOutModal" style="cursor: pointer;">  <i class="fa fa-sign-in-alt"></i> LOGOUT</a>
                     </div>

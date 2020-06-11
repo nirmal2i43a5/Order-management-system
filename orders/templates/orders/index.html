@@ -11,6 +11,7 @@
 {% block content %}
 <!--Nav bar and side bar which include search and others-->
 <body class="sb-nav-fixed">
+    
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 
         {% if request.user.is_superuser %}
@@ -29,10 +30,17 @@
             id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i></button><!-- Navbar Search-->
 
-      
-            <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
-                <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
+            <div class="col">
+                
+                <a class="float-right" style="color:white;"> Hello, {{request.user.username}} </a>
+               
             </div>
+      
+    <div class="col">
+        <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
+            <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
+        </div>
+    </div>
     </nav>
 <!--logout model js popup for confirm or stay-->
 <div id="logOutModal" class="modal fade">
@@ -118,11 +126,8 @@
                                 <i class="fas fa-chart-area"></i>
                             </div>
                             Charts
-                        </a><a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-table"></i>
-                            </div>
-                            Tables
+                     
+                           
                         </a>
                     </div>
                 </div>
@@ -188,7 +193,7 @@
 
 <div class="container">
  <div class="col-md-10">
-    <table class="table table-sm table-hover table-striped table-bordered" style="margin-left:12%;">
+    <table class="table table-sm table-responsive-sm table-hover table-striped table-bordered" style="margin-left:12%;">
         <thead class="thead-dark">
             <tr style="text-align: center;">
                 <th>Order Id</th>

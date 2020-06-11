@@ -120,15 +120,19 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS =[os.path.join(BASE_DIR,"static")]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGOUT_REDIRECT_URL = '/user/login'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS =[os.path.join(BASE_DIR,"static")]
+
+#for image upload
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = ''
 
 
 
