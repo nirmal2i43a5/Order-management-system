@@ -76,3 +76,57 @@ json site link
 
 #In this project because of some irregular design while using ajax I comment this line in products.js.Due to which i have to do refresh after adding product
 $('#product-table tbody').html(data.html_product_list); 
+
+ <a href="/" class="btn btn-lg btn-primary mt-2">   <i class="fas fa-home"></i> Home</a>
+   
+    
+        <div style="margin-left:20%;margin-right:2%;">
+
+         {% include 'messages.html'%}
+
+        </div>
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5" >
+                                    
+                               
+                                    <div class="card-header"><h2 class="text-center font-weight-light my-4">Login</h2></div>
+                                    
+                                    <div class="card-body">
+                                      
+                                        <form method="POST" class="justify-content-center" >
+                                          {% csrf_token %}
+
+                                          {{form|crispy}}
+
+                                           
+                                            
+                                            <input type="submit" name="submit" value="Login" class="btn btn-success">
+                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a class="small" href="/reset_password/">Forgot Password?</a></div>
+                                        </form>
+                                        
+                                    </div>
+                                 
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="{% url 'register_app:register'%}">Need an account? Sign up!</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            
+        </div>
+        <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script> -->
+    <style>
+        body{
+            background: lightgrey;
+        }
+    </style>

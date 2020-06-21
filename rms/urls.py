@@ -28,7 +28,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.first_page,name="first"),
+    path('',views.first_page,name="home"),
     path('dashboard/',views.dashboard,name="dashboard"),
 #    path('',include('django.contrib.auth.urls')),
     

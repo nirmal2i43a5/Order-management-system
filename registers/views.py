@@ -17,6 +17,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user, allowed_users, admin_only
+from django.http import HttpResponse, HttpResponseRedirect
+import json
 # from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -48,26 +50,46 @@ def first_page(request):
 #
 #  I copy this code from customers views of index function .So use class to inherit various class which prevent from copyin
 
-
-
-class loginPage(LoginView):
-	template_name = 'registers/login.html'
-	form_class = LoginForm
+# class loginPage(LoginView):
+# 	template_name = 'registers/login.html'
+# 	form_class = LoginForm
 	
-	# redirect_authenticated_user = False
+# 	# redirect_authenticated_user = False
+ 
 	
-	def get_success_url(self):#default
+# 	def get_success_url(self):#default
 		
-		if self.request.user.is_superuser:
-			return '/admin/'
+# 		if self.request.user.is_superuser:
+# 			return '/admin/'
 		
-		return '/dashboard'
-	
+# 		return '/dashboard'
+
+@unauthenticated_user
+def loginPage(request):
+	form = LoginForm()
+
+	if request.method == 'POST':
+		username = request.POST.get('username')
+		password =request.POST.get('password')
+		email =request.POST.get('email')
+
+		user = authenticate(request,email=email, username=username, password=password)
+
+		if user is not None:
+			login(request, user)
+			return redirect('home')
+		else:
+			messages.error(request, 'Username OR password is incorrect')
+
+	context = {'form':form}
+	return render(request, 'registers/login.html', context)
+
 	
 @unauthenticated_user
 def SignupView(request):
 
 	form = SignupForm()
+ 
 	if request.method == 'POST':
 		form = SignupForm(request.POST)
 		if form.is_valid():
