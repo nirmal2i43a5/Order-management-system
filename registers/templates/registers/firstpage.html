@@ -40,16 +40,29 @@
 
                 {% if request.user.is_superuser %}
 
-                <a href="/admin-profile/" class="btn btn-sm btn-warning float-right"> <i class="fas fa-eye"></i>  Profile </a>
+
+         
+                
+            <button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#adminModel">
+                <!--I am getting profile in the same page so dont need href i include user_view in this page -->
+
+              <i class="fas fa-eye"></i>  Profile
+
+            </button>
+
 
                 <div class="col">
                     <a class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#logOutModal" style="cursor: pointer;">  <i class="fa fa-sign-in-alt"></i> LOGOUT</a>
                  </div>
 
-                 {% else %}
+                 {% else %} 
 
-                 <a href="/employee-profile/" class="btn btn-sm btn-warning float-right"> <i class="fas fa-eye"></i>  Profile </a>
+                 <button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#employeeModel">
+                     <!--I am getting profile in the same page so dont need href i include user_view in this page -->
 
+                <i class="fas fa-eye"></i>  Profile
+
+                 </button>
                  <div class="col">
                      <a class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#logOutModal" style="cursor: pointer;">  <i class="fa fa-sign-in-alt"></i> LOGOUT</a>
                   </div>
@@ -92,6 +105,11 @@
     </nav>
 
 </div>
+
+{% include 'registers/user_view.html' %}
+
+{% include 'registers/admin_view.html' %}
+
 
 <div id="logOutModal" class="modal fade">
     <div class="modal-dialog">
