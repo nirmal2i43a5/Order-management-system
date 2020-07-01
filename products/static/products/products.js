@@ -12,6 +12,7 @@ $(document).ready(function () {
       type: 'get',
       dataType: 'json',
       beforeSend: function () {
+
         $("#modal-product .modal-content").html("");//optional--html() return innerHtml of selected elements
         $("#modal-product").modal("show");
       },
@@ -35,6 +36,7 @@ $(document).ready(function () {
      
       success : function (data) {
         if (data.form_is_valid) {//means if data['form_is_valid'] = True in views.py
+        
          $("#modal-product .close").click();//hide modal i.e form
      
         // $('#product-table tbody').html(data.html_product_list); // <-- Replace the table body

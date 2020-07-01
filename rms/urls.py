@@ -36,9 +36,10 @@ urlpatterns = [
     path('customers/',include('customers.urls', namespace="customer_app")),
     path('products/',include('products.urls', namespace="product_app")),#namespace is the app_name in products.urls
     path('orders/',include('orders.urls', namespace="order_app")),
-      path('employee-profile/',TemplateView.as_view(template_name="registers/user_view.html"),name="user-profile"),
-        path('admin-profile/',TemplateView.as_view(template_name="registers/admin_view.html"),name="admin-profile"),
     
+    
+#    path('',include('registers.profile_urls',namespace="view_app")),
+
     path('reset_password/',auth_views.PasswordResetView.as_view(template_name = 'passwordreset/password_reset_email.html'), 
          name = "password_reset"),
     

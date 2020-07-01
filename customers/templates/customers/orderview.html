@@ -18,9 +18,9 @@
 
 
         {% endif %}
-            ><button class="btn btn-link btn-sm order-1 order-lg-0"
-            id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i></button><!-- Navbar Search-->
+            <button type="button" id="sidebarToggle" class="btn btn-warning text-black-50">
+                <i class="fas fa-align-left"></i>
+              </button>!-- Navbar Search-->
 
             <div class="col">
                 
@@ -107,11 +107,15 @@
                             data-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
-                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a><a
-                                    class="nav-link" href="/reset_password">Forgot Password</a>
-                            </nav>
+                                {% if user.is_authenticated %}
 
+                                <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
+
+                                {% else %}
+                                <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
+                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a>
+                                {% endif %}
+                            </nav>
 
 
                         </div>
@@ -121,18 +125,10 @@
                                 <i class="fas fa-chart-area"></i>
                             </div>
                             Charts
-                        </a><a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-table"></i>
-                            </div>
-                            Tables
                         </a>
                     </div>
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Admin
-                </div>
+             
             </nav>
         </div>
 
@@ -153,7 +149,7 @@
     <div class="col">
         
 
-        <div class="card border-dark" style="margin-left:36%; margin-right:10%;padding:10px;margin-bottom:10px;">
+        <div class="card border-dark" style="margin-left:30%; ">
             <h3 class="card-header" style="text-align: center;"> Order Details of <strong>{{customer.name}}</strong></h3>
 
         
@@ -162,13 +158,13 @@
       
     </div>
 
-    <div class="col-md-2"  style="margin-right:14%;"> 
- <Strong><div style="display: inline-block;">Print Invoice : </div> </Strong> <a   href = " {% url 'customer_app:bill' customer.id  %}"class="btn  btn-sm btn-outline-danger mt-4" >  <i class="fas fa-file-invoice fa-3x"></i></a> 
+    <div class="col-md-2"  style="margin-right:20%;"> 
+  <a   href = " {% url 'customer_app:bill' customer.id  %}"class="btn  btn-primary mt-2 float-right" >Print Invoice</a> 
 
     </div>
-    </div>
-
-
+    
+</div>
+<hr>
  
 
       
@@ -214,7 +210,7 @@
                     <td>{{order.status}}</td>
                     <td>
                         <a href="#"> <i class="fa fa-minus mr-2"></i></a>
-                        {{order.quantity}}
+                        {{order.quantity}} {{order.product.unit}}
                          <a href=""><i class="fa fa-plus ml-2"></i></a>
                 </td>
                 <td>{{order.product.price}}</td>

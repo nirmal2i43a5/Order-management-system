@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 def create(request,cid):
     '''Below I replace OrderForm with'''
     
-    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=1)  
+    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=3)  
     #it means maila customer lai click garda order ma bhako detail access garako xu with instance
      #parent model and then child model---
     #we can have multiple order so we need to tell which to allow by fields
@@ -154,9 +154,10 @@ def edit(request, oid):
 def delete(request, oid):
         # cus=Customer.objects.get(id=pk)
     ord = get_object_or_404(Order,pk = oid) 
+    
     if request.method=='POST':#if i confirm in delete.html page
         ord.delete()   #grab customer details and delete and after deleting moves to /customers/list/
         return redirect('order_app:list')
     
-    return render(request,'orders/delete.html',{'name':ord})#urls.py ko url render ma url search garxa at first
+    return render(request,'orders/delete.html',{'orders':ord})#urls.py ko url render ma url search garxa at first
 

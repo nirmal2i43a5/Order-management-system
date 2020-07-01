@@ -1,5 +1,10 @@
 
 {% load static %}
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +15,9 @@
     <meta name="author" content="" />
     <title>Dashboard</title>
     <!--I include this later-->
+
+    <script src="{% static 'vendor/js/scripts.js' %}"> </script>
+
     <link href="{% static 'vendor/css/styles.css' %}" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
         crossorigin="anonymous" />
@@ -33,7 +41,7 @@
                         <a class="btn btn-sm btn-warning float-right"> Hey, {{request.user.username}} </a>
                        
                     </div>
-                    <a href="/admin-profile/" class="btn btn-sm btn-warning float-right"> <i class="fas fa-eye"></i> Admin profile </a>
+                  
                
                   
                     <div class="col">
@@ -105,6 +113,7 @@
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                             aria-expanded="false" aria-controls="collapsePages">
+
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-book-open"></i>
                             </div>
@@ -132,18 +141,10 @@
                                     <i class="fas fa-chart-area"></i>
                                 </div>
                                 Charts
-                            </a><a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-table"></i>
-                                </div>
-                                Tables
                             </a>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Admin
-                    </div>
+                   
             </nav>
         </div>
 
@@ -257,17 +258,38 @@
                 </h3>
         </div>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-            crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
-            crossorigin="anonymous"></script>
-        <script src="assets/demo/datatables-demo.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+
+        <script src="{% static 'vendor/assets/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'vendor/assets/demo/chart-bar-demo.js' %}"></script>
+
+
+
+
+        <script>
+
+    (function($) {
+        "use strict";
+    
+        // Add active state to sidbar nav links
+        var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+            $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
+                if (this.href === path) {
+                    $(this).addClass("active");
+                }
+            });
+    
+        // Toggle the side navigation
+        $("#sidebarToggle").on("click", function(e) {
+            e.preventDefault();
+            $("body").toggleClass("sb-sidenav-toggled");
+        });
+    })(jQuery);
+    
+        </script>
 </body>
 
 </html>

@@ -37,9 +37,9 @@
 
 
         {% endif %}
-        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
+        <button type="button" id="sidebarToggle" class="btn btn-warning text-black-50">
+            <i class="fas fa-align-left"></i>
+          </button>
 
             <div class="col">
                 
@@ -197,40 +197,41 @@
 
     </div>
 </div>
-<hr>
 
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-left:18%;">
 
-<div class="row " style="margin-left:18%;">
+    {% include "products/formsearch.html" %}
+    
+   
+    <button class="navbar-toggler mt-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse mt-2" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
 
-    <div class="col">
+        <li class="nav-item active">
+
+            {% if request.user.is_superuser %}
+            <button type=" button " data-url="{% url 'product_app:create' %}" class=" btn btn-primary ml-2 mb-2 js-product-create ">
         
-        {% include "products/formsearch.html" %}
-
-        {% if request.user.is_superuser %}
-        <button type=" button " data-url="{% url 'product_app:create' %}" class=" btn btn-primary js-product-create ">
-
-            <i class=" fas fa-plus "></i> Add Product
-            <!-- I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
-        </button>
-        {% endif %}
-
-        <a href="{% url 'product_app:pdf' %}" class="btn  btn-danger ml-3" style="margin-right:5%;"> PDF</a>
-
-        <button onclick="ScrollToBottom()" style="margin-left:30%;" class="btn btn-primary"> <i
-                class="fas fa-arrow-alt-circle-down fa-1x"></i>
-        </button>
-
+                <i class=" fas fa-plus "></i> Product
+                <!-- I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
+            </button>
+            {% endif %}
+            
+        </li>
+        <li class="nav-item ">
+            <a href="{% url 'product_app:pdf' %}" class="btn  btn-danger ml-2"> <i class="fas fa-file-pdf"></i> PDF</a>
+        </li>
+      
+       
+     
+      </ul>
+    
     </div>
-
-
-
-
-
-
-
-
-</div>
+  </nav>
 <hr>
 
 
@@ -267,7 +268,7 @@
                             <td>{{product.price}}</th>
 
                             <td>{{product.description}}</td>
-                            <td>{{product.quantity}}</td>
+                            <td>{{product.quantity}} {{product.unit}}</td>
                             <td>{{product.created_at}}</td>
 
 
@@ -301,6 +302,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -360,9 +362,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 

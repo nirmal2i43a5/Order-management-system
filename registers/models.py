@@ -16,19 +16,13 @@ class Profile(models.Model):#THis is employee profile
 	lname = models.CharField(max_length=100,null=True)
 	address = models.CharField(max_length=100, null=True)
 	contact = models.CharField(max_length=100,null =True)
-	email=models.EmailField(max_length=100,null=True,)
+	email=models.EmailField(max_length=100,null=True)
 	profile_img = models.ImageField(upload_to = 'Profile_img', null=True, blank=True)
  
 	def __str__(self):
 		return self.user.username    #i use this function because i dont use null =True in user -everytime i need this
 	
- 
- 
- 
- 
- 
- 
-	
+
 	@property
 	def imageUrl(self):
      

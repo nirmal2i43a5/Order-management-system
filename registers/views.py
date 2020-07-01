@@ -67,6 +67,7 @@ def first_page(request):
 @unauthenticated_user
 def loginPage(request):
 	form = LoginForm()
+	# form = LoginForm(reequest.POST or None)
 
 	if request.method == 'POST':
 		username = request.POST.get('username')
@@ -132,6 +133,16 @@ class UserLogout(LogoutView):
 	'''
 	# template_name = 'logout.html'
 	pass
+
+
+
+# def employeeProfile(request):
+#     return render(request,'registers/user_view.html')
+
+
+# @admin_only
+# def adminProfile(request):
+#     return render(request,'registers/admin_view.html')
 
 
 	
