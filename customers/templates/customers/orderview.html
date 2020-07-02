@@ -221,7 +221,7 @@
                     <td>{{order.get_total_item_price}}</td><!--to get price for each row product call get_total_item_price in models.py of orders-->
                     
                     <!-- <td>{{customer.per_total}}</td> -->
-                    <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success btn-sm"><i
+                    <td><a href="{% url 'order_app:edit' order.customer.id order.id %}" class="btn btn-success btn-sm"><i
                                 class="fa fa-edit"></i></a>
                         <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i
                                 class="fa fa-trash-alt"></i></a>

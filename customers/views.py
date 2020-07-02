@@ -215,6 +215,7 @@ def cus_ord_view(request, cid):
    
     order_count = orders.count()    
     new_total=0.00
+    
     for order in customer.order_set.all():
         per_total_price = float(order.product.price) * order.quantity
         # customer.per_total = per_total_price--to get the price of respective products
