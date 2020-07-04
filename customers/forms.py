@@ -24,7 +24,9 @@ class CustomerModelForm(ModelForm):
     class Meta:
         model=Customer
         fields=['name','email','contact']
-        
+
+
+
  
  
  

@@ -113,6 +113,7 @@ def search(request):
             
         data['html_list'] = render_to_string('orders/get_search_orders.html',context,request=request)
         return JsonResponse(data)
+    
 
     else:
         orders = Order.objects.all()
@@ -123,7 +124,7 @@ def search(request):
         return JsonResponse(data)
 
 
-def edit(request, oid):    
+def edit(request, cid, oid):    
     # ord=Order.objects.get(pk=oid) #i get all value and show that value to next page
     
     ord = get_object_or_404(Order,pk = oid)
@@ -140,7 +141,7 @@ def edit(request, oid):
             form.save()
             messages.success(request,'Order is successfully updates.',extra_tags='alert')
             
-            return redirect('order_app:list')
+            return redirect('customer_app:view', cid)
             
             # return redirect("/customers/order/", pk = cid)#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
 

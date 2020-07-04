@@ -7,6 +7,7 @@ from django_filters import DateFilter,CharFilter
 from customers.models import Customer
 
 
+
 class CustomerFilter(django_filters.FilterSet):
     
     # start_date = DateFilter(field_name="created_at",lookup_expr='gte')
@@ -29,3 +30,6 @@ class CustomerFilter(django_filters.FilterSet):
         
         fields = ('name',)#generate filter form with all first_name
        
+       
+       
+

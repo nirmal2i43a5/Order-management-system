@@ -161,10 +161,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Admin
-                </div>
+               
             </nav>
         </div>
 
@@ -239,7 +236,7 @@
     <div class="row">
         <div class="col">
             <div class="col-md-10">
-                <table class="table table-sm table-responsive-sm table-hover table-striped  table-bordered" width="100%" id="product-table"
+                <table class="table table-sm table-responsive-sm table-hover table-striped text-nowrap table-bordered" width="100%" id="product-table"
                     style="margin-left:12%;">
                     <thead class="thead-dark">
                         <tr>
@@ -280,7 +277,7 @@
                                     {% if request.user.is_superuser %}
                                     <button type="button" data-url="{% url 'product_app:delete_product' product.id %}"
                                         class="ml-1 btn btn-danger btn-sm js-product-delete "><i
-                                            class="fas fa-trash-alt"></i></a>
+                                            class="fas fa-trash-alt"></i></button>
                                         {% endif %}
                             </td>
                         </tr>
@@ -328,7 +325,7 @@
     <div class="col">
 
 
-        <div style="float:right;margin-right:40%;">
+        <div style="float:right;">
 
             {% if products.has_other_pages %}
             <ul class="pagination">
@@ -363,6 +360,6 @@
     </div>
 </div>
 
-
-
 {% endblock %}
+
+

@@ -275,11 +275,11 @@
                     </button>
             </li>
             <li class="nav-item">
-                <button type="button" class="btn btn-primary mt-1 ml-2" href="{% url 'customer_app:export'%}"><i class="fas fa-file-export"></i> Export</button>
+                <a type="button" class="btn btn-primary mt-1 ml-2" href="{% url 'customer_app:export' %}"><i class="fas fa-file-export"></i> Export</a>
             </li>
            
             <li class="nav-item">
-                <button type="button" href="{% url 'customer_app:pdf' %}" class="btn  btn-danger mt-1 ml-2"><i class="fas fa-file-pdf"></i> PDF</button
+                <a type="button" href="{% url 'customer_app:pdf' %}" class="btn  btn-danger mt-1 ml-2"><i class="fas fa-file-pdf"></i> PDF</a>
             </li>
 
           
@@ -294,7 +294,7 @@
 <div class="container">
     <div class="col-md-11" >
 
-        <table class="table table-sm table-responsive-sm table-hover table-responsive-sm  table-striped table-bordered display" style="margin-left:11%;"  id="table_id" border='2' align="center"  style="width:100%">
+        <table class="table table-sm table-responsive-sm table-hover text-nowrap table-responsive-sm  table-striped table-bordered display" style="margin-left:11%;"  id="table_id" border='2' align="center"  style="width:100%">
             <thead class="thead-dark">
                 <tr style="text-align: center;">
 
@@ -323,7 +323,7 @@
                     <td>{{customer.name}} </td>
                     <td>{{customer.email}}</th>
                     <td>{{customer.contact}}</td>
-                    <td>{{customer.created_at}}</td>
+                    <td>{{customer.date_created}}</td>
 
                     <td>
                         <a href="{% url 'customer_app:edit' customer.id %}" class="btn btn-success btn-sm">
@@ -359,7 +359,7 @@
             <div class="col">
 
 
-                <div style="margin-left:18%;" class="float-right">
+                <div class="float-right">
 
                     {% if customers.has_other_pages %}
                     <ul class="pagination">

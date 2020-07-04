@@ -133,98 +133,65 @@ def search(request):
     # products = Product.objects.all()
     # myFilter = ProductFilter(request.GET,queryset=products)
     # products = myFilter.qs
-  
-  
     if field_value:
         customers = Customer.objects.filter(
                                             Q(name__contains=field_value)
                                            |Q(email__icontains=field_value) 
-                                           | Q(contact__contains=field_value)
-                                         
-                                             
-                                        
+                                           | Q(contact__contains=field_value)                        
                                            )
-        
-        
-
+    
         context = {'customers': customers}
-            
         data['html_list'] = render_to_string('customers/get_search_customers.html',context,request=request)
         return JsonResponse(data)
-
     else:
         customers = Customer.objects.all()
-       
         context = {'customers': customers}
         data['html_list'] = render_to_string('customers/get_search_customers.html',context,request=request)
-
         return JsonResponse(data)
 
 def edit(request, cid):    
     # cus=Customer.objects.get(id=pk) #i get all value and show that value to next page
     cus = get_object_or_404(Customer,pk = cid)
     form=CustomerModelForm(instance=cus)
-    
     if(request.method=='POST'):
         form=CustomerModelForm(request.POST,instance=cus)
         if(form.is_valid()):
             form.save()
             messages.success(request, 'Customer record is successfully updated.',extra_tags='alert') #extra_tags assists uu to use alert
-            
             return redirect('/customers/list/?edited-successfully')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
-      
-          
-
-
-
     # else:
-    #     form = CustomerModelForm()
-        
-  
+    #     form = CustomerModelForm() 
     return render(request,'customers/update.html',{'form':form})
 
-
 def delete(request, cid):
-    
-    
     # cus=Customer.objects.get(id=pk)
     cus = get_object_or_404(Customer,pk = cid)
     
-                                     # print(f'I am instance of {{cus}}')
-   
     if request.method=='POST':  #if i confirm in delete.html page
         cus.delete()   #grab customer details and delete and after deleting moves to /customers/list/
-     
         return redirect('customer_app:list')
-    
     return render(request,'customers/delete.html',{'name':cus })#urls.py ko url render ma url search garxa at first
 
 
 def cus_ord_view(request, cid):
-    
-    
     # order = Order.objects.filter(customer__first_name="Shankar") 
     # -->maila particular person ko order retrieve garaxu--
-    
     customer = get_object_or_404(Customer,pk=cid) #use to get beautiful error -u can also use below
     # customer = Customer.objects.get(pk = cid)#return a particular customer name according to choosen primary key
-  
     orders = customer.order_set.all()#particular customer ko particular order select garxa--ot is possible with customer id
     #here order in  order_set is attribute 
     #Order ma Customer is foreign key so ot os possible to use order_set with customer
-   
+    order_count = orders.count()
     order_count = orders.count()    
-    new_total=0.00
+    customer_total_order_price=0.00
+    
     for order in customer.order_set.all():
         per_total_price = float(order.product.price) * order.quantity
         # customer.per_total = per_total_price--to get the price of respective products
         #return value of first product i.e first row
-        new_total += per_total_price
+        customer_total_order_price += per_total_price
         
-    customer.total = new_total#in orderview.html Total : {{customer.total}}--is the fianl result after loop completes
-    customer.save()
-    context = {'customer':customer, 'orders':orders, 'order_count':order_count}
- 
+    context = {'customer_total_price':customer_total_order_price,'customers':customer, 'orders':orders, 'order_count':order_count,'order_num':order_count}
     return render(request,'customers/orderview.html',context)
 
     

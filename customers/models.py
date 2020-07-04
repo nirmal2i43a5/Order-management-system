@@ -7,7 +7,7 @@ class Customer(models.Model):
     name=models.CharField(max_length=50,null=True)
     email=models.CharField(max_length=50)
     contact=models.CharField(max_length=50)
-    created_at=models.DateTimeField(auto_now=True)
+    date_created=models.DateTimeField(auto_now=True)
     # status=models.BooleanField()    
       
     def __str__(self):

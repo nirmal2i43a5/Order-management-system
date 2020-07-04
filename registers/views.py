@@ -19,29 +19,55 @@ from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.http import HttpResponse, HttpResponseRedirect
 import json
+
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from registers.filters import CustomerFilter
+
+from django.utils.timezone import datetime
 # from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
+# @allowed_users(allowed_roles=['admin'])
 @login_required(login_url='/user/login/')
 @admin_only
-# @allowed_users(allowed_roles=['admin'])
 def dashboard(request):
+	# customer = Customer.objects.get(pk=cid)
 	customers=Customer.objects.all()
 	total_customers=customers.count()
 	orders=Order.objects.all()
 	total_orders=orders.count()
 	products = Product.objects.all()
-	total_products = products.count()
-	
+	total_products = products.count()	
 	pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
 	delivered=orders.filter(status="Delivered").count()
-	context={
-		'customers':customers,'orders':orders,'total_orders':total_orders,
-		'orders_pending':pending,'orders_delivered':delivered,'total_products':total_products,'total_customers':total_customers
-		}
-	return render(request,'registers/index.html',context)
+ 
+ 
+	myFilter = CustomerFilter(request.GET, queryset=customers)
+	customers = myFilter.qs #in jinja this customers goes
+
+	today_date = datetime.today()#filter every day order product for daily expenses	
+	today_order = orders.filter(created_at__year = today_date.year,created_at__month = today_date.month,created_at__day = today_date.day)
+	
+	order_total_price=0.00
+	for order in today_order:
+		per_total_price = float(order.product.price) * order.quantity
+		order_total_price += per_total_price
   
+	# customer = Customer.objects.get(pk=16) #but i need pk = cid(update)
+	# particular_customer_price=0.00
+	# for order in customer.order_set.all():
+	# 	per_total_price = float(order.product.price) * order.quantity
+	# 	particular_customer_price += per_total_price
+   
+	context={
+			'customers':customers,'orders_total_price':order_total_price,'total_orders':total_orders,
+   			'myFilter':myFilter,
+			'orders_pending':pending,'orders_delivered':delivered,'total_products':total_products,'total_customers':total_customers
+			}
+	
+	return render(request,'registers/index.html',context)
 
 # Create your views here.
 def first_page(request):
@@ -64,6 +90,7 @@ def first_page(request):
 		
 # 		return '/dashboard'
 
+
 @unauthenticated_user
 def loginPage(request):
 	form = LoginForm()
@@ -85,7 +112,8 @@ def loginPage(request):
 	context = {'form':form}
 	return render(request, 'registers/login.html', context)
 
-	
+
+
 @unauthenticated_user
 def SignupView(request):
 

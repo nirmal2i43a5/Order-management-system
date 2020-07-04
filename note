@@ -77,9 +77,4 @@ json site link
 #In this project because of some irregular design while using ajax I comment this line in products.js.Due to which i have to do refresh after adding product
 $('#product-table tbody').html(data.html_product_list); 
 
-<<<<<<< HEAD
-
-   
-    
-=======
->>>>>>> test
+=>make this http://127.0.0.1:2000/orders/edit/16/49/ slug for customer and particular products

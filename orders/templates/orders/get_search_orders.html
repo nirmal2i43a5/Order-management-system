@@ -7,13 +7,13 @@
    
  
     <td>{{order.product.name}}</th>
-        <td>{{order.product.category}}</td>
+        <!-- <td>{{order.product.category}}</td> -->
         <td>{{order.quantity}}</td>
 
     <td>{{order.created_at}}</td>
     <td>{{order.status}}</td>
    
-    <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+    <td><a href="{% url 'order_app:edit' order.customer.id order.id%}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
         <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></a>
     </td>
 </tr>

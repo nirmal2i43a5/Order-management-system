@@ -18,28 +18,29 @@
 
 
         {% endif %}
-            <button type="button" id="sidebarToggle" class="btn btn-warning text-black-50">
-                <i class="fas fa-align-left"></i>
-              </button>!-- Navbar Search-->
+        <button type="button" id="sidebarToggle" class="btn btn-warning text-black-50">
+            <i class="fas fa-align-left"></i>
+        </button>!-- Navbar Search-->
 
-            <div class="col">
-                
-                <a class="float-right" style="color:white;"> Hello, {{request.user.username}} </a>
-               
+        <div class="col">
+
+            <a class="float-right" style="color:white;"> Hello, {{request.user.username}} </a>
+
+        </div>
+
+        <div class="col">
+            <div data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
+
+                <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i
+                        class="fa fa-sign-out-alt"></i> LOGOUT</a>
             </div>
-      
-<div class="col">
-    <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
-             
-        <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
-    </div>
-</div>
+        </div>
 
-     
+
     </nav>
 
-      <!--logout model js popup for confirm or stay-->
-      <div id="logOutModal" class="modal fade">
+    <!--logout model js popup for confirm or stay-->
+    <div id="logOutModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,7 +69,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Functions</div>
-                        <a class="nav-link" href="/">
+                        <a class="nav-link" href="/dashboard">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-tachometer-alt"></i>
                             </div>
@@ -128,7 +129,7 @@
                         </a>
                     </div>
                 </div>
-             
+
             </nav>
         </div>
 
@@ -140,112 +141,126 @@
 
 
 </body>
-
-
 <br><br><br>
-
-
-<div class="row">
-    <div class="col">
-        
-
-        <div class="card border-dark" style="margin-left:30%; ">
-            <h3 class="card-header" style="text-align: center;"> Order Details of <strong>{{customer.name}}</strong></h3>
-
-        
-        </div>
-        
-      
-    </div>
-
-    <div class="col-md-2"  style="margin-right:20%;"> 
-  <a   href = " {% url 'customer_app:bill' customer.id  %}"class="btn  btn-primary mt-2 float-right" >Print Invoice</a> 
-
-    </div>
-    
-</div>
-<hr>
- 
-
-      
-
 <div class="container">
-    <div class="col-md-10" style="margin-right:5%;margin-left:9%;">
-        <table class="table table-responsive-sm table-sm table-hover table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr style="text-align: center;">
+   <div class="row">
+       <div class="col-md ml-4">
+        <div style="margin-left:80px;">
+            <div class="card bg-primary text-center text-white ml-2 mb-3" id="total-orders">
+                <div class="card-header">
+                    <h5 class="card-title">Total Orders</h5>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{order_count}}</h5>
+                </div>
+            </div>
+        </div>
+       </div>
+       <div class="col-md">
+        <div style="margin-left:80px;">
+            <div class="card bg-info text-center text-white ml-2 mb-3" id="total-orders">
+                <div class="card-header">
+                    <h5 class="card-title">Total Price</h5>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{customer_total_price}}</h5>
+                </div>
+            </div>
+        </div>
+       </div>
+   </div>
+<hr>
+   <div class="row">
+    <div class="col">
 
 
-                    <th>Product</th>
+        <div class="card border-dark" style="margin-left:26%; ">
+            <h3 class="card-header" style="text-align: center;"> Order Details of <strong>{{customers.name}}</strong>
+            </h3>
+        </div>
+    </div>
 
-                    <th>Category</th>
-                    <th>Created</th>
-                    <th>Status</th>
-                    <th>Quantity</th>
-                    <th>Per Price</th>
-                    <th> Subtotal</th>
-                    <th>Action</th>
+    <div class="col-md-2" style="margin-right:20%;">
+        <a href=" {% url 'customer_app:bill' customers.id  %}" class="btn  btn-primary mt-2 float-right">Print
+            Invoice</a>
+    </div>
+</div>
+   
 
-                </tr>
+<hr>
+            <div class="col-md-10" style="margin-left:15%;">
+                <table class="table table-responsive-sm table-sm table-hover text-nowrap table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr style="text-align: center;">
 
 
-            </thead>
-            <tbody>
+                            <th>Product</th>
 
-                {% for order in orders %}
+                            <th>Category</th>
+                            <th>Created</th>
+                            <th>Status</th>
+                            <th>Quantity</th>
+                            <th>Per Price</th>
+                            <th> Subtotal</th>
+                            <th>Action</th>
 
-                <tr>
+                        </tr>
 
-                    <td>{{order.product.name}}</th>
-                    <td>{{order.product.category}}</td>
 
-                    <!--
+                    </thead>
+                    <tbody>
+
+                        {% for order in orders %}
+
+                        <tr>
+
+                            <td>{{order.product.name}}</th>
+                            <td>{{order.product.category}}</td>
+
+                            <!--
         <td>{{order.product}}</th> also give same result for name
    maila order table ma Product table ko access garda use product object
    like above
    product=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
    -->
 
-                    <td>{{order.created_at}}</td>
-                    <td>{{order.status}}</td>
-                    <td>
-                        <a href="#"> <i class="fa fa-minus mr-2"></i></a>
-                        {{order.quantity}} {{order.product.unit}}
-                         <a href=""><i class="fa fa-plus ml-2"></i></a>
-                </td>
-                <td>{{order.product.price}}</td>
-                    <td>{{order.get_total_item_price}}</td><!--to get price for each row product call get_total_item_price in models.py of orders-->
-                    
-                    <!-- <td>{{customer.per_total}}</td> -->
-                    <td><a href="{% url 'order_app:edit' order.id%}" class="btn btn-success btn-sm"><i
-                                class="fa fa-edit"></i></a>
-                        <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i
-                                class="fa fa-trash-alt"></i></a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="8" style="text-align: center;" >
-                       <strong > {{customer.name }} </strong> Order is empty.Please Place the Order!
-                    </td>
-                </tr>
+                            <td>{{order.created_at}}</td>
+                            <td>{{order.status}}</td>
+                            <td>
+                                <a href="#"> <i class="fa fa-minus mr-2"></i></a>
+                                {{order.quantity}} {{order.product.unit}}
+                                <a href=""><i class="fa fa-plus ml-2"></i></a>
+                            </td>
+                            <td>{{order.product.price}}</td>
+                            <td>{{order.get_total_item_price}}</td>
+                            <!--to get price for each row product call get_total_item_price in models.py of orders-->
 
-                {% endfor %}
+                            <!-- <td>{{customer.per_total}}</td> -->
+                            <td><a href="{% url 'order_app:edit' order.customer.id order.id %}"
+                                    class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i
+                                        class="fa fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" style="text-align: center;">
+                                <strong> {{customer.name }} </strong> Order is empty.Please Place the Order!
+                            </td>
+                        </tr>
 
-
-            </tbody>
+                        {% endfor %}
 
 
+                    </tbody>
+                </table>
+                
+               
 
-        </table>
-        <div class="card" style="margin-right:70%;" >
-            <div class="card-body" >
-               <strong class="btn btn-success">Total</strong> = <strong style="font-size:20px;">{{customer.total}}</strong>
-            </div>
-        </div>
+            
        
+
     </div>
-    
 </div>
 
 

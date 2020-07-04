@@ -1,5 +1,5 @@
 
-    (function($) {
+    $(document).ready(function(){
     "use strict";
 
     // Add active state to sidbar nav links
@@ -15,4 +15,4 @@
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
-})(jQuery);
+});

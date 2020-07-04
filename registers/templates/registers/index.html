@@ -1,10 +1,5 @@
 
 {% load static %}
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +10,16 @@
     <meta name="author" content="" />
     <title>Dashboard</title>
     <!--I include this later-->
+    <!-- <script src="{% static 'js/jquery-3.1.1.min.js' %}" crossorigin="anonymous"></script> -->
 
-    <script src="{% static 'vendor/js/scripts.js' %}"> </script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 
     <link href="{% static 'vendor/css/styles.css' %}" rel="stylesheet" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
         crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
@@ -173,22 +174,21 @@
                         <div class="mb-5 ml-4">
                             <a href="{% url 'product_app:list' %}" class="btn btn-warning"><i class="fas fa-eye"></i>  View details</a>
                         </div>
-
                     </div>
 
                     <div class="col">
                         <div class="col-md">
                             <div class="card bg-secondary text-center text-white  mb-3" id="orders-delivered">
                                 <div class="card-header">
-                                    <h5 class="card-title">Total Orders</h5>
+                                    <h5 class="card-title">Today Sales</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h3 class="card-title">{{total_orders}}</h3>
+                                    <h3 class="card-title">${{orders_total_price}}</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-5 ml-3">
-                            <a href="{% url 'order_app:list' %}" class="btn btn-warning"><i class="fas fa-eye"></i>  View details</a>
+                            <a href="{% url 'order_app:list' %}" class="btn btn-warning"><i class="fas fa-eye"></i>  View Orders</a>
                         </div>
 
                     </div>
@@ -210,43 +210,63 @@
 
                     </div>
                 </div>
-
-
-
-
-
-
-
                 <!--chart for content-->
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-area mr-1"></i>Products Chart
-                            </div>
-                            <div class="card-body">
-                                <canvas id="myAreaChart" width="100%" height="40"></canvas>
-                            </div>
+                <div class="card mb-4">
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Summary Table<hr>
+                             
+                
+                                    {% include 'registers/index_search.html' %}
+                             
                         </div>
+                        
                     </div>
-                    <div class="col-xl-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-bar mr-1"></i>Customers Chart
-                            </div>
-                            <div class="card-body">
-                                <canvas id="myBarChart" width="100%" height="40"></canvas>
-                            </div>
+                    
+                   
+                       
+                </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>View</th>
+                                        <th>Customer</th>
+                                        <th>Customer Id</th>
+                                   
+                                        <th>Date</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                             {% for customer in customers %}
+
+                             <tbody>
+                                <tr>
+                                    <td><a href=" {% url 'customer_app:bill' customer.id  %}"><i class="fas fa-2x fa-file-pdf"></i></a></td>
+                                    <td>{{customer.name}}</td>
+                                    <td>{{customer.id}}</td>
+                               
+                                    <td>{{customer.date_created}}</td>
+                                    <td>{{customer_price}}</td>
+                                </tr>
+                            
+                            </tbody>
+
+
+                            {% endfor %}
+                            </table>
                         </div>
                     </div>
                 </div>
 
 
-
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Nirmal Pandey 2019</div>
+                         <strong>   <div class="text-muted">Copyright &copy; Nirmal Pandey 2020</div></strong>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
@@ -257,39 +277,36 @@
                 </footer>
                 </h3>
         </div>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+     
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+     
+   
 
-        <script src="{% static 'vendor/assets/demo/chart-area-demo.js' %}"></script>
-        <script src="{% static 'vendor/assets/demo/chart-bar-demo.js' %}"></script>
+   
 
-
-
-
+    
         <script>
 
-    (function($) {
-        "use strict";
-    
-        // Add active state to sidbar nav links
+    $(document).ready(function(){
         var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
-            $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
-                if (this.href === path) {
-                    $(this).addClass("active");
-                }
-            });
-    
-        // Toggle the side navigation
-        $("#sidebarToggle").on("click", function(e) {
-            e.preventDefault();
-            $("body").toggleClass("sb-sidenav-toggled");
+        $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
+            if (this.href === path) {
+                $(this).addClass("active");
+            }
         });
-    })(jQuery);
+
+    // Toggle the side navigation
+    $("#sidebarToggle").on("click", function(e) {
+        e.preventDefault();
+        $("body").toggleClass("sb-sidenav-toggled");
+    });
+
+    })
     
         </script>
+
+     
+        
 </body>
 
 </html>

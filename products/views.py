@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 
 from orders.models import Order
 from products.models import Product
+from customers.models import Customer
 from .forms import ProductForm
 
 from .filters import ProductFilter
@@ -13,8 +14,10 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
+from django.db.models import Q,Sum
 from django.contrib.auth.decorators import login_required
+
+from django.core import serializers
 
 
 
@@ -69,7 +72,7 @@ def index(request):
 
 def getPaginator(request,object):
     page = request.GET.get('page', 1)#means page  number 1
-    paginator = Paginator(object, 10)
+    paginator = Paginator(object, 5)
   
     try:
         products = paginator.page(page)
@@ -193,21 +196,34 @@ def delete_product(request, pid):
     else:
         
         context = {'pro': product}#this goes to action pro.id in delete.html
-        data['html_form'] = render_to_string('products/delete.html', context, request=request)
-    
-    
+        data['html_form'] = render_to_string('products/delete.html', context, request=request)    
     return JsonResponse(data)
 
 
 
+
+def productData(request,cid):
     
+    productData = []
+    cus = Customer.objects.get(pk=cid)
+    # # customers = cus.values('name','created_at')
 
-
-
+    order = cus.order_set.all()
+    # order =  Order.objects.values('created_at','product__price')
+    # productData = serializers.serialize('json',order)
+    # productData = productData['name']
+    
+    
+    for i in order:
+        productData.append({i.customer.name:i.product.price})#right is value(can be value or string) and left(always string cannot be number) is keys in dict 
+        # Date.append(i['created_at'])
+        # productPrice.append(i['product__price'])
+     
+    print(productData)
+    return JsonResponse(productData,safe=False)
 
 # ------------------------------------------------------------------------------------------------------------------------------------
-  
-    '''
+'''
 
 def delete(request, pid):
  # cus=Customer.objects.get(id=pk)

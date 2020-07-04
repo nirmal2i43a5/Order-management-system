@@ -12,7 +12,7 @@ class CustomerAdmin(admin.ModelAdmin):
     #     return obj
 
     # list_display=['first_name','last_name','email','contact','created_at','status']
-    list_display=['name','email','contact','created_at']
+    list_display=['name','email','contact','date_created']
     #full_name la first name and last name lai concatenate garxa
     
     

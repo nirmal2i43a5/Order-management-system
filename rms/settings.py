@@ -149,4 +149,3 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')#this is the jjpassword that 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
-
