@@ -4,15 +4,12 @@ from django.shortcuts import render,reverse,redirect,resolve_url
 from django.contrib.auth.views import LoginView,LogoutView
 
 from django.conf import settings
-
 from django.views.generic import CreateView
-
 from .forms import SignupForm,LoginForm
 from django.contrib import messages
-
 from customers.models import Customer
 from orders.models import Order
-from products.models import Product
+from products.models import Product,HistConf
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
@@ -23,17 +20,17 @@ import json
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from registers.filters import CustomerFilter
+from datetime import datetime
 
-from django.utils.timezone import datetime
+
 # from django.contrib.auth.mixins import LoginRequiredMixin
-
-
 
 # @allowed_users(allowed_roles=['admin'])
 @login_required(login_url='/user/login/')
 @admin_only
 def dashboard(request):
 	# customer = Customer.objects.get(pk=cid)
+
 	customers=Customer.objects.all()
 	total_customers=customers.count()
 	orders=Order.objects.all()
@@ -48,47 +45,36 @@ def dashboard(request):
 	customers = myFilter.qs #in jinja this customers goes
 
 	today_date = datetime.today()#filter every day order product for daily expenses	
+	today_customers = customers.filter(date_created__year = today_date.year,date_created__month = today_date.month,date_created__day = today_date.day).count()
 	today_order = orders.filter(created_at__year = today_date.year,created_at__month = today_date.month,created_at__day = today_date.day)
 	
 	order_total_price=0.00
+ 
 	for order in today_order:
 		per_total_price = float(order.product.price) * order.quantity
 		order_total_price += per_total_price
-  
-	# customer = Customer.objects.get(pk=16) #but i need pk = cid(update)
+	# customer = Customer.objects.get(pk=cid) #but i need pk = cid(update)
 	# particular_customer_price=0.00
 	# for order in customer.order_set.all():
 	# 	per_total_price = float(order.product.price) * order.quantity
-	# 	particular_customer_price += per_total_price
-   
+	# 	particular_customer_price += per_total_price 
 	context={
 			'customers':customers,'orders_total_price':order_total_price,'total_orders':total_orders,
-   			'myFilter':myFilter,
+   			'myFilter':myFilter,'today_customers':today_customers,'current_data':datetime.now(),
 			'orders_pending':pending,'orders_delivered':delivered,'total_products':total_products,'total_customers':total_customers
 			}
 	
 	return render(request,'registers/index.html',context)
 
+
+
+
 # Create your views here.
 def first_page(request):
-	return render(request,'registers/firstpage.html')
+	current_date = datetime.now()
+	return render(request,'registers/firstpage.html',{'current_date':current_date})
 
-#
-#  I copy this code from customers views of index function .So use class to inherit various class which prevent from copyin
 
-# class loginPage(LoginView):
-# 	template_name = 'registers/login.html'
-# 	form_class = LoginForm
-	
-# 	# redirect_authenticated_user = False
- 
-	
-# 	def get_success_url(self):#default
-		
-# 		if self.request.user.is_superuser:
-# 			return '/admin/'
-		
-# 		return '/dashboard'
 
 
 @unauthenticated_user
@@ -100,9 +86,7 @@ def loginPage(request):
 		username = request.POST.get('username')
 		password =request.POST.get('password')
 		email =request.POST.get('email')
-
 		user = authenticate(request,email=email, username=username, password=password)
-
 		if user is not None:
 			login(request, user)
 			return redirect('home')
@@ -111,7 +95,6 @@ def loginPage(request):
 
 	context = {'form':form}
 	return render(request, 'registers/login.html', context)
-
 
 
 @unauthenticated_user
@@ -136,7 +119,8 @@ def SignupView(request):
 
 	context = {'form':form}
 	return render(request, 'registers/register.html', context)
-	
+
+
 """
 class SignupView(CreateView):
 	template_name = 'registers/register.html'

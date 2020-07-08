@@ -20,7 +20,7 @@
                           {{form|crispy}}
 
                            
-                          <a href="/customers/orders/{{customer.id}}" class="btn btn-success">Back</a>
+                          <a href="{% url 'customer_app:view' customer_record.id %}" class="btn btn-success">Back</a>
                           <button type="submit" class="btn btn-danger">Save</button>
                           
                         </form>

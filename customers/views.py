@@ -8,7 +8,7 @@ from orders.models import Order
 from products.models import Product
 # from django.contrib.auth.models import User
 
-
+from django.contrib import messages
 from customers.forms import CustomerModelForm
 from customers.filters import CustomerFilter
 from django.contrib import messages
@@ -76,7 +76,7 @@ def create(request):
 @login_required(login_url = '/user/login/')     
 def index(request):
     form = CustomerModelForm()
-    customers=Customer.objects.all()  
+    customers=Customer.objects.all()
     myFilter = CustomerFilter(request.GET,queryset=customers)
     customers = myFilter.qs#for searchng
     
@@ -109,9 +109,8 @@ def index(request):
         if form.is_valid():
             instance = form.save()
            
-        
+        messages.success(request,'Customer is successfully added',extra_tags = 'alert')
         return redirect('/customers/list?customer added successfully')
-    
      # some error occured
     context={
         'customers':customers,'myFilter':myFilter,
@@ -137,7 +136,8 @@ def search(request):
         customers = Customer.objects.filter(
                                             Q(name__contains=field_value)
                                            |Q(email__icontains=field_value) 
-                                           | Q(contact__contains=field_value)                        
+                                           | Q(contact__contains=field_value)  
+                                           |Q(date_created__contains=field_value)                      
                                            )
     
         context = {'customers': customers}
@@ -169,7 +169,9 @@ def delete(request, cid):
     
     if request.method=='POST':  #if i confirm in delete.html page
         cus.delete()   #grab customer details and delete and after deleting moves to /customers/list/
+        # messages.success(request, 'Customer record is successfully deleted.',extra_tags='alert') 
         return redirect('customer_app:list')
+        
     return render(request,'customers/delete.html',{'name':cus })#urls.py ko url render ma url search garxa at first
 
 
@@ -190,17 +192,12 @@ def cus_ord_view(request, cid):
         # customer.per_total = per_total_price--to get the price of respective products
         #return value of first product i.e first row
         customer_total_order_price += per_total_price
-        
+    messages.success(request,"Order is successfully added",extra_tags = 'alert')
     context = {'customer_total_price':customer_total_order_price,'customers':customer, 'orders':orders, 'order_count':order_count,'order_num':order_count}
     return render(request,'customers/orderview.html',context)
 
     
-    
-
-       
-            
-            
-           
+  
     #     else:
     #         messages.info(request, "This item was not in your cart")
     #         return redirect("/customers/orders/",pk = cid)

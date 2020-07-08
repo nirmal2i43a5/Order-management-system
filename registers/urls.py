@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/',views.loginPage,name="login"),
     path('register/',views.SignupView,name="register"),
     path('logout/',views.UserLogout.as_view(),name="logout"),
+    # path('dash/<int:cid>/',views.dashboard_data,name = "dash-price-data")
   
     # path('logout/',a)
    

@@ -32,12 +32,14 @@ urlpatterns = [
 	path('admin/', admin.site.urls),
 	path('',views.first_page,name="home"),
 	path('dashboard/',views.dashboard,name="dashboard"),
+
 #    path('',include('django.contrib.auth.urls')),
 	
 	path('user/',include('registers.urls', namespace = 'register_app')),
 	path('customers/',include('customers.urls', namespace="customer_app")),
 	path('products/',include('products.urls', namespace="product_app")),#namespace is the app_name in products.urls
 	path('orders/',include('orders.urls', namespace="order_app")),
+ 
 	
 	
 #    path('',include('registers.profile_urls',namespace="view_app")),

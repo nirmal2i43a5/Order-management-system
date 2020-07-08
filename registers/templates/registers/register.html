@@ -19,14 +19,14 @@
                                     
                                     <div class="card-body">
                                       
-                                        <form method="POST" class="justify-content-center" >
+                                        <form method="POST" class="justify-content-center" enctype="multipart/form-data" >
                                           {% csrf_token %}
 
                                          
                                                 {{form|crispy}}
                                            
                                             
-                                            <input type="submit" name="submit" value="Login" class="btn btn-success">
+                                            <input type="submit" name="submit" value="SignUp" class="btn btn-block btn-success">
                                            
                                         </form>
                                         

@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}Home{% endblock%}
+
+{% block javascript %}
+{% endblock %}
+
 {% block content %}
 
 
@@ -34,6 +38,7 @@
         {% if request.user.is_authenticated  %}
 
         <div class="col">
+       
                 
             <a class="float-right" style="color:white;"> Hello, {{request.user.username}} </a>
            
@@ -44,12 +49,12 @@
 
          
                 
-            <button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#adminModel">
-                <!--I am getting profile in the same page so dont need href i include user_view in this page -->
+            <!-- <button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#adminModel">
+                I am getting profile in the same page so dont need href i include user_view in this page
 
               <i class="fas fa-eye"></i>  Profile
 
-            </button>
+            </button> -->
 
 
                 <div class="col">
@@ -58,12 +63,12 @@
 
                  {% else %} 
 
-                 <button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#employeeModel">
-                     <!--I am getting profile in the same page so dont need href i include user_view in this page -->
+                 <!-- <button  class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#employeeModel">
+                     I am getting profile in the same page so dont need href i include user_view in this page
 
                 <i class="fas fa-eye"></i>  Profile
 
-                 </button>
+                 </button> -->
                  <div class="col">
                      <a class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#logOutModal" style="cursor: pointer;">  <i class="fa fa-sign-in-alt"></i> LOGOUT</a>
                   </div>
@@ -73,6 +78,7 @@
          {% else %}
 
          <div class="col">
+          
                 
             <a class="float-right" style="color:white;"> Hello, Unknown </a>
            
@@ -175,12 +181,12 @@
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
 
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                        <div class="(collapse)" id="collapseLayouts" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'product_app:list'%}">Products</a>
-                                <a class="nav-link" href="{% url 'order_app:list'%}">Orders</a>
-                                <a class="nav-link" href="{% url 'customer_app:list'%}">Customers</a>
+                                <a class="nav-link" href="{% url 'product_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Products</span></a>
+                                <a class="nav-link" href="{% url 'order_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Orders</span></a>
+                                <a class="nav-link" href="{% url 'customer_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Customers</span></a>
                             </nav>
                         </div>
                         
@@ -194,13 +200,13 @@
                             <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                        <div class="(collapse)" id="collapsePages" aria-labelledby="headingTwo"
                             data-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
                                 {% if user.is_authenticated %}
-                                <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
-                                <a class="nav-link" href="/reset_password">Forgot Password</a>
+                                <a class="nav-link" href="{% url 'register_app:logout'%}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                                <a class="nav-link" href="/reset_password"><i class="fas fa-bars"></i><span class="ml-1"></span>Change Password</a>
 
                                 {% else %}
 
@@ -221,10 +227,7 @@
                       
                     </div>
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Admin
-                </div>
+               
             </nav>
         </div>
 
@@ -239,9 +242,19 @@
 
 
 
-<br><br><br><br>
+<br><br><br>
+
+
+        <div class="text-center"><strong>Time : {{current_date}}</strong></div>
+        <!-- <div class="text-center"><strong>Last Login : {{current_date}}</strong></div> -->
+   
+
+
+<br>
 <div class="card" style="margin-left:18%;margin-right:10%;">
-    <h1 class="card-header border-dark" style="text-align: center;">Supermarket Management System</h1>
+
+    <h3 class="card-header border-dark" style="text-align:center;">Supermarket Management System</h3>
+   
 </div>
 <img src="static/image/supermarket.jpg" />
 

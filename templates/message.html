@@ -1,0 +1,23 @@
+
+
+<div style="margin-left:17%;margin-right:1%;">
+
+  {% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" id ="message_container">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
+ 
+   
+</div>
+
+<script>
+  var message_ele = document.getElementById("message_container");
+
+setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+}, 2000);
+</script>

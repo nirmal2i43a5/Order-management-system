@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 def create(request,cid):
     '''Below I replace OrderForm with'''
     
-    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=3)  
+    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=1)  
     #it means maila customer lai click garda order ma bhako detail access garako xu with instance
      #parent model and then child model---
     #we can have multiple order so we need to tell which to allow by fields
@@ -128,6 +128,7 @@ def edit(request, cid, oid):
     # ord=Order.objects.get(pk=oid) #i get all value and show that value to next page
     
     ord = get_object_or_404(Order,pk = oid)
+    customer = get_object_or_404(Customer,pk=cid)
     
     form=OrderForm(instance=ord)
     
@@ -149,7 +150,7 @@ def edit(request, cid, oid):
     #     form = ProductForm()
         
   
-    return render(request,'orders/update.html',{'form':form})
+    return render(request,'orders/update.html',{'form':form,'customer_record':customer})
 
 
 def delete(request, oid):

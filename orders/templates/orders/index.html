@@ -4,7 +4,7 @@
 {% block title %}Orders{% endblock %}
 
 {% block javascript %}
-<script src="{% static 'vendor/js/scripts.js' %}"></script>
+
 <script src = "{% static 'products/search.js' %}"></script>
 {% endblock %}
 
@@ -90,11 +90,11 @@
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
 
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <div class="(collapse)" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'product_app:list'%}">Products</a>
-                                <a class="nav-link" href="{% url 'order_app:list'%}">Orders</a>
-                                <a class="nav-link" href="{% url 'customer_app:list'%}">Customers</a>
+                                <a class="nav-link" href="{% url 'product_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Products</span></a>
+                                <a class="nav-link" href="{% url 'order_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Orders</span></a>
+                                <a class="nav-link" href="{% url 'customer_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Customers</span></a>
                             </nav>
                         </div>
 
@@ -107,28 +107,21 @@
                             <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                        <div class="(collapse)" id="collapsePages" aria-labelledby="headingTwo"
                             data-parent="#sidenavAccordion">
                             
                                     <nav class="sb-sidenav-menu-nested nav">
                                     
 
-                                        <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
+                                        <a class="nav-link" href="{% url 'register_app:logout'%}"><i class="fas fa-sign-out-alt"></i>Logout</a>
         
                                     </nav>
                             
 
                           
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-chart-area"></i>
-                            </div>
-                            Charts
                      
-                           
-                        </a>
+                       
                     </div>
                 </div>
             

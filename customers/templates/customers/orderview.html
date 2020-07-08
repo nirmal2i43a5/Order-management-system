@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}Customer-Order{% endblock %}
+
+{% block javascript %}
+{% endblock %}
 {% block content %}
+
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -20,7 +24,7 @@
         {% endif %}
         <button type="button" id="sidebarToggle" class="btn btn-warning text-black-50">
             <i class="fas fa-align-left"></i>
-        </button>!-- Navbar Search-->
+        </button><!-- Navbar Search-->
 
         <div class="col">
 
@@ -86,12 +90,12 @@
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
 
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                        <div class="(collapse)" id="collapseLayouts" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'product_app:list'%}">Products</a>
-                                <a class="nav-link" href="{% url 'order_app:list'%}">Orders</a>
-                                <a class="nav-link" href="{% url 'customer_app:list'%}">Customers</a>
+                               <a class="nav-link" href="{% url 'product_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Products</span></a>
+                                <a class="nav-link" href="{% url 'order_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Orders</span></a>
+                                <a class="nav-link" href="{% url 'customer_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Customers</span></a>
                             </nav>
                         </div>
 
@@ -104,13 +108,13 @@
                             <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                        <div class="(collapse)" id="collapsePages" aria-labelledby="headingTwo"
                             data-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
                                 {% if user.is_authenticated %}
 
-                                <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
+                                <a class="nav-link" href="{% url 'register_app:logout'%}"><i class="fas fa-sign-out-alt"></i>  <span class="ml-1">Logout</span></a>
 
                                 {% else %}
                                 <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
@@ -120,14 +124,7 @@
 
 
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-chart-area"></i>
-                            </div>
-                            Charts
-                        </a>
-                    </div>
+                        
                 </div>
 
             </nav>
@@ -142,6 +139,8 @@
 
 </body>
 <br><br><br>
+
+{% include 'message.html' %}
 <div class="container">
    <div class="row">
        <div class="col-md ml-4">
@@ -170,6 +169,7 @@
        </div>
    </div>
 <hr>
+
    <div class="row">
     <div class="col">
 
@@ -236,6 +236,7 @@
                             <!--to get price for each row product call get_total_item_price in models.py of orders-->
 
                             <!-- <td>{{customer.per_total}}</td> -->
+
                             <td><a href="{% url 'order_app:edit' order.customer.id order.id %}"
                                     class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                                 <a href="{% url 'order_app:delete' order.id%}" class="btn btn-danger btn-sm"><i

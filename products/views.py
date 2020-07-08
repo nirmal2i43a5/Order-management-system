@@ -7,7 +7,7 @@ from orders.models import Order
 from products.models import Product
 from customers.models import Customer
 from .forms import ProductForm
-
+from django.contrib import messages
 from .filters import ProductFilter
 
 from django.contrib import messages
@@ -17,7 +17,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q,Sum
 from django.contrib.auth.decorators import login_required
 
-from django.core import serializers
+
 
 
 
@@ -105,6 +105,7 @@ def search(request):
                                            | Q(quantity__icontains=field_value)
                                            | Q(id__icontains=field_value)
                                            | Q(category__icontains=field_value)
+                                           |Q(created_at__contains=field_value)
                                            )
 
         context = {'products': products}
@@ -113,7 +114,7 @@ def search(request):
 
    
 
-        return JsonResponse(data)
+        return JsonResponse(data,safe=False)
 
     else:
         products = Product.objects.all()
@@ -127,6 +128,7 @@ def search(request):
 def save_product_form(request, form, template_name):
    
     data = dict()
+    
     if request.method == 'POST':
         if form.is_valid():
             form.save()

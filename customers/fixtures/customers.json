@@ -1,0 +1,252 @@
+[
+{
+    "model": "customers.customer",
+    "pk": 16,
+    "fields": {
+        "name": "Bansika Thapa",
+        "email": "bansika78@gmail.com",
+        "contact": "9809976534",
+        "date_created": "2020-07-05T16:31:37.596Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 17,
+    "fields": {
+        "name": "Saransh Kharel",
+        "email": "saransh@gmail.com",
+        "contact": "9807745672",
+        "date_created": "2020-07-04T15:01:29.693Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 18,
+    "fields": {
+        "name": "Bans Chaudharya",
+        "email": "ban@gmail.com",
+        "contact": "982272372",
+        "date_created": "2020-06-30T17:30:40.046Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 19,
+    "fields": {
+        "name": "Laxmi Sharma",
+        "email": "laxmi@gmail.com",
+        "contact": "982626272",
+        "date_created": "2020-07-04T11:07:38.983Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 20,
+    "fields": {
+        "name": "Sumi Thapa",
+        "email": "sumi@gmail.com",
+        "contact": "8928927892",
+        "date_created": "2020-07-01T02:58:21.207Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 21,
+    "fields": {
+        "name": "Suraj Dhakal",
+        "email": "sujan12@gmail.com",
+        "contact": "9806745632",
+        "date_created": "2020-06-03T03:52:55.106Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 22,
+    "fields": {
+        "name": "Sanjit thakuri",
+        "email": "sanjit665@gmail.com",
+        "contact": "9826262190",
+        "date_created": "2020-04-22T11:14:54.848Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 23,
+    "fields": {
+        "name": "Aman Thapa",
+        "email": "aman@gmail.com",
+        "contact": "9802716181",
+        "date_created": "2020-03-10T14:56:15.438Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 24,
+    "fields": {
+        "name": "Nirvay Chaudhary",
+        "email": "nirvay@gmail.com",
+        "contact": "9802272821",
+        "date_created": "2020-06-03T03:48:27.964Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 25,
+    "fields": {
+        "name": "Nirvay khanal",
+        "email": "nirvay@gmail.com",
+        "contact": "982728928919",
+        "date_created": "2020-06-03T03:53:08.976Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 26,
+    "fields": {
+        "name": "Roshan Sharma",
+        "email": "roshan@gmail.com",
+        "contact": "981734849",
+        "date_created": "2020-04-08T04:20:34.682Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 27,
+    "fields": {
+        "name": "Puja Pandey",
+        "email": "pandeypuja@gmail.com",
+        "contact": "9826378301",
+        "date_created": "2020-04-08T07:36:38.741Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 32,
+    "fields": {
+        "name": "retrica pandey",
+        "email": "retrica3@gmail.com",
+        "contact": "9283743323",
+        "date_created": "2020-04-08T07:55:10.084Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 39,
+    "fields": {
+        "name": "Rupesh sharma",
+        "email": "rupeshsharma@gmail.com",
+        "contact": "9877888901",
+        "date_created": "2020-04-08T08:11:29.728Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 43,
+    "fields": {
+        "name": "Rama pandey",
+        "email": "rama34@gmail.com",
+        "contact": "9278437837",
+        "date_created": "2020-04-08T08:41:42.936Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 44,
+    "fields": {
+        "name": "Parwati subedi",
+        "email": "parwati@gmail.com",
+        "contact": "9803738382",
+        "date_created": "2020-04-08T08:54:22.130Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 45,
+    "fields": {
+        "name": "Anuska pandey",
+        "email": "anuska@gmail.com",
+        "contact": "98012349202",
+        "date_created": "2020-04-08T08:55:24.838Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 46,
+    "fields": {
+        "name": "Anuska pandey",
+        "email": "anuska@gmail.com",
+        "contact": "98012349202",
+        "date_created": "2020-04-08T08:55:37.551Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 47,
+    "fields": {
+        "name": "Amrita sharms",
+        "email": "amrita@gmail.com",
+        "contact": "9874628291",
+        "date_created": "2020-04-08T08:56:23.207Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 48,
+    "fields": {
+        "name": "Raju sharma",
+        "email": "raju@gmail.com",
+        "contact": "98013737871",
+        "date_created": "2020-04-11T16:53:19.176Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 50,
+    "fields": {
+        "name": "Samrat Khan",
+        "email": "samrat57@gmail.com",
+        "contact": "9729292902",
+        "date_created": "2020-05-19T03:39:18.988Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 51,
+    "fields": {
+        "name": "laxman kafle",
+        "email": "laxmi@gmail.com",
+        "contact": "98273273821",
+        "date_created": "2020-06-03T03:47:49.932Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 52,
+    "fields": {
+        "name": "Dennis Ivy",
+        "email": "dennis7@gmail.com",
+        "contact": "928273732",
+        "date_created": "2020-06-09T10:04:15.649Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 53,
+    "fields": {
+        "name": "Harry Pandey",
+        "email": "harry3@gmail.com",
+        "contact": "91818811010",
+        "date_created": "2020-07-04T09:28:19.179Z"
+    }
+},
+{
+    "model": "customers.customer",
+    "pk": 54,
+    "fields": {
+        "name": "Shova Pandey",
+        "email": "shova@gmail.com",
+        "contact": "9811001202",
+        "date_created": "2020-07-06T02:14:28.757Z"
+    }
+}
+]

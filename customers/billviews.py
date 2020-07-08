@@ -44,14 +44,13 @@ class GenerateBILL(View):
             #return value of first product i.e first row
             new_total += per_total_price
             
-        customers.total = new_total#in orderview.html Total : {{customer.total}}--is the fianl result after loop completes
-        customers.save()
         
-        context={'customers_order':customers_order,
+        context={'customers_order':customers_order,'customer_total_price':new_total,
                  'customers':customers,
                  'myDate':formatedDate}
        
         html = template.render(context)
+        
         pdf = render_to_pdf('customers/bill.html', context)
         if pdf:
             response = HttpResponse(pdf, content_type='application/pdf')

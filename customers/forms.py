@@ -15,7 +15,7 @@ from .models import Customer
     
     # status=forms.BooleanField(required=False)
     
-    
+
 class CustomerModelForm(ModelForm):
     
     name=forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Enter Full Name",}))
