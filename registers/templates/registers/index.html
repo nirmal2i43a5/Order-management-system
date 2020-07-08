@@ -11,12 +11,7 @@
     <title>Dashboard</title>
     <!--I include this later-->
     <!-- <script src="{% static 'js/jquery-3.1.1.min.js' %}" crossorigin="anonymous"></script> -->
-
-  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
-
     <link href="{% static 'vendor/css/styles.css' %}" rel="stylesheet" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
@@ -39,16 +34,17 @@
                  
                     <div class="col">
                 
-                        <a class="btn btn-sm btn-warning float-right"> Hey, {{request.user.username}} </a>
+                        <span class=" float-right" style="color:white;"> Hello, {{request.user.username}}</span>
                        
                     </div>
                   
                
-                  
+                 
                     <div class="col">
+                         
                        <a class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#logOutModal" style="cursor: pointer;">  <i class="fa fa-sign-in-alt"></i> LOGOUT</a>
                     </div>
-                    
+                   
                  
         
             </nav>
@@ -104,12 +100,13 @@
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
 
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                        <div class="(collapse)" id="collapseLayouts" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'product_app:list'%}">Products</a>
-                                <a class="nav-link" href="{% url 'order_app:list' %}">Orders</a>
-                                <a class="nav-link" href="{% url 'customer_app:list'%}">Customers</a>
+                                <a class="nav-link" href="{% url 'product_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Products</span></a>
+                                <a class="nav-link" href="{% url 'order_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Orders</span></a>
+                                <a class="nav-link" href="{% url 'customer_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Customers</span></a>
+                              
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -122,13 +119,13 @@
                             <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                        <div class="(collapse)" id="collapsePages" aria-labelledby="headingTwo"
                             data-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
                                 {% if user.is_authenticated %}
-
-                                <a class="nav-link" href="{% url 'register_app:logout'%}">Logout</a>
+                             
+                                <a class="nav-link" href="{% url 'register_app:logout'%}"><i class="fas fa-sign-out-alt"></i>Logout</a>
 
                                 {% else %}
                                 <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
@@ -136,13 +133,13 @@
                                 {% endif %}
                             </nav>
 
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <!-- <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-chart-area"></i>
                                 </div>
                                 Charts
-                            </a>
+                            </a> -->
                         </div>
                     </div>
                    
@@ -152,14 +149,54 @@
         <div id="layoutSidenav_content">
             <main>
 
-                <!-- <h1 class="mt-4">/h1>
-                <hr> -->
+              <div class= "text-center"><strong>Last Login :</strong> {{request.user.last_login}}</div> 
+              
+           
                 <div class="card-body">
                     <h2 class="card-header">Supermarket Management System</h2>
+                
+                
                 </div>
 
 
                 <div class="row">
+
+                    <div class="col">
+                        <div class="col-md">
+                            <div class="card bg-secondary text-center text-white  mb-3" id="orders-delivered">
+                                <div class="card-header">
+                                    <h5 class="card-title">Today Sales</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">${{orders_total_price}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-5 ml-3">
+                            <a href="{% url 'order_app:list' %}" class="btn btn-warning"><i class="fas fa-eye"></i>  View Orders</a>
+                        </div>
+
+                    </div>
+                  
+                    <div class="col">
+                        <div class="col-md">
+                            <div class="card bg-info text-center text-white  mb-3" id="orders-pending">
+                                <div class="card-header">
+                                    <h5 class="card-title">Today Customers</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{today_customers}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-5 ml-3">
+                            <a href="{% url 'customer_app:list'%}" class="btn btn-warning"><i class="fas fa-eye"></i>  View details</a>
+                        </div>
+
+                    </div>
+
+              
+
                     <div class="col">
                         <div class="col-md">
                             <div class="card bg-primary text-center text-white ml-2 mb-3" id="total-orders">
@@ -167,7 +204,7 @@
                                     <h5 class="card-title">Total Products</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h3 class="card-title">{{total_products}}</h3>
+                                    <h5 class="card-title">{{total_products}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -178,29 +215,12 @@
 
                     <div class="col">
                         <div class="col-md">
-                            <div class="card bg-secondary text-center text-white  mb-3" id="orders-delivered">
-                                <div class="card-header">
-                                    <h5 class="card-title">Today Sales</h5>
-                                </div>
-                                <div class="card-body">
-                                    <h3 class="card-title">${{orders_total_price}}</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-5 ml-3">
-                            <a href="{% url 'order_app:list' %}" class="btn btn-warning"><i class="fas fa-eye"></i>  View Orders</a>
-                        </div>
-
-                    </div>
-
-                    <div class="col">
-                        <div class="col-md">
                             <div class="card bg-success text-center text-white  mb-3" id="orders-pending">
                                 <div class="card-header">
                                     <h5 class="card-title">Total Customers</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h3 class="card-title">{{total_customers}}</h3>
+                                    <h5 class="card-title">{{total_customers}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -238,7 +258,7 @@
                                         <th>Customer Id</th>
                                    
                                         <th>Date</th>
-                                        <th>Total Price</th>
+                                        <!-- <th>Total Price</th> -->
                                     </tr>
                                 </thead>
                              {% for customer in customers %}
@@ -250,7 +270,7 @@
                                     <td>{{customer.id}}</td>
                                
                                     <td>{{customer.date_created}}</td>
-                                    <td>{{customer_price}}</td>
+                                    <!-- <td>{{particular_customer_price}}</td> -->
                                 </tr>
                             
                             </tbody>
