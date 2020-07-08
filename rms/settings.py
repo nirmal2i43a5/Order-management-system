@@ -36,10 +36,12 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_filters',
     'bootstrap_modal_forms',
+    
     'customers',
     'products',
     'orders',
     'registers',
+    'django.contrib.humanize'
      
     
 ]
@@ -128,11 +130,12 @@ LOGOUT_REDIRECT_URL = '/user/login'
 STATIC_URL = '/static/'
 STATICFILES_DIRS =[os.path.join(BASE_DIR,"static")]
 
+
+
 #for image upload
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = ''
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')#this makes folder images inside static and upload profile_img
 
 
 
@@ -147,5 +150,15 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 
 
