@@ -135,10 +135,10 @@ LOGOUT_REDIRECT_URL = '/user/login'
 STATIC_URL = '/static/'
 STATICFILES_DIRS =[os.path.join(BASE_DIR,"static")]
 
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')#heroku hold in this way for satic files
 
 
 #for image upload
-
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')#this makes folder images inside static and upload profile_img
 
