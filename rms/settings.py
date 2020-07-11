@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': config('DB_ENGINE'),
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME':config('DB_NAME'),
-        'HOST':'127.0.0.1',
+        'HOST':config('DB_HOST'),
         'USER':config('DB_USER'),
         'PASSWORD':config('DB_PASSWORD'),
         
