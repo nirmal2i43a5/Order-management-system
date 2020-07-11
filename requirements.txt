@@ -13,6 +13,7 @@ et-xmlfile==1.0.1
 html5lib==1.1
 jdcal==1.4.1
 MarkupPy==1.14
+mysqlclient==2.0.1
 odfpy==1.4.1
 openpyxl==3.0.4
 Pillow==7.2.0
