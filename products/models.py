@@ -32,6 +32,8 @@ class Product(models.Model):
    
     def __str__(self):
         return self.name
+    class Meta:
+        db_table = 'tbl_products'
 
 class HistConf(models.Model):
 	item = models.ForeignKey(Product, on_delete=models.CASCADE)

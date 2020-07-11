@@ -44,14 +44,11 @@ def create(request,cid):
 
 @login_required(login_url='/user/login/')
 def index(request):
-    
-    orders=Order.objects.all()
-    
+    orders=Order.objects.all()  
     total_orders=orders.count()
     # myFilter = OrderFilter(request.GET,queryset=orders)
     # orders = myFilter.qs
     # # customers=Customer.objects.all()
-  
     pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
     delivered=orders.filter(status="Delivered").count()
     

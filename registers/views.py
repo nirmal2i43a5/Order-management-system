@@ -20,7 +20,10 @@ import json
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from registers.filters import CustomerFilter
-from datetime import datetime
+# from datetime import datetime
+# from django.utils.timezone import datetime
+
+from datetime import datetime, timedelta
 
 
 # from django.contrib.auth.mixins import LoginRequiredMixin
@@ -30,10 +33,10 @@ from datetime import datetime
 @admin_only
 def dashboard(request):
 	# customer = Customer.objects.get(pk=cid)
-
 	customers=Customer.objects.all()
 	total_customers=customers.count()
 	orders=Order.objects.all()
+
 	total_orders=orders.count()
 	products = Product.objects.all()
 	total_products = products.count()	
@@ -44,15 +47,24 @@ def dashboard(request):
 	myFilter = CustomerFilter(request.GET, queryset=customers)
 	customers = myFilter.qs #in jinja this customers goes
 
-	today_date = datetime.today()#filter every day order product for daily expenses	
-	today_customers = customers.filter(date_created__year = today_date.year,date_created__month = today_date.month,date_created__day = today_date.day).count()
-	today_order = orders.filter(created_at__year = today_date.year,created_at__month = today_date.month,created_at__day = today_date.day)
+	# today_date = datetime.today()#filter every day order product for daily expenses	
+
+	# today_customers = customers.filter(date_created__year = today_date.year,date_created__month = today_date.month,
+    #                                 date_created__day = today_date.day).count()
+    
+	today_customers = customers.filter(date_created__gte = datetime.now() - timedelta(days=1)).count()#details of last 24 hours#b4 i also get same output using above line but now not so use this concept
+																									
 	
+	# today_order = orders.filter(created_at__year = today_date.year,created_at__month = today_date.month,created_at__day = today_date.day)
+	today_order = orders.filter(created_at__gte = datetime.now() - timedelta(days=1))
+
 	order_total_price=0.00
- 
 	for order in today_order:
 		per_total_price = float(order.product.price) * order.quantity
+		
 		order_total_price += per_total_price
+  
+	print(order_total_price)
 	# customer = Customer.objects.get(pk=cid) #but i need pk = cid(update)
 	# particular_customer_price=0.00
 	# for order in customer.order_set.all():

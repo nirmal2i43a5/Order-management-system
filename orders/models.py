@@ -9,9 +9,9 @@ class Order(models.Model):
     status=(
         ('Pending','Pending'),
         ('Delivered','Delivered'),
-        ('Out for delivery','out for delivery')
-        
+        ('Out for delivery','out for delivery')   
     )
+    
     customer=models.ForeignKey(Customer,null=True,on_delete=models.SET_NULL)#customer_id is foreign key in tbl_orders
     '''this means if Customer is deleted then I want to set Order to NULL value in database but dont want to delete
         -if on_delete = models.CASCADE then deleting on Customer will also delete Order which is bad practice
@@ -24,17 +24,16 @@ class Order(models.Model):
     created_at=models.DateTimeField(max_length=50,null=True,auto_now=True)
     status=models.CharField(max_length=100,null=True,choices=status)
     quantity = models.IntegerField(default=1,blank=False)
-    total_price = models.DecimalField(default=0.00,max_digits=10000,decimal_places=2)
+    # total_price = models.DecimalField(max_digits=5,decimal_places=2,default=0)
     
     
-    
-        
-        
     # def __str__(self):
     #     return self.product.name  #w/ relationship
+    class Meta:
+        db_table = 'tbl_orders'
     
     @property
-    def get_total_item_price(self):
+    def get_total_item_price(self):#for particular product order total
         return self.quantity * self.product.price
     
     

@@ -26,7 +26,9 @@ class Profile(models.Model):#THis is employee profile
 	
 	
 	class Meta:
-			verbose_name_plural ='Profile'
+		verbose_name_plural ='Profile'
+		db_table = 'tbl_profile'
+
 		
 		
 	def save(self,*args,**kwargs):
