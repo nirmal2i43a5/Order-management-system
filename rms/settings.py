@@ -85,10 +85,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME':'supermarket',
+        'NAME':config('DB_NAME'),
         'HOST':'127.0.0.1',
-        'USER':'nirmal',
-        'PASSWORD':'mysql.edu@1999',
+        'USER':config('DB_USER'),
+        'PASSWORD':config('DB_PASSWORD'),
         
     }
 }
