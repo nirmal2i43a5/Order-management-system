@@ -12,11 +12,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = '-u%g0gmxf25m#$o9h5o^z6d1cjir#83u456#)lssqc)==)9*td'
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default = True, cast=bool)
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://djangosupermarket.herokuapp.com/']
 
 
 # Application definition
@@ -85,12 +89,12 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': config('DB_ENGINE'),
+        'ENGINE': 'django.db.backends.mysql',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME':config('DB_NAME'),
+        'NAME':'supermarket',
         'HOST':'127.0.0.1',
-        'USER':config('DB_USERNAME'),
-        'PASSWORD':config('DB_PASS'),
+        'USER':'nirmal',
+        'PASSWORD':'mysql.edu@1999',
         
     }
 }
@@ -132,6 +136,16 @@ USE_TZ = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+
+
 LOGOUT_REDIRECT_URL = '/user/login'
 
 
@@ -158,20 +172,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')#this makes folder images ins
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-from django.contrib.messages import constants as messages
 
-MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-info',
-    messages.INFO: 'alert-info',
-    messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger',
-}
+
 
 #retrieving value from env variables accessing bucket from aws user
 AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')#name this django storages modules

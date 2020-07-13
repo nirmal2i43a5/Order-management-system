@@ -1,5 +1,4 @@
-.env
-#.env is my own and below is provided by github
+
 
 #Byte-compiled / optimized / DLL files
 __pycache__/
