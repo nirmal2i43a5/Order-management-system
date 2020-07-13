@@ -34,6 +34,8 @@ class Product(models.Model):
         return self.name
     class Meta:
         db_table = 'tbl_products'
+    def save(self,*args,**kwargs):
+    	super().save(*args,**kwargs)
 
 class HistConf(models.Model):
 	item = models.ForeignKey(Product, on_delete=models.CASCADE)

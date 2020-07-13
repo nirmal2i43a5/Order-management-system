@@ -11,6 +11,8 @@ class Customer(models.Model):
         return self.name
     class Meta:
         db_table = 'tbl_customers'
+    def save(self,*args,**kwargs):
+    	super().save(*args,**kwargs)
     
     
           

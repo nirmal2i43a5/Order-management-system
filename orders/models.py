@@ -32,6 +32,9 @@ class Order(models.Model):
     class Meta:
         db_table = 'tbl_orders'
     
+    def save(self,*args,**kwargs):
+    	super().save(*args,**kwargs)
+    
     @property
     def get_total_item_price(self):#for particular product order total
         return self.quantity * self.product.price
