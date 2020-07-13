@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'products',
     'orders',
     'registers',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    #for deploy
+    'storages',
      
     
 ]
@@ -86,9 +88,9 @@ DATABASES = {
         'ENGINE': config('DB_ENGINE'),
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME':config('DB_NAME'),
-        'HOST':config('DB_HOST'),
-        'USER':config('DB_USER'),
-        'PASSWORD':config('DB_PASSWORD'),
+        'HOST':'127.0.0.1',
+        'USER':config('DB_USERNAME'),
+        'PASSWORD':config('DB_PASS'),
         
     }
 }
@@ -132,10 +134,14 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGOUT_REDIRECT_URL = '/user/login'
 
+
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')#heroku hold in this way for satic files
+
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS =[os.path.join(BASE_DIR,"static")]
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')#heroku hold in this way for satic files
+
 
 
 #for image upload
@@ -150,10 +156,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')#this makes folder images ins
 
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = config('EMAIL_PORT', cast = int)
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 from django.contrib.messages import constants as messages
@@ -166,4 +173,12 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+#retrieving value from env variables accessing bucket from aws user
+AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')#name this django storages modules
+AWS_SECRETE_ACCESS_KEY=os.environ.get('AWS_SECRETE_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME=os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
+AWS_S3_FILE_OVERWRITE = False #if u upload any file then other cannot overwrite ur filename as same name
+AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison of django storage version also may set it to none)
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
