@@ -93,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME':'supermarket',
-        'HOST':'127.0.0.1',
+        'HOST':'djangosupermarket.herokuapp.com',
         'USER':'nirmal',
         'PASSWORD':'mysql.edu@1999',
         
