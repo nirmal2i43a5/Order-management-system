@@ -2,7 +2,7 @@
 
 
 import os
-import django_heroku
+import django_heroku#to work with database
 import  dj_database_url
 from decouple import config,Csv
 
@@ -17,13 +17,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECRET_KEY = '-u%g0gmxf25m#$o9h5o^z6d1cjir#83u456#)lssqc)==)9*td'
 
 # SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = config('SECRET_KEY')
-# print("-----------------",SECRET_KEY)
 
-
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')#if debug value is true then return True if any other boolean and false then False
+print(DEBUG)
 ALLOWED_HOSTS = ['djangosupermarket.herokuapp.com']
 
 
@@ -87,8 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rms.wsgi.application'
 
-
-# Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # DATABASES = {
@@ -104,6 +102,7 @@ WSGI_APPLICATION = 'rms.wsgi.application'
         
 #     }
 # }
+
 DATABASES = {'default':dj_database_url.config(
     
     default='mysql://nirmal:mysql.edu@1999@localhost:3306/supermarket',
@@ -190,8 +189,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 #retrieving value from env variables accessing bucket from aws user
 AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')#name this django storages modules
+print(AWS_ACCESS_KEY_ID)
 AWS_SECRETE_ACCESS_KEY=os.environ.get('AWS_SECRETE_ACCESS_KEY')
+
 AWS_STORAGE_BUCKET_NAME=os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
 
 
 AWS_S3_FILE_OVERWRITE = False #if u upload any file then other cannot overwrite ur filename as same name
