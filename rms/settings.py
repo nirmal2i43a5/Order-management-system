@@ -3,6 +3,7 @@
 
 import os
 import django_heroku
+import  dj-database-url
 # from decouple import config,Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -88,17 +89,24 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME':'supermarket',
-        'HOST':'djangosupermarket.herokuapp.com',
-        'USER':'nirmal',
-        'PASSWORD':'mysql.edu@1999',
+# DATABASES = {
+#     'default': {
         
-    }
-}
+        
+#         'ENGINE': 'django.db.backends.mysql',
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'NAME':'supermarket',
+#         'HOST':'djangosupermarket.herokuapp.com',
+#         'USER':'nirmal',
+#         'PASSWORD':'mysql.edu@1999',
+        
+#     }
+# }
+DATABASES['default'] = dj_database_url.config(
+    
+    default='mysql://root:mysql.edu@1999@localhost:3306/supermarket',
+    
+)
 
 
 # Password validation
