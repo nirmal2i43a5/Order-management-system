@@ -24,7 +24,9 @@ SECRET_KEY = config("SECRET_KEY")
 
 # DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')#if debug value is true then return True if any other boolean and false then False
 
-DEBUG = bool(os.environ.get("DEBUG_VALUE",False))
+DEBUG = True
+
+
 ALLOWED_HOSTS = ['djangosupermarket.herokuapp.com']
 
 
@@ -104,11 +106,11 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 #     }
 # }
 
-DATABASES = {'default':dj_database_url.config(
+# DATABASES = {'default':dj_database_url.config(
     
-    default='mysql://nirmal:mysql.edu@1999@localhost:3306/supermarket',
+#     default='mysql://nirmal:mysql.edu@1999@localhost:3306/supermarket',
     
-)}
+# )}
 
 
 # Password validation
