@@ -2,6 +2,7 @@
 
 
 import os
+import django_heroku
 # from decouple import config,Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -148,11 +149,8 @@ MESSAGE_TAGS = {
 
 LOGOUT_REDIRECT_URL = '/user/login'
 
-
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')#heroku hold in this way for satic files
-
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')#heroku hold in this way for satic files
 STATICFILES_DIRS =[os.path.join(BASE_DIR,"static")]
 
 
@@ -189,3 +187,6 @@ AWS_S3_FILE_OVERWRITE = False #if u upload any file then other cannot overwrite 
 AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison of django storage version also may set it to none)
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
