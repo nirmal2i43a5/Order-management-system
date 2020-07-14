@@ -102,11 +102,11 @@ WSGI_APPLICATION = 'rms.wsgi.application'
         
 #     }
 # }
-DATABASES['default'] = dj_database_url.config(
+DATABASES = {'default':dj_database_url.config(
     
     default='mysql://root:mysql.edu@1999@localhost:3306/supermarket',
     
-)
+)}
 
 
 # Password validation
