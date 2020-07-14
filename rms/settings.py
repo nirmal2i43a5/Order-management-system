@@ -92,19 +92,21 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
+DATABASES = {
+    'default': {
         
         
-#         'ENGINE': 'django.db.backends.mysql',
-#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         'NAME':'supermarket',
-#         'HOST':'djangosupermarket.herokuapp.com',
-#         'USER':'',
-#         'PASSWORD':'',
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME':'supermarket',
+        'HOST':'127.0.0.1',
+        'USER':'nirmal',
+        'PASSWORD':'mysql.edu@1999',
         
-#     }
-# }
+    }
+}
+
+
 
 # DATABASES = {'default':dj_database_url.config(
     
