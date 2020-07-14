@@ -105,14 +105,10 @@ DATABASES = {
         
     }
 }
+"""
+Using above database is for development and postgres is for production (for postgres u dont need to verify in settings .py)
 
-
-
-# DATABASES = {'default':dj_database_url.config(
-    
-#     default='mysql://nirmal:mysql.edu@1999@localhost:3306/supermarket',
-    
-# )}
+"""
 
 
 # Password validation

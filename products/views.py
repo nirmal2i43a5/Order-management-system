@@ -17,13 +17,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q,Sum
 from django.contrib.auth.decorators import login_required
 
-
-
-
-
-
-
-
 # def create(request):
 #     form=ProductForm()
  

@@ -37,6 +37,7 @@ def create(request,cid):
         formset = OrderFormSet(request.POST,instance=cus)
         if formset.is_valid():
             formset.save()
+        messages.success(request,"Order is successfully added",extra_tags = 'alert')
         return redirect('customer_app:view', cid)
     
     return render(request,'orders/create.html',{'formset':formset})

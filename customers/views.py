@@ -76,7 +76,7 @@ def create(request):
 @login_required(login_url = '/user/login/')     
 def index(request):
 	form = CustomerModelForm()
-	customers=Customer.objects.all()
+	customers=Customer.objects.all().order_by("-id")
 	myFilter = CustomerFilter(request.GET,queryset=customers)
 	customers = myFilter.qs#for searchng
 	
@@ -193,7 +193,7 @@ def cus_ord_view(request, cid):
 		#return value of first product i.e first row
 		customer_total_order_price += per_total_price
 		
-	messages.success(request,"Order is successfully added",extra_tags = 'alert')
+	
  
 	context = {'customer_total_price':customer_total_order_price,'customers':customer, 'orders':orders, 'order_count':order_count,'order_num':order_count}
 	return render(request,'customers/orderview.html',context)

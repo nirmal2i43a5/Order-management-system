@@ -2,14 +2,14 @@
 
 {% block content %}
 <br>
-<div class="card border-dark col-md-7 " style="margin-left:12%;">
+<div class="card border-dark col-md-12">
     
     <h3 class="card-header bg-secondary" style="color:white;">Are you sure want to delete <strong>{{orders.product.name}}</strong> details ?</h3>
     
     <div class="card-body">
         <form  method="POST">
            
-            <a href="{% url 'order_app:list'%}" class="btn btn-danger">Cancel</a>
+            <a href="{% url 'order_app:list'%}" class="btn btn-outline-danger">Cancel</a>
         
             {% csrf_token %}
         
@@ -23,8 +23,9 @@
 
 <style>
     body{
-        background: lightgrey;
-    }
+		background: #a1c4fd;
+	
+	  }
 </style>
 
 {% endblock %}
