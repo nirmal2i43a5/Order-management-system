@@ -22,8 +22,9 @@ SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')#if debug value is true then return True if any other boolean and false then False
-print(DEBUG)
+# DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')#if debug value is true then return True if any other boolean and false then False
+
+DEBUG = True
 ALLOWED_HOSTS = ['djangosupermarket.herokuapp.com']
 
 
