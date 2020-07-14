@@ -4,7 +4,7 @@
 import os
 import django_heroku
 import  dj_database_url
-# from decouple import config,Csv
+from decouple import config,Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,7 +16,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = '-u%g0gmxf25m#$o9h5o^z6d1cjir#83u456#)lssqc)==)9*td'
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
+# print("-----------------",SECRET_KEY)
 
 
 
@@ -97,14 +99,14 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 #         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #         'NAME':'supermarket',
 #         'HOST':'djangosupermarket.herokuapp.com',
-#         'USER':'nirmal',
-#         'PASSWORD':'mysql.edu@1999',
+#         'USER':'',
+#         'PASSWORD':'',
         
 #     }
 # }
 DATABASES = {'default':dj_database_url.config(
     
-    default='mysql://root:mysql.edu@1999@localhost:3306/supermark',
+    default='mysql://nirmal:mysql.edu@1999@localhost:3306/supermarket',
     
 )}
 
@@ -190,6 +192,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')#name this django storages modules
 AWS_SECRETE_ACCESS_KEY=os.environ.get('AWS_SECRETE_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME=os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
 
 AWS_S3_FILE_OVERWRITE = False #if u upload any file then other cannot overwrite ur filename as same name
 AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison of django storage version also may set it to none)
