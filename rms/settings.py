@@ -22,9 +22,9 @@ SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')#if debug value is true then return True if any other boolean and false then False
+# DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')#if debug value is true then return True if any other boolean and false then False
 
-
+DEBUG = bool(os.environ.get("DEBUG_VALUE",False))
 ALLOWED_HOSTS = ['djangosupermarket.herokuapp.com']
 
 
@@ -203,4 +203,5 @@ AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Activate Django-Heroku.
+#it configures database ,allowed hosts and many other that suits heroku env setting
 django_heroku.settings(locals())
