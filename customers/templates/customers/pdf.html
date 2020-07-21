@@ -1,11 +1,11 @@
 
-
-
-
 {% extends 'base.html' %}
+{% load static %}
+
+
 {% block title%}Customer Details{% endblock %}
 {% block content %}
-      
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
         <style type="text/css">
             body {
                 
@@ -28,18 +28,17 @@
                 outline: thin solid transparent;
                 height: 40px;
               }
+
+            
            
         </style>
         
-
-         
-            
-
-       
         <div class='wrapper'>
             <div class='header'>
                 
                 <p class='title'>Customers Invoice </p>
+                
+            
             </div>
             <div class='details'>
               Date : {{myDate}}

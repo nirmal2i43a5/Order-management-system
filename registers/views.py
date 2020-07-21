@@ -2,7 +2,6 @@ from django.shortcuts import render,reverse,redirect,resolve_url
 
 # from django.http import HttpResponseRedirect
 from django.contrib.auth.views import LoginView,LogoutView
-
 from django.conf import settings
 from django.views.generic import CreateView
 from .forms import SignupForm,LoginForm
@@ -22,7 +21,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from registers.filters import CustomerFilter
 # from datetime import datetime
 # from django.utils.timezone import datetime
-
 from datetime import datetime, timedelta
 
 
@@ -53,6 +51,7 @@ def dashboard(request):
     #                                 date_created__day = today_date.day).count()
     
 	today_customers = customers.filter(date_created__gte = datetime.now() - timedelta(days=1)).count()#details of last 24 hours#b4 i also get same output using above line but now not so use this concept
+ 
 																									
 	
 	# today_order = orders.filter(created_at__year = today_date.year,created_at__month = today_date.month,created_at__day = today_date.day)

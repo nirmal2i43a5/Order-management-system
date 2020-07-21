@@ -98,15 +98,10 @@ def search(request):
         orders = Order.objects.filter(
                                             Q(product__name__contains=field_value)
                                            |Q(status__icontains=field_value) 
-                                           | Q(total_price__contains=field_value)
+                                        
                                            | Q(quantity__contains=field_value)
                                             | Q(customer__name__contains=field_value)
-                                             
-                                        
                                            )
-        
-        
-
         context = {'orders': orders}
             
         data['html_list'] = render_to_string('orders/get_search_orders.html',context,request=request)

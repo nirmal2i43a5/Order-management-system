@@ -100,8 +100,8 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME':'supermarket',
         'HOST':'127.0.0.1',
-        'USER':'nirmal',
-        'PASSWORD':'mysql.edu@1999',
+        'USER':config('db_user'),
+        'PASSWORD':config('db_password')
         
     }
 }
@@ -182,6 +182,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
+print(EMAIL_HOST_USER)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
