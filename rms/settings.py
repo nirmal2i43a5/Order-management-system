@@ -92,19 +92,19 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+# DATABASES = {
+#     'default': {
         
         
-        'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME':'supermarket',
-        'HOST':'127.0.0.1',
-        'USER':config('db_user'),
-        'PASSWORD':config('db_password')
+#         'ENGINE': 'django.db.backends.mysql',
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'NAME':'supermarket',
+#         'HOST':'127.0.0.1',
+#         'USER':config('db_user'),
+#         'PASSWORD':config('db_password')
         
-    }
-}
+#     }
+# }
 
 """
 Using above database is for development and postgres is for production (for postgres u dont need to verify in settings .py)
