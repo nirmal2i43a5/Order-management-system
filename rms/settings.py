@@ -92,19 +92,20 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
+DATABASES = {
+    'default': {
         
         
-#         'ENGINE': 'django.db.backends.mysql',
-#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         'NAME':'supermarket',
-#         'HOST':'127.0.0.1',
-#         'USER':config('db_user'),
-#         'PASSWORD':config('db_password')
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME':'supermarket',
+        'HOST':'127.0.0.1',
+        'USER':config('db_user'),
+        'PASSWORD':config('db_password')
         
-#     }
-# }
+    }
+}
+
 """
 Using above database is for development and postgres is for production (for postgres u dont need to verify in settings .py)
 
@@ -180,8 +181,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')#this makes folder images ins
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_USER = 'nirmalpandey27450112@gmail.com'
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
+EMAIL_HOST_PASSWORD = 'ffutdfvwvodrjztp'#I USE THIS BECAUSE OF ERROR DURING FORGET PASSWORD
 print(EMAIL_HOST_USER)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -194,10 +197,10 @@ print(AWS_STORAGE_BUCKET_NAME)
 
 
 
-AWS_S3_FILE_OVERWRITE = False #if u upload any file then other cannot overwrite ur filename as same name
+AWS_S3_FILE_OVERWRITE = False #(from django storages)if u upload any file then other cannot overwrite ur filename as same name
 AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison of django storage version also may set it to none)
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Activate Django-Heroku.
 #it configures database ,allowed hosts and many other that suits heroku env setting
