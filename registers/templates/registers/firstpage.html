@@ -245,8 +245,13 @@
 <br><br><br>
 
 
+{% if request.user.is_authenticated %}
+
         <div class="text-center"><strong>Time : {{current_date}}</strong></div>
         <!-- <div class="text-center"><strong>Last Login : {{current_date}}</strong></div> -->
+
+
+{% endif %}
    
 
 
