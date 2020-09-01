@@ -24,7 +24,7 @@ SECRET_KEY = config("SECRET_KEY")
 
 # DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')#if debug value is true then return True if any other boolean and false then False
 
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['djangosupermarket.herokuapp.com']
@@ -92,6 +92,12 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+"""
+Using below database is for development and postgres is for production (for postgres u dont need to verify in settings .py)
+
+"""
+
+
 # DATABASES = {
 #     'default': {
         
@@ -106,10 +112,9 @@ WSGI_APPLICATION = 'rms.wsgi.application'
 #     }
 # }
 
-"""
-Using above database is for development and postgres is for production (for postgres u dont need to verify in settings .py)
 
-"""
+
+
 
 
 # Password validation
@@ -184,7 +189,7 @@ EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_USER = 'nirmalpandey27450112@gmail.com'
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
-EMAIL_HOST_PASSWORD = 'ffutdfvwvodrjztp'#I USE THIS BECAUSE OF ERROR DURING FORGET PASSWORD
+EMAIL_HOST_PASSWORD = 'ffutdfvwvodrjztp'#I USE app password from gmail  BECAUSE OF ERROR DURING FORGET PASSWORD
 print(EMAIL_HOST_USER)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
