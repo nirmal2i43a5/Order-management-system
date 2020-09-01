@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['djangosupermarket.herokuapp.com','www.djangosupermarket.herokuapp.com','127.0.0.1']
 
 
 # Application definition
