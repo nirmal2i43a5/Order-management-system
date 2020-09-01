@@ -24,10 +24,10 @@ SECRET_KEY = config("SECRET_KEY")
 
 # DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')#if debug value is true then return True if any other boolean and false then False
 
-DEBUG = False
+DEBUG = True
 
 
-ALLOWED_HOSTS = ['djangosupermarket.herokuapp.com','www.djangosupermarket.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['djangosupermarket.herokuapp.com','127.0.0.1']
 
 
 # Application definition
