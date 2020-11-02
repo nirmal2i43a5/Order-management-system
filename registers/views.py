@@ -55,7 +55,7 @@ def dashboard(request):
 																									
 	
 	# today_order = orders.filter(created_at__year = today_date.year,created_at__month = today_date.month,created_at__day = today_date.day)
-	today_order = orders.filter(created_at__gte = datetime.now() - timedelta(days=1))
+	today_order = orders.filter(created_at__gte = datetime.now() - timedelta(days=1))#A timedelta object represents a duration, the difference between two dates or times.
 
 	order_total_price=0.00
 	for order in today_order:
@@ -78,23 +78,19 @@ def dashboard(request):
 	return render(request,'registers/index.html',context)
 
 
-
-
 # Create your views here.
 def first_page(request):
 	current_date = datetime.now()
 	return render(request,'registers/firstpage.html',{'current_date':current_date})
 
 
-
-
 @unauthenticated_user
 def loginPage(request):
 	form = LoginForm()
-	# form = LoginForm(reequest.POST or None)
+	# form = LoginForm(request.POST or None)
 
 	if request.method == 'POST':
-		username = request.POST.get('username')
+		username = request.POST.get('username')#grabing username from form input value
 		password =request.POST.get('password')
 		email =request.POST.get('email')
 		user = authenticate(request,email=email, username=username, password=password)
@@ -106,6 +102,8 @@ def loginPage(request):
 
 	context = {'form':form}
 	return render(request, 'registers/login.html', context)
+
+
 
 
 @unauthenticated_user

@@ -126,14 +126,16 @@ def index(request):
 #I use function base view but use class base view to inherit index.I am just copying index code 
 def search(request):
 	data = dict()
-	field_value = request.GET.get('query')
+	field_value = request.GET.get('query')#grab the input value
 	print(field_value)
 	
 	# products = Product.objects.all()
 	# myFilter = ProductFilter(request.GET,queryset=products)
 	# products = myFilter.qs
+ 
 	if field_value:
 		customers = Customer.objects.filter(
+      
 											Q(name__contains=field_value)
 										   |Q(email__icontains=field_value) 
 										   | Q(contact__contains=field_value)  
@@ -163,6 +165,7 @@ def edit(request, cid):
 	#     form = CustomerModelForm() 
 	return render(request,'customers/update.html',{'form':form})
 
+
 def delete(request, cid):
 	# cus=Customer.objects.get(id=pk)
 	cus = get_object_or_404(Customer,pk = cid)
@@ -177,10 +180,10 @@ def delete(request, cid):
 
 def cus_ord_view(request, cid):
 	# order = Order.objects.filter(customer__first_name="Shankar") 
-	# -->maila particular person ko order retrieve garaxu--
-	customer = get_object_or_404(Customer,pk=cid) #use to get beautiful error -u can also use below
+	# -->I am retrieving  the order the  particular person 
+	# customer = get_object_or_404(Customer,pk=cid) #use to get beautiful error -u can also use below
 	# customer = Customer.objects.get(pk = cid)#return a particular customer name according to choosen primary key
-	orders = customer.order_set.all()#particular customer ko particular order select garxa--ot is possible with customer id
+	orders = customer.order_set.all()#particular customer ko particular order select garxa--It is possible with customer id
 	#here order in  order_set is attribute 
 	#Order ma Customer is foreign key so ot os possible to use order_set with customer
 	order_count = orders.count()

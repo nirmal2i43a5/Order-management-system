@@ -2,7 +2,7 @@
 
 
 import os
-import django_heroku#to work with database
+import django_on_heroku#to work with database
 import  dj_database_url
 from decouple import config,Csv
 
@@ -98,19 +98,19 @@ Using below database is for development and postgres is for production (for post
 """
 
 
-# DATABASES = {
-#     'default': {
+DATABASES = {
+    'default': {
         
         
-#         'ENGINE': 'django.db.backends.mysql',
-#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         'NAME':'supermarket',
-#         'HOST':'127.0.0.1',
-#         'USER':config('db_user'),
-#         'PASSWORD':config('db_password')
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME':'supermarket',
+        'HOST':'127.0.0.1',
+        'USER':config('db_user'),
+        'PASSWORD':config('db_password')
         
-#     }
-# }
+    }
+}
 
 
 
@@ -209,4 +209,4 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Activate Django-Heroku.
 #it configures database ,allowed hosts and many other that suits heroku env setting
-django_heroku.settings(locals())
+django_on_heroku.settings(locals())
