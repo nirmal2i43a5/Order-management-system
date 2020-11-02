@@ -181,7 +181,7 @@ def delete(request, cid):
 def cus_ord_view(request, cid):
 	# order = Order.objects.filter(customer__first_name="Shankar") 
 	# -->I am retrieving  the order the  particular person 
-	# customer = get_object_or_404(Customer,pk=cid) #use to get beautiful error -u can also use below
+	customer = get_object_or_404(Customer,pk=cid) #use to get beautiful error -u can also use below
 	# customer = Customer.objects.get(pk = cid)#return a particular customer name according to choosen primary key
 	orders = customer.order_set.all()#particular customer ko particular order select garxa--It is possible with customer id
 	#here order in  order_set is attribute 
