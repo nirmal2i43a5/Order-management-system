@@ -162,7 +162,9 @@ MESSAGE_TAGS = {
 LOGOUT_REDIRECT_URL = '/user/login'
 
 STATIC_URL = '/static/'
+
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')#heroku hold in this way for satic files
+
 STATICFILES_DIRS =[os.path.join(BASE_DIR,"static")]
 
 
@@ -201,6 +203,7 @@ print(AWS_STORAGE_BUCKET_NAME)
 AWS_S3_FILE_OVERWRITE = False #(from django storages)if u upload any file then other cannot overwrite ur filename as same name
 AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison of django storage version also may set it to none)
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 AWS_S3_REGION_NAME = 'ap-south-1' 
 
 # Activate Django-Heroku.
