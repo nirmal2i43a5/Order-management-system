@@ -193,7 +193,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # #retrieving value from env variables accessing bucket from aws user
 AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')#name this django storages modules
-AWS_SECRET_ACCESS_KEY=config('AWS_SECRET_ACCESS_KEY')
+AWS_SECRETE_ACCESS_KEY=config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME=config('AWS_STORAGE_BUCKET_NAME')
 print(AWS_SECRET_ACCESS_KEY)
 
