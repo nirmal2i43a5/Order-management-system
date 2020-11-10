@@ -104,16 +104,11 @@ def index(request):
 		customers = paginator.page(paginator.num_pages)
 
 	
-	if request.method=='POST':
-		form = CustomerModelForm(request.POST)
-		if form.is_valid():
-			instance = form.save()
-		   
-		messages.success(request,'Customer is successfully added',extra_tags = 'alert')
-		return redirect('/customers/list?customer added successfully')
-	 # some error occured
+
 	context={
-		'customers':customers,'myFilter':myFilter,
+		'customers':customers,#this is for both pagination and table list use(blc table list also should support pagination.so dont pass data for list separately)
+  		
+    	'myFilter':myFilter,
 		'form':form,'page':page,
 		'customer_count':customer_count,
 		'start': customers.start_index(),
@@ -135,7 +130,7 @@ def search(request):
  
 	if field_value:
 		customers = Customer.objects.filter(
-      
+	  
 											Q(name__contains=field_value)
 										   |Q(email__icontains=field_value) 
 										   | Q(contact__contains=field_value)  
@@ -151,36 +146,62 @@ def search(request):
 		data['html_list'] = render_to_string('customers/get_search_customers.html',context,request=request)
 		return JsonResponse(data)
 
-def edit(request, cid):    
-	# cus=Customer.objects.get(id=pk) #i get all value and show that value to next page
-	cus = get_object_or_404(Customer,pk = cid)
-	form=CustomerModelForm(instance=cus)
-	if(request.method=='POST'):
-		form=CustomerModelForm(request.POST,instance=cus)
-		if(form.is_valid()):
-			form.save()
-			messages.success(request, 'Customer record is successfully updated.',extra_tags='alert') #extra_tags assists uu to use alert
-			return redirect('/customers/list/?edited-successfully')#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
-	# else:
-	#     form = CustomerModelForm() 
-	return render(request,'customers/update.html',{'form':form})
 
 
-def delete(request, cid):
-	# cus=Customer.objects.get(id=pk)
-	cus = get_object_or_404(Customer,pk = cid)
+
+
+def create(request):    
+	if request.method=="POST":
+		form=CustomerModelForm(request.POST)
+		if form.is_valid():
+			cid =request.POST['cusid']
+			name=request.POST.get("name")
+			email=request.POST.get("email")
+			contact=request.POST.get("contact")
+		  
+			
+			if(cid==''):
+				customer=Customer(name=name,email=email,contact=contact)
+			else:
+				customer=Customer(id = cid,name=name,email=email,contact=contact)
+				
+			customer.save()
+			prod=Customer.objects.values()
+			customer_data =list(prod)
+			return JsonResponse({'status':'Save','customer_data':customer_data,'message':'Customer is successfully submitted'},safe=False)
+		else:
+			return JsonResponse({'status':0},safe=False)
+	   
+  
+
+def edit(request):
+    if request.method=="POST":
+        id=request.POST.get('cid')
+        print(id)
+        customer=Customer.objects.get(pk=id)
+        customer_data={"id":customer.id,"name":customer.name,"email":customer.email, "contact":customer.contact}
 	
-	if request.method=='POST':  #if i confirm in delete.html page
-		cus.delete()   #grab customer details and delete and after deleting moves to /customers/list/
-		# messages.success(request, 'Customer record is successfully deleted.',extra_tags='alert') 
-		return redirect('customer_app:list')
-		
-	return render(request,'customers/delete.html',{'name':cus })#urls.py ko url render ma url search garxa at first
+        return JsonResponse(customer_data,safe=False)
+
+
+	
+def delete(request):
+    if request.method=="POST":
+        id=request.POST.get('cid')
+        pi=Customer.objects.get(pk=id)
+        pi.delete()
+	  
+        return JsonResponse({'status':1,'message':'Customer is successfully deleted'},safe=False)
+    else:
+        return JsonResponse({'status':0,'message':'Failed to delete data'},safe=False) 
+
+   
 
 
 def cus_ord_view(request, cid):
 	# order = Order.objects.filter(customer__first_name="Shankar") 
 	# -->I am retrieving  the order the  particular person 
+ 
 	customer = get_object_or_404(Customer,pk=cid) #use to get beautiful error -u can also use below
 	# customer = Customer.objects.get(pk = cid)#return a particular customer name according to choosen primary key
 	orders = customer.order_set.all()#particular customer ko particular order select garxa--It is possible with customer id
@@ -231,9 +252,6 @@ def cus_ord_view(request, cid):
 	
  
 
-   
 
-
-
-
-
+	
+	

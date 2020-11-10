@@ -14,38 +14,43 @@ from django.db.models import Q
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 
-
-
-
+from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def create(request,cid):
     '''Below I replace OrderForm with'''
     
-    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=1)  
-    #it means maila customer lai click garda order ma bhako detail access garako xu with instance
+    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=5)  #access both customer and order form
+    
+    #it means maila customer lai click garda order ma bhako detail access garako xu with instance of customer
      #parent model and then child model---
     #we can have multiple order so we need to tell which to allow by fields
    
     cus = Customer.objects.get(pk=cid)
-    formset = OrderFormSet(queryset=Order.objects.none(),instance=cus)
+    formset = OrderFormSet(queryset=Order.objects.none(),instance=cus)#i pass instance because i am adding order of particular customer
+    # print(formset)
+    
     #queryset =Order.objects.none() la --> already bhako product inline form ma show hudaina maila Add order ma jada
     # form = OrderForm(initial={'customer':cus})#right customer is in model--comment this wh
     
     if request.method=='POST':
         # form = OrderForm(request.POST)
-        formset = OrderFormSet(request.POST,instance=cus)
+        formset = OrderFormSet(request.POST,instance = cus)
         if formset.is_valid():
             formset.save()
         messages.success(request,"Order is successfully added",extra_tags = 'alert')
         return redirect('customer_app:view', cid)
     
-    return render(request,'orders/create.html',{'formset':formset})
+    return render(request,'orders/create.html',{'formset':formset,'customer':cus})
+
+
+
 
 
 @login_required(login_url='/user/login/')
 def index(request):
-    orders=Order.objects.all()  
+    orders=Order.objects.all().order_by("-id")
     total_orders=orders.count()
     # myFilter = OrderFilter(request.GET,queryset=orders)
     # orders = myFilter.qs
@@ -54,25 +59,9 @@ def index(request):
     delivered=orders.filter(status="Delivered").count()
     
     
-       
-    page = request.GET.get('page', 1)#means page  number 1
-    paginator = Paginator(orders, 5)
-  
-    try:
-        orders = paginator.page(page)
-    except PageNotAnInteger:
-        orders = paginator.page(1)
-    except EmptyPage:
-        #if page is out of range show last page
-        orders = paginator.page(paginator.num_pages)
-
-    
-    if request.method=='POST':
-        form = CustomerModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('/customers/list?customer added successfully')
-            
+    # -----------------Call for pagination logic----------------------------
+    orders = pagination(request,orders)#return pagination orders data
+         
     context={
         'orders':orders,'total_orders':total_orders,
         'orders_pending':pending,'orders_delivered':delivered,
@@ -84,6 +73,25 @@ def index(request):
     return render(request,'orders/index.html',context)
 
 
+        
+    
+
+
+def pagination(request,object):
+    page = request.GET.get('page', 1)#means page  number 1
+    paginator = Paginator(object, 5)
+  
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        #if page is out of range show last page
+        orders = paginator.page(paginator.num_pages)
+        
+    return orders
+
+    
 def search(request):
     data = dict()
     field_value = request.GET.get('query')
@@ -155,4 +163,5 @@ def delete(request, oid):
         return redirect('order_app:list')
     
     return render(request,'orders/delete.html',{'orders':ord})#urls.py ko url render ma url search garxa at first
+
 

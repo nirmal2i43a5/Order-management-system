@@ -98,23 +98,19 @@ Using below database is for development and postgres is for production (for post
 """
 
 
-# DATABASES = {
-#     'default': {
+DATABASES = {
+    'default': {
         
         
-#         'ENGINE': 'django.db.backends.mysql',
-#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         'NAME':'supermarket',
-#         'HOST':'127.0.0.1',
-#         'USER':config('db_user'),
-#         'PASSWORD':config('db_password')
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME':'supermarket',
+        'HOST':'127.0.0.1',
+        'USER':config('db_user'),
+        'PASSWORD':config('db_password')
         
-#     }
-# }
-
-
-
-
+    }
+}
 
 
 # Password validation
@@ -173,9 +169,8 @@ STATICFILES_DIRS =[os.path.join(BASE_DIR,"static")]
 
 
 #for image upload
-MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')#this makes folder images inside static and upload profile_img
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')#this makes folder media and hold images Profile_images inside static and upload profile_img
 
 
 
@@ -190,22 +185,23 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'nirmalpandey27450112@gmail.com'
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
 EMAIL_HOST_PASSWORD = 'ffutdfvwvodrjztp'#I USE app password from gmail  BECAUSE OF ERROR DURING FORGET PASSWORD
-print(EMAIL_HOST_USER)
+# print(EMAIL_HOST_USER)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-#retrieving value from env variables accessing bucket from aws user
-AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')#name this django storages modules
-AWS_SECRETE_ACCESS_KEY=os.environ.get('AWS_SECRETE_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME=os.environ.get('AWS_STORAGE_BUCKET_NAME')
+# #retrieving value from env variables accessing bucket from aws user
+AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')#name this django storages modules
+AWS_SECRET_ACCESS_KEY=config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME=config('AWS_STORAGE_BUCKET_NAME')
 print(AWS_STORAGE_BUCKET_NAME)
 
-
-
+# AWS_ACCESS_KEY_ID="AKIAVUNKSBW3PX7YJSXZ"
+# AWS_SECRET_ACCESS_KEY="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"
+# AWS_STORAGE_BUCKET_NAME="supermarket-django-files"
 AWS_S3_FILE_OVERWRITE = False #(from django storages)if u upload any file then other cannot overwrite ur filename as same name
 AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison of django storage version also may set it to none)
-
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_REGION_NAME = 'ap-south-1' 
 
 # Activate Django-Heroku.
 #it configures database ,allowed hosts and many other that suits heroku env setting

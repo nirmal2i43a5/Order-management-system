@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm,PasswordResetForm,Authent
 
 from django import forms
 from django.forms import EmailField,TextInput,PasswordInput,ImageField
+from .models import Profile
 
 
 from django.utils.translation import ugettext_lazy as _ #for protected-
@@ -32,7 +33,7 @@ class LoginForm(AuthenticationForm):
 
 class SignupForm(UserCreationForm):
 	username=forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Enter Username",}))
-	email=forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Enter Email",}))
+	email=forms.EmailField(widget=forms.TextInput(attrs={"placeholder": " Enter Email",}))
 	password1=forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Enter Password",'type' : 'password'}),label=_("Password"))
 	password2=forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Confirm Password",'type' : 'password'}),label=_("Confirm Password"))
 	
@@ -52,3 +53,19 @@ class SignupForm(UserCreationForm):
 			# 'email':"Your email should contain @" if i add email and wants help_texts for that
 		   #to remove help text of password and password2 go to UserCreationForm  and comment help_text in 
 		}
+
+
+
+class UpdateDefaultProfile(forms.ModelForm):
+	email=forms.EmailField(widget=forms.TextInput(attrs={"placeholder": " Enter Email",}))
+	class Meta:
+		model = User
+		fields = ('username','email',)
+
+class UpdateCustomProfile(forms.ModelForm):
+   
+    	
+	class Meta:
+		model = Profile
+		fields = ('fname','lname','address','contact','profile_img',)	
+	

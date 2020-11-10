@@ -7,11 +7,13 @@
     {% block head %}
 
 <head>
-   
+    <!-- <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   
-    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script> 
+    <!-- <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>  -->
  
    
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
@@ -29,13 +31,7 @@
           crossorigin="anonymous"></script>
 
 
-   <!--below link are for dashboard i.e registers/index.html-->
  
-
-    <script src="{% static 'vendor/js/scripts.js' %}"></script>
-  
-
-
     <!--mystyle css link -->
     <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}"> -->
 
@@ -47,25 +43,18 @@
 
 
 <body>
+
   <div class="container">
-
-
     {% block content %}{% endblock %}
-
 </div>
 
-    <!-- <img src="{% static '' %}">to make image static -->
+  
    
 
     {% block javascript %}
-    
-    <script src="{% static 'vendor/js/scripts.js' %}"></script>
-  
     {% endblock %}
 
     {% block css %}
-    
-
     {% endblock %}
 
 </body>

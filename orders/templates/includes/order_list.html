@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="col-md-10">
+        <table class="table table-sm table-responsive-sm table-hover text-nowrap table-striped table-bordered"
+            style="margin-left:12%;">
+            <thead class="thead-dark">
+                <tr style="text-align: center;">
+                    <th>Order Id</th>
+                    <th>Cus.Id</th>
+                    <!-- <th>Category</th> -->
+                    <th>Product</th>
+                    <!-- <th>Category</th> -->
+                    <th>Quantity</th>
+                    <th>Created</th>
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+
+            </thead>
+            <tbody id="get_table_body">
+
+                {% for order in orders %}
+
+                <tr style="text-align: center;">
+                    <td>{{order.id}}</td>
+                    <td>{{order.customer.id}}</td>
+
+
+
+                    <td>{{order.product.name}}</th>
+                        <!-- <td>{{order.product.category}}</td> -->
+                    <td>{{order.quantity}} {{order.product.unit}}</td>
+
+                    <!--
+     <td>{{order.product}}</th> also give same result for name
+maila order table ma Product table ko access garda use product object
+like above
+product=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
+-->
+
+                    <td>{{order.created_at}}</td>
+                    <td>{{order.status}}</td>
+
+                    <td><a href="{% url 'order_app:edit' order.customer.id order.id %}" class="btn btn-success btn-sm"><i
+                                class="fa fa-edit"></i></a>
+                        <a href="{% url 'order_app:delete' order.id %}" class="btn btn-danger btn-sm"><i
+                                class="fa fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="7" class=" text-center alert alert-danger">No Order Found</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

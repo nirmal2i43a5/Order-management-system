@@ -7,16 +7,31 @@
 
 {% block content %}
 <main>
+   
   
     <div class="container">
+    
         <div class="row justify-content-center">
+            
             <div class="col-lg-9">
                 <div class="card shadow-lg border-0 rounded-lg mt-5 " >
-                    <div class="card-header"><h2 class="text-center font-weight-light my-4">Add Order</h2></div>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-2">
+                        
+                                <a href="/" class="btn btn-sm btn-primary">   <i class="fas fa-home"></i> HOME</a>
+                            </div>
+                            <div class="col-md-8">
+                                <h2 class="text-center  my-4">Add Order For <strong>{{customer.name}}</strong> </h2></div>
+                            </div>
+                        </div>
+     
+             
                     
                     <div class="card-body">
+                        
                       
-                        <form method="POST" action="">
+                        <form method="POST" action="" style="display: inline;">
                             {% csrf_token %}
                             {{formset.management_form}}
                             {% for form in formset %}
@@ -27,10 +42,19 @@
                             {% endfor %}
             
             
-                            <a href="{% url 'customer_app:list' %}" class="btn btn-danger">Back</a>
-                            <button type="submit" class="btn btn-success">Save</button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{% url 'customer_app:list' %}" class="btn btn-sm btn-block btn-danger">Back</a>
+                                </div>
+                                <div class="col-md-6">
+                                      
+                            <button type="submit" class="btn btn-sm btn-block btn-success">Save</button>
                             <!--save huda post method hunxa and create views ko redirect ma janxa-->
             
+                                    
+                                </div>
+                            </div>
+                         
                         </form>
                         
                     </div>

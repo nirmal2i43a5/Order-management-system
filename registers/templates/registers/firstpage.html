@@ -40,9 +40,11 @@
         <div class="col">
        
                 
-            <a class="float-right" style="color:white;"> Hello, {{request.user.username}} </a>
+            <a class="float-right" style="color:white;"> Welcome, {{request.user.username}} </a>
            
         </div>
+
+            <a href="{% url 'register_app:user_view' %}" class="btn btn-sm btn-warning">  <i class="fas fa-eye"></i> Profile</a>
 
                 {% if request.user.is_superuser %}
                 
@@ -77,7 +79,7 @@
          <div class="col">
           
                 
-            <a class="float-right" style="color:white;"> Hello, Unknown </a>
+            <a class="float-right" style="color:white;"> Welcome, Unknown </a>
            
         </div>
 
@@ -110,9 +112,7 @@
 
 </div>
 
-{% include 'registers/user_view.html' %}
 
-{% include 'registers/admin_view.html' %}
 
 
 <div id="logOutModal" class="modal fade">
@@ -203,7 +203,7 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 {% if user.is_authenticated %}
                                 <a class="nav-link" href="{% url 'register_app:logout'%}"><i class="fas fa-sign-out-alt"></i>Logout</a>
-                                <a class="nav-link" href="/reset_password"><i class="fas fa-bars"></i><span class="ml-1"></span>Change Password</a>
+                                <a class="nav-link" href="/reset_password"><i class="fas fa-bars"></i><span class="ml-1"></span>Forget Password</a>
 
                                 {% else %}
 
@@ -258,7 +258,7 @@
     <h3 class="card-header border-dark" style="text-align:center;">Supermarket Management System</h3>
    
 </div>
-<img src="static/image/supermarket.jpg" />
+<img src="media/supermarket.jpg" />
 
 <style>
     img {

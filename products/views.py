@@ -17,23 +17,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q,Sum
 from django.contrib.auth.decorators import login_required
 
-# def create(request):
-#     form=ProductForm()
- 
-#     if(request.method=='POST'):
-#         form=ProductForm(request.POST)
-#         if(form.is_valid()):
-#             form.save()
-            
-#         return redirect('/products/list?Product added ')
-    
-#     return render(request,'products/create.html',{'form':form})
-    
+
 
 @login_required(login_url = '/user/login/')
 def index(request):   
     form = ProductForm()
-    products=Product.objects.all()
+    products=Product.objects.all()#show the list
     product_count = products.count()
     
     products = getPaginator(request,products)
@@ -46,13 +35,9 @@ def index(request):
     '''
   
 
-    if(request.method=='POST'):
-        form=ProductForm(request.POST)
-        if(form.is_valid()):
-            form.save()
-            
-        # return redirect('/products/list?Product added ')    
-    context={'products':products,
+  
+    context={'products':products,##this is for both pagination and table list use(blc table list also should support pagination.so dont pass data for list separately)
+           
            
              'form':form,
              'start':products.start_index(),
@@ -118,81 +103,58 @@ def search(request):
         return JsonResponse(data)
 
 
-def save_product_form(request, form, template_name):
+
+def create(request):   
    
-    data = dict()
-    
-    if request.method == 'POST':
+    if request.method=="POST":
+        form=ProductForm(request.POST)
         if form.is_valid():
-            form.save()
-            data['form_is_valid'] = True
-            products = Product.objects.all()
-            data['html_product_list'] = render_to_string('products/index.html', {
-                #valid huda data goes to index.html else stay on template_name
-                'products': products
-            })
-          
+            pid =request.POST["proid"]
+            name=request.POST.get("name")
+            price=request.POST.get("price")
+            quantity=request.POST.get("quantity")
+            unit=request.POST.get("unit")
+            description=request.POST.get("description")
             
+            if(pid==''):
+                product=Product(name=name,price=price,quantity=quantity,unit=unit,description=description)
+            else:
+                product=Product(id = pid,name=name,price=price,quantity=quantity,unit=unit,description=description)
+                
+            product.save()
+            prod=Product.objects.values()
+            product_data =list(prod)
+            return JsonResponse({'status':'Save','product_data':product_data,'message':'Product is successfully submitted'},safe=False)
         else:
-            data['form_is_valid'] = False
-            
-        '''if valid is false then go to  else {
-            $("#modal-product .modal-content").html(data.html_form);}----> in products.js
-            -->If value is invallid then without refreshing filled form it tells field is invalid in form 
-            -->also apply for edit page and check edit data before submit and if error in editing then give same message like as adding data in form
-          '''
-            
-    context = {'form': form}
-    data['html_form'] = render_to_string(template_name, context, request=request)
-    
-    return JsonResponse(data)
-
-def create(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-    else:
-        form = ProductForm()   
-    return save_product_form(request,form,'products/create.html')
-
-
-    '''whenever i come to create views with respective url then first ma form and template liyara save_product_form call hunxa.so,products/create show json data
-          return JsonResponse(data) in save_product_form-- if request.method == 'POST': in create garda we pass form data in save_product_form and check for 
-          validation of that data--in the same view retrieve save data and render to products/index.html
-        '''
-    
-
-
-
-def edit(request, pid):
-   
-    pro = get_object_or_404(Product, pk=pid)
-    
-    if request.method == 'POST':#means when  submit in edit page
-        form = ProductForm(request.POST, instance=pro)
-        
-    else:
-        
-        form = ProductForm(instance=pro)
-    return save_product_form(request, form, 'products/update.html')
-
-
-def delete_product(request, pid):
-    data = dict()
-    product = get_object_or_404(Product, pk=pid)
-    
-    if(request.method == 'POST'):#Use this when i confirm delete 
+            return JsonResponse({'status':0})
        
-        product.delete()
-        
-        data['form_is_valid'] = True
-        products = Product.objects.all()
-        data['html_product_list'] = render_to_string('products/index.html',{'products':products})   
-        
+  
+
+    
+    
+def edit(request):
+    print("edit is click ----------------------")
+    if request.method=="POST":
+        id=request.POST.get('pid')
+        # print(id)
+        product=Product.objects.get(pk=id)
+        product_data={"id":product.id,"name":product.name,"price":product.price,
+                      "quantity":product.quantity,"unit":product.unit,"description":product.description}
+    
+        return JsonResponse(product_data)
+    
+    
+    
+    
+def delete(request):
+    if request.method=="POST":
+        id=request.POST.get('pid')
+        pi=Product.objects.get(pk=id)
+        pi.delete()
+      
+        return JsonResponse({'status':1,'message':'Product is successfully deleted'},safe=False)
     else:
-        
-        context = {'pro': product}#this goes to action pro.id in delete.html
-        data['html_form'] = render_to_string('products/delete.html', context, request=request)    
-    return JsonResponse(data)
+        return JsonResponse({'status':0,'message':'Failed to delete data'},safe=False)    
 
 
 
@@ -216,6 +178,14 @@ def productData(request,cid):
      
     print(productData)
     return JsonResponse(productData,safe=False)
+
+
+
+
+
+
+
+
 
 # ------------------------------------------------------------------------------------------------------------------------------------
 '''

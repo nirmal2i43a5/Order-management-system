@@ -11,10 +11,11 @@ class Product(models.Model):
    
     PRICE_UNITS_CHOICES = (
      #   The first element in each tuple is the actual value to be set on the model, and the second element is the human-readable name.
-        ('UNIT', 'Choose Product Unit'),
-        ('Kg', 'kg'),
-        ('L','litre'),
-        ('Pcs','pcs'),
+        ('', 'Choose Product Unit'),
+        ('kg', 'kg'),
+        ('l','litre'),
+        ('pcs','pcs'),
+        ('gm','gm'),
         ('m2', 'm2'),
         ('m3', 'm3'),
         ('ml', 'ml'),
@@ -29,6 +30,9 @@ class Product(models.Model):
     category=models.CharField(max_length=200,null=True,choices=category)
     description=models.CharField(max_length=50,null=True)
     created_at=models.DateTimeField(auto_now=True,null=True)
+   
+   
+   
    
     def __str__(self):
         return self.name

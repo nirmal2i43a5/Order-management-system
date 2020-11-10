@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 
   $("#js-search-form").on("click", function(event){
-        event.preventDefault();
+    event.preventDefault();
       var form = $(this);
 
           $.ajax({

@@ -6,9 +6,6 @@ from django.contrib.auth.models import User#for profile i need User
 from django.dispatch import receiver
 from django.db.models.signals import post_save#user object  signal create hunxa
 
-
-
-
 class Profile(models.Model):#THis is employee profile
 	#in django username [assword1 and password2 are default field --but we make this model if we want to add extra field]
  
@@ -19,7 +16,7 @@ class Profile(models.Model):#THis is employee profile
 	address = models.CharField(max_length=100, null=True)
 	contact = models.CharField(max_length=100,null =True)
 	email=models.EmailField(max_length=100,null=True)
-	# profile_img = models.ImageField(null=True, blank=True)
+	profile_img = models.ImageField(upload_to='Profile_images',default='default.png')
  
 	def __str__(self):
 		return self.user.username    #i use this function because i dont use null =True in user -everytime i need this
@@ -29,8 +26,6 @@ class Profile(models.Model):#THis is employee profile
 		verbose_name_plural ='Profile'
 		db_table = 'tbl_profile'
 
-		
-		
 	def save(self,*args,**kwargs):
 		super().save(*args,**kwargs)
   

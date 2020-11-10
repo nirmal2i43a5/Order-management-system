@@ -6,7 +6,7 @@
 {% block title %}Customers{% endblock %}
 
 {% block javascript %}
-
+<script src="{% static 'vendor/js/scripts.js' %}"></script>
 <script src="{% static 'products/search.js' %}"></script>
 <script src="{% static 'customers/scroll.js' %}"></script>
 {% endblock %}
@@ -14,220 +14,29 @@
 {% block content %}
 <!--Nav bar and side bar which include search and others-->
 
-<body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        {% if request.user.is_superuser %}
-        <a class="navbar-brand" href="/">
-            <i class="fas fa-home"></i> Home
-        </a>
+{% include 'navbar.html' %}
 
-        {% else %}
-
-        <a class="navbar-brand" href="/">
-            <i class="fas fa-home"></i> Home
-        </a>
-
-
-        {% endif %}
-             <button type="button" id="sidebarToggle" class="btn btn-warning text-black-50">
-                <i class="fas fa-align-left"></i>
-              </button>
-
-            <div class="col">
-                
-                <a class="float-right" style="color:white;"> Hello, {{request.user.username}} </a>
-               
-            </div>
-      
-<div class="col">
-    <div  data-toggle="modal" data-target="#logOutModal" style="margin-left:70%;">
-             
-        <a class="btn btn-sm btn-warning float-right" style="cursor: pointer;color:black;"><i class="fa fa-sign-out-alt"></i> LOGOUT</a>
-    </div>
-</div>
-
-     
-        
-    </nav>
-    <!--logout model js popup for confirm or stay-->
-    <div id="logOutModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Want to leave ?</h4>
-                    <button class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    Press logout to leave !
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" data-dismiss="modal">
-                        <!--model-dismiss la same page ma lauxa-->
-                        Stay Here
-                    </button>
-                    <a class="btn btn-danger" href="{% url 'register_app:logout'%}">
-                        Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-
-                  {% if request.user.is_superuser %}
-                        <a class="nav-link" href="/dashboard">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-home"></i>
-                            </div>
-                            Dashboard
-                        </a>
-                {% endif %}
-
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
-                            aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-columns"></i>
-                            </div>
-                            Pages
-                            <div class="sb-sidenav-collapse-arrow">
-                                <i class="fas fa-angle-down"></i></div>
-                        </a>
-
-                        <div class="(collapse)" id="collapseLayouts" aria-labelledby="headingOne"
-                            data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'product_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Products</span></a>
-                                <a class="nav-link" href="{% url 'order_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Orders</span></a>
-                                <a class="nav-link" href="{% url 'customer_app:list'%}"><i class="fas fa-bars"></i><span class="ml-1">Customers</span></a>
-                            </nav>
-                        </div>
-
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                            aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-book-open"></i>
-                            </div>
-                            Authentication
-                            <div class="sb-sidenav-collapse-arrow">
-                                <i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="(collapse)" id="collapsePages" aria-labelledby="headingTwo"
-                            data-parent="#sidenavAccordion">
-                            
-                            <nav class="sb-sidenav-menu-nested nav">
-                                {% if user.is_authenticated %}
-
-                                <a class="nav-link" href="{% url 'register_app:logout'%}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-
-                                {% else %}
-                                <a class="nav-link" href="{% url 'register_app:login'%}">Login</a>
-                                <a class="nav-link" href="{% url 'register_app:register'%}">Register</a>
-                                {% endif %}
-                            </nav>
-
-
-
-
-                        </div>
-                       
-                    </div>
-                </div>
-              
-            </nav>
-        </div>
-
-
-
-
-    </div>
-    </div>
-
-
-</body>
 
 <br><br>
 <hr>
+
 <!--for messages tag-->
 
 {% include 'message.html' %}
 
+   
+   
 
-    
+<div class="row">
+    <div class="col-lg-10" style="margin-left:15%;">
+          <div class="alert alert-success" id="upt_success" style="display:none">
 
-    <!--For form pop up -->
-    <form method="POST" action=""><!--data-url work same as edirect in views-->
-        {% csrf_token %}
+          </div>
+           <div class="alert alert-danger" id="upt_error" style="display:none">
 
-        <div id="customerModel" class="modal fade">
-
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Customer</h4>
-                        <button class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-
-
-                        {{form|crispy}}
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-danger" data-dismiss="modal">
-                            <!-- model-dismiss la same page ma lauxa -->
-                            Cancel
-                        </button>
-                        <button class="btn btn-success">
-                            <!-- model-dismiss la same page ma lauxa -->
-                            Save
-                        </button>
-                      
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </form>
-
+          </div>
+    </div>
 </div>
-
-</div>
-
-
-
-<!-- <div class="row">
-
- <div class="form-group col-md-1" style="margin-left:18%;"></div>
-            <select class="form-control post_max" name="page">
-                <option> Show</option>
-                <option value="10"{% if page == 10 %}selected{% endif %}>10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-
-
-                <option value="100">100</option>
-            </select> 
-
-        </div>
-      
-    
-        <div class="col mt-2">
-            Entries
-        </div>
-    
-     
-
-         
-
-</div> -->
-
 
 
 <div class="col">
@@ -248,7 +57,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <button data-toggle="modal" data-target="#customerModel" class=" btn btn-primary mt-1 ml-2">
+                <button data-toggle="modal" data-target="#AddCustomer" class=" btn btn-primary mt-1 ml-2">
 
                     <i class=" fas fa-plus "></i> Customer
                     <!-- I dont need to use url because Add Customer garda data-target la id search gardai janxa id ma -->
@@ -271,117 +80,201 @@
         </div>
       </nav>
     <hr>
-<div class="container">
-    <div class="col-md-11" >
-
-        <table class="table table-sm table-responsive-sm table-hover text-nowrap table-responsive-sm  table-striped table-bordered display" style="margin-left:11%;"  id="table_id" border='2' align="center"  style="width:100%">
-            <thead class="thead-dark">
-                <tr style="text-align: center;">
-
-                    <th>View</th>
-                    <th>S.N</th>
-                    <th>Name</th>
-
-                    <th>Email</th>
-                    <th>Conact No</th>
-                    <th>Created At </th>
-
-                    <th>Action</th>
 
 
 
-                </tr>
-            </thead>
-            <tbody id="get_table_body">
 
-                {% for customer in customers %}
-                <tr>
+{% include 'includes/customer_list.html' %}
+{% include 'includes/add_edit_form.html' %}<!--This is for showing model add/edit  customer-->
 
-                    <td><a href="{% url 'customer_app:view' customer.id %}" class="btn btn-primary btn-sm"><i
-                                class="fa fa-eye"></i></a></td>
-                    <td>{{customer.id}}</td>
-                    <td>{{customer.name}} </td>
-                    <td>{{customer.email}}</th>
-                    <td>{{customer.contact}}</td>
-                    <td>{{customer.date_created}}</td>
-
-                    <td>
-                        <a href="{% url 'customer_app:edit' customer.id %}" class="btn btn-success btn-sm">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="{% url 'customer_app:delete' customer.id %}" class="btn btn-danger btn-sm ">
-                            <i class="fa fa-trash-alt"></i>
-                        </a>
-                        <a href="{% url 'order_app:create' customer.id %}" class="btn btn-success btn-sm">
-                            <i class="fas fa-plus"></i>
-                        </a>
-
-                    </td>
-
-
-
-                </tr>
-
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <div class="row">
-
-            <div class="col">
-
-                <div class="mt-2" style="margin-left:20%">
-                  <Strong>  Showing {{start}} to {{end}} of {{customer_count}} customers</Strong>
-                </div>
-
-            </div>
-
-            <div class="col">
-
-
-                <div class="float-right">
-
-                    {% if customers.has_other_pages %}
-                    <ul class="pagination">
-                        {% if customers.has_previous %}
-                        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                        <a class="btn btn-outline-info mb-4"
-                            href="?page={{ customers.previous_page_number }}">Previous</a>
-                        {% else %}
-
-                        {% endif %}
-
-                        {% for i in customers.paginator.page_range %}
-                        {% if customers.number == i %}
-                        <!--recent page ma dark dekhauxa-->
-                        <li class="btn btn-info mb-4"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                        {% else %}
-
-                        <li><a class="btn btn-outline-info mb-4" href="?page={{ i }}">{{ i }}</a></li>
-                        {% endif %}
-                        {% endfor %}
-
-                        {% if customers.has_next %}
-
-                        <a class="btn btn-outline-info mb-4" href="?page={{ customers.next_page_number }}">Next</a>
-                        <a class="btn btn-outline-info mb-4" href="?page={{ customers.paginator.num_pages }}">Last</a>
-                        {% else %}
-                        <!-- <li class="btn btn-outline-info mb-4"><span>&raquo;</span></li> -->
-                        {% endif %}
-                        <hr>
-                    </ul>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 
 <button  id="back-to-top" style="float:right;margin-right:1%;" class="btn btn-primary"> <i class="fas fa-arrow-alt-circle-up fa-1x"></i>
 </button>
 
+
+<script>
+
+    $(document).ready(function(){
+
+
+        $(".btn-insert-data").click(function(e){
+            console.log("button click")
+
+            e.preventDefault();
+            e.stopPropagation(); 
+    
+            output="";
+
+           var cid=$("#cusid").val();// <input type="hidden" name="cusid" id="cusid" /> inside modal form in includes/add_edit_form.html 
+            var name=$("#id_name").val();
+            var email=$("#id_email").val();
+          
+            var contact=$("#id_contact").val();
+            let csr = $("input[ name=csrfmiddlewaretoken]").val();
+            
+            if(name==""){
+                $("#ins_error").text("Please Enter Name")//ins_error is below the form(look id in includes/add_edit_form.html )
+                $("#ins_error").show()
+                return;
+            }
+            else if(email==""){
+                $("#ins_error").text("Please Enter email")
+                $("#ins_error").show()
+                return;
+            }
+            else if(contact==""){
+                $("#ins_error").text("Please Enter Contact Number")
+                $("#ins_error").show()
+                return;
+              return;
+            }
+            else{
+    
+            
+                $.ajax({
+                 
+                    url : '{% url "customer_app:create" %}',
+                    method:'POST',
+                    data:{cusid:cid,name:name,email:email,contact:contact,csrfmiddlewaretoken:csr},
+                    
+    
+                })
+                
+                .done(function(data){//response bring all the data
+                    console.log(data.customer_data)
+    
+    
+                            x=data.customer_data
+                            if(data.status=="Save"){
+
+                              //  $("#msg").text("Form Submitted Successfully");
+                              //  $("#msg").show();
+                            
+                                 $("#AddCustomer .close").click();
+                                 $("#upt_error").hide();
+                                 $("#upt_success").text(data.message);
+                                $("#upt_success").show();
+    
+                             
+    
+                                for(i=0;i<x.length;i++){
+
+                                    output+=
+                                    `
+                                    <tr>
+                                        <td> <a href="customers/customer-id-${x[i].id}/order/" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td> ${x[i].id}</td>
+                                        <td> ${x[i].name}</td>
+                                        <td> ${x[i].email}</td>
+                                        <td> ${x[i].contact}</td>
+                                        <td>${x[i].date_created}</td>
+                                        <td>
+                                            <button type='button' class='btn btn-success btn-sm  btn-edit' data-target="#AddCustomer" data-toggle="modal"   data-cid=" ${x[i].id}" ><i class='fa fa-edit'></i></button>    <button type='button' class='btn btn-danger  btn-sm  btn-del'  data-cid=" ${x[i].id}" ><i class='fa fa-trash-alt'></i></button>     <a href='' class='btn btn-success btn-sm'>  <i class='fas fa-plus'></i> </a>
+                                        </td>
+                                     
+                                    </tr>
+                                    `
+                                  
+                                    $(".table tbody").html(output);
+        }
+        }
+       
+    
+    
+                  
+                })
+             
+                .fail(function(){
+                     $("#ins_success").hide();//
+                     $("#ins_error").text("Something Went Wrong!");
+                     $("#ins_error").show();
+                })
+                .always(function(){
+                    $(".btn-insert-data").removeAttr("disabled");
+                   $(".btn-insert-data").text("Save");
+                })
+    
+    
+    
+   //  setInterval('location.reload()', 1300);  
+    
+            }
+        })
+    
+      //edit form
+        $("tbody").on("click",".btn-edit",function(){
+            let id=$(this).attr("data-cid");
+            let csr = $("input[ name=csrfmiddlewaretoken]").val();
+            mydata={cid:id,csrfmiddlewaretoken:csr}
+            $.ajax({
+                url:"{% url 'customer_app:edit' %}",
+                method:"POST",
+                data:mydata,
+    
+                success:function(data){
+                    if(data.status == 1){
+    
+                        $("#upt_success").text(data.message);
+                        $("#upt_success").show();
+                    
+    
+                    }
+    
+                  
+                    $("#cusid").val(data.id);//<input type="hidden" name="cusid" id="cusid" /> in includes/add_edit_form.html
+                    $("#id_name").val(data.name);
+                    $("#id_email").val(data.email);
+                    $("#id_contact").val(data.contact);
+                    
+    
+                   
+                }
+                
+            })
+        })
+    
+       //Delete data
+       $("tbody").on("click",".btn-del",function(){
+           
+        let id=$(this).attr("data-cid");
+        let csr = $("input[ name=csrfmiddlewaretoken]").val();
+        mydata={cid:id,csrfmiddlewaretoken:csr}
+        mythis=this;
+        $.ajax({
+            url:"{% url 'customer_app:delete' %}",
+            method:"POST",
+            data:mydata,
+            success:function(data){
+    
+               
+                if(data.status==1){
+    
+    
+    
+                   $("#upt_error").hide();
+                    $("#upt_success").text(data.message);
+                   $("#upt_success").show();
+                    $(mythis).closest("tr").fadeOut();
+    
+                   
+                }
+                if(data.status==0){
+                    $("#upt_success").hide();
+                        $("#upt_error").text(data.message);
+                        $("#upt_error").show();
+                }
+            }
+        })
+    })
+
+    })
+  
+
+    
+</script>
 
 {% endblock%}
 

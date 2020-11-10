@@ -1,0 +1,49 @@
+
+<div class="row">
+
+    <div class="col mt-2" style="margin-left:19%;position:fixed;">
+
+
+        <Strong> Showing {{start}} to {{end}} of {{products_count}} products</Strong>
+
+
+    </div>
+
+    <div class="col" >
+
+
+        <div style="float:right;margin-right: 20%;">
+
+            {% if products.has_other_pages %}
+            <ul class="pagination">
+                {% if products.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ products.previous_page_number }}">Previous</a>
+                {% else %}
+
+                {% endif %}
+
+                {% for i in products.paginator.page_range %}
+                {% if products.number == i %}
+                <!--recent page ma dark dekhauxa-->
+                <li class="btn btn-info mb-4"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+
+                <li><a class="btn btn-outline-info mb-4" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if products.has_next %}
+
+                <a class="btn btn-outline-info mb-4" href="?page={{ products.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ products.paginator.num_pages }}">Last</a>
+                {% else %}
+                <!-- <li class="btn btn-outline-info mb-4"><span>&raquo;</span></li> -->
+                {% endif %}
+                <hr>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

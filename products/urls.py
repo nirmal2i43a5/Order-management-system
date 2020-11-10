@@ -13,8 +13,8 @@ urlpatterns=[
     path('list/',views.index, name = "list"), 
     path('search',views.search,name="search"),
     path('pdf/',pdfviews.GeneratePDF.as_view(),name="pdf"),
-    path('edit/<int:pid>/',views.edit,name="edit"),
-    path('delete/<int:pid>/',views.delete_product,name="delete_product"),
+    path('edit/',views.edit,name="edit"),
+    path('delete/',views.delete,name="delete_product"),
     path('productData/<int:cid>/',views.productData,name="product-data")
   
 ]

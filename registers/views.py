@@ -4,10 +4,12 @@ from django.shortcuts import render,reverse,redirect,resolve_url
 from django.contrib.auth.views import LoginView,LogoutView
 from django.conf import settings
 from django.views.generic import CreateView
-from .forms import SignupForm,LoginForm
+
+from .forms import SignupForm,LoginForm,UpdateDefaultProfile,UpdateCustomProfile
 from django.contrib import messages
 from customers.models import Customer
 from orders.models import Order
+from registers.models import Profile
 from products.models import Product,HistConf
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -19,6 +21,7 @@ import json
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from registers.filters import CustomerFilter
+
 # from datetime import datetime
 # from django.utils.timezone import datetime
 from datetime import datetime, timedelta
@@ -48,12 +51,9 @@ def dashboard(request):
 	# today_date = datetime.today()#filter every day order product for daily expenses	
 
 	# today_customers = customers.filter(date_created__year = today_date.year,date_created__month = today_date.month,
-    #                                 date_created__day = today_date.day).count()
-    
-	today_customers = customers.filter(date_created__gte = datetime.now() - timedelta(days=1)).count()#details of last 24 hours#b4 i also get same output using above line but now not so use this concept
- 
-																									
+	#                                 date_created__day = today_date.day).count()
 	
+	today_customers = customers.filter(date_created__gte = datetime.now() - timedelta(days=1)).count()#details of last 24 hours#b4 i also get same output using above line but now not so use this concept
 	# today_order = orders.filter(created_at__year = today_date.year,created_at__month = today_date.month,created_at__day = today_date.day)
 	today_order = orders.filter(created_at__gte = datetime.now() - timedelta(days=1))#A timedelta object represents a duration, the difference between two dates or times.
 
@@ -157,8 +157,6 @@ class UserLogout(LogoutView):
 
 
 
-# def employeeProfile(request):
-#     return render(request,'registers/user_view.html')
 
 
 # @admin_only
@@ -166,15 +164,42 @@ class UserLogout(LogoutView):
 #     return render(request,'registers/admin_view.html')
 
 
+
+#below package is for changing password form
+
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+def UserProfile(request):
+	defaultForm = UpdateDefaultProfile(instance=request.user)
+	customForm = UpdateCustomProfile(instance=request.user.profile)
+	PassForm = PasswordChangeForm(request.user)
 	
+	if request.method == 'POST' and 'profile_edit' in request.POST:#name = profile_edit in submit button
+		defaultForm = UpdateDefaultProfile(request.POST,instance=request.user)
+		customForm = UpdateCustomProfile(request.POST,request.FILES,instance=request.user.profile)
+  
+		if defaultForm.is_valid() and customForm.is_valid():
+			defaultForm.save()
+			customForm.save()
+		
+			messages.success(request,"Your record is successfully updated")
+			return redirect('register_app:user_view')
+
+
+	if request.method == 'POST' and 'change_pass_button' in request.POST:
+		
+		PassForm = PasswordChangeForm(user = request.user,data = request.POST)#i dnot see instance when changing password
+  
+		if PassForm.is_valid():
+			PassForm.save()
+			update_session_auth_hash(request, PassForm.user)  # Important!
+			messages.success(request,"Your password is successfully updated")
+			return redirect('register_app:user_view')
+		
+	return render(request,'registers/edit_user.html',{'defaultForm':defaultForm,'customForm':customForm,'PassForm':PassForm})
 
 	
-	
-	
-	
 
-	
-	
-	
 
 

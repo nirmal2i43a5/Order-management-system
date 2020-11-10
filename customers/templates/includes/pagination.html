@@ -1,0 +1,50 @@
+
+<!--This is included in customer_list.html-->
+<div class="row">
+
+    <div class="col">
+
+        <div class="mt-2" style="margin-left:20%">
+          <Strong>  Showing {{start}} to {{end}} of {{customer_count}} customers</Strong>
+        </div>
+
+    </div>
+
+    <div class="col">
+
+
+        <div class="float-right">
+
+            {% if customers.has_other_pages %}
+            <ul class="pagination">
+                {% if customers.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4"
+                    href="?page={{ customers.previous_page_number }}">Previous</a>
+                {% else %}
+
+                {% endif %}
+
+                {% for i in customers.paginator.page_range %}
+                {% if customers.number == i %}
+                <!--recent page ma dark dekhauxa-->
+                <li class="btn btn-info mb-4"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+
+                <li><a class="btn btn-outline-info mb-4" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if customers.has_next %}
+
+                <a class="btn btn-outline-info mb-4" href="?page={{ customers.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ customers.paginator.num_pages }}">Last</a>
+                {% else %}
+                <!-- <li class="btn btn-outline-info mb-4"><span>&raquo;</span></li> -->
+                {% endif %}
+                <hr>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="col-md-10">
+                <!-- id="product-table" is for ajax crud-->
+                <table id="product-table"
+                    class="table table-sm table-responsive-sm table-hover table-striped text-nowrap table-bordered"
+                    width="100%" style="margin-left:12%;">
+                    <thead class="thead-dark">
+                        <tr>
+
+                            <th>Id</th>
+                            <th>Name</th>
+
+                            <th>Per Price</th>
+
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Created Date</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="get_table_body">
+                        <!--get_table_body is for ajax search-->
+
+
+                        {% for product in products %}
+
+                        <tr>
+
+                            <!-- <td>{{order.product.name}}</td> -->
+
+                            <td>{{product.id}}</td>
+                            <td>{{product.name}}</td>
+                            <td>{{product.price}}</th>
+
+                            <td>{{product.description}}</td>
+                            <td>{{product.quantity}} {{product.unit}}</td>
+                            <td>{{product.created_at}}</td>
+
+
+                            <td>
+                                <button type="button"  data-pid="{{product.id}}" data-target="#AddProduct"
+                                    data-toggle="modal" class="btn btn-success btn-sm btn-edit ">
+                                    <i class="fas fa-edit"></i>
+
+                                    {% if request.user.is_superuser %}
+                                    <button type="button" data-pid="{{product.id}}"
+                                        class="ml-1 btn btn-danger btn-sm btn-del"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class=" text-center alert alert-danger">No Product Found</td>
+                        </tr>
+
+                        {% endfor %}
+
+
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+

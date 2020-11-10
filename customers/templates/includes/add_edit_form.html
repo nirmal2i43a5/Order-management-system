@@ -1,0 +1,43 @@
+
+{% load crispy_forms_tags %}
+
+
+<div  class="modal fade" id="AddCustomer" role="dialog" aria-hidden="true">
+    <!-- Button trigger modal -->
+    
+    <form method="POST">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add/Update Customer</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                
+                  <div class="modal-body">
+                    {% csrf_token %}
+                    <input type="hidden" name="cusid" id="cusid" /><!--i use this for edit and delete-->
+
+                    {{form|crispy}}<!--this come from index view-->
+                  </div>
+                  <div class="form-group">
+                    <div class="alert alert-success" id="ins_success" style="display:none">
+      
+                    </div>
+                     <div class="alert alert-danger" id="ins_error" style="display:none">
+      
+                    </div>
+                </div>
+      
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" id="" class="btn btn-success  btn-insert-data">Save</button>
+                        <div id="msg" class="alert alert-danger" style="display:none"></div>
+                     </div>
+    
+              </div>
+        </div>
+    </form>
+    
+</div>
