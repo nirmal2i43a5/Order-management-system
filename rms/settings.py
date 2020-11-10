@@ -193,12 +193,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # #retrieving value from env variables accessing bucket from aws user
 AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')#name this django storages modules
-AWS_SECRETE_ACCESS_KEY="c0OkUlbX9jholKBvvGTPMWYRrDdiNH0ekzwqRsRy"
+AWS_SECRET_ACCESS_KEY=config('AWS_SECRETE_ACCESS_KEY')
 #when using heroku we use AWS_SECRETE_ACCESS_KEY but in normal AWS_SECRET_ACCESS_KEY  i.e SECRET vs SERETE (Using SECRET I GET ERROR)
 
 AWS_STORAGE_BUCKET_NAME=config('AWS_STORAGE_BUCKET_NAME')
 # print(AWS_SECRETE_ACCESS_KEY)
-
 
 AWS_S3_FILE_OVERWRITE = False #(from django storages)if u upload any file then other cannot overwrite ur filename as same name
 AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison of django storage version also may set it to none)
