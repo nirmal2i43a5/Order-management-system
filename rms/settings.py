@@ -183,8 +183,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')#this makes folder media and hold ima
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_USER = 'nirmalpandey27450112@gmail.com'
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
 EMAIL_HOST_PASSWORD = 'ffutdfvwvodrjztp'#I USE app password from gmail  BECAUSE OF ERROR DURING FORGET PASSWORD and it is more secure
 # print(EMAIL_HOST_USER)
