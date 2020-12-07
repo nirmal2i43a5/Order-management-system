@@ -45,8 +45,16 @@ product=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
 
                     <td><a href="{% url 'order_app:edit' order.customer.id order.id %}" class="btn btn-success btn-sm"><i
                                 class="fa fa-edit"></i></a>
+
+
+                            {% if user.is_superuser %}
                         <a href="{% url 'order_app:delete' order.id %}" class="btn btn-danger btn-sm"><i
                                 class="fa fa-trash-alt"></i></a>
+
+
+
+                            {% endif %}
+
                     </td>
                 </tr>
 
@@ -60,3 +68,14 @@ product=models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
         </table>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('#user-delete-button').on('click',function(){
+            confirm("You should be admin to Delete Order Details")
+            //setInterval('location.reload()', 1000);  
+          
+        })
+    
+    })
+</script>
