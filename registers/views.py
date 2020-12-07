@@ -23,7 +23,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from registers.filters import CustomerFilter
 
 # from datetime import datetime
-# from django.utils.timezone import datetime
+# from django.utils import timezone
 from datetime import datetime, timedelta
 
 
@@ -31,7 +31,7 @@ from datetime import datetime, timedelta
 
 # @allowed_users(allowed_roles=['admin'])
 @login_required(login_url='/user/login/')
-@admin_only
+# @admin_only
 def dashboard(request):
 	# customer = Customer.objects.get(pk=cid)
 	customers=Customer.objects.all()
@@ -58,6 +58,7 @@ def dashboard(request):
 	today_order = orders.filter(created_at__gte = datetime.now() - timedelta(days=1))#A timedelta object represents a duration, the difference between two dates or times.
 
 	order_total_price=0.00
+ 
 	for order in today_order:
 		per_total_price = float(order.product.price) * order.quantity
 		
@@ -169,6 +170,7 @@ class UserLogout(LogoutView):
 
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+
 
 def UserProfile(request):
 	defaultForm = UpdateDefaultProfile(instance=request.user)

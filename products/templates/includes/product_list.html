@@ -46,11 +46,11 @@
                                     data-toggle="modal" class="btn btn-success btn-sm btn-edit ">
                                     <i class="fas fa-edit"></i>
 
-                                    {% if request.user.is_superuser %}
+                               
                                     <button type="button" data-pid="{{product.id}}"
                                         class="ml-1 btn btn-danger btn-sm btn-del"><i
                                             class="fas fa-trash-alt"></i></button>
-                                    {% endif %}
+                               
                             </td>
                         </tr>
                         {% empty %}

@@ -263,6 +263,7 @@
 
   //edit form
     $("tbody").on("click",".btn-edit",function(){
+        
         let id=$(this).attr("data-pid");
         let csr = $("input[ name=csrfmiddlewaretoken]").val();
         mydata={pid:id,csrfmiddlewaretoken:csr}
@@ -273,7 +274,8 @@
             data:mydata,
             dataType:"json",
 
-            success:function(data){
+            success:function(data){//means after get particular data it to edit it
+                console.log(data)
                 console.log("edited")
                 if(data.status == 1){
 
@@ -283,8 +285,12 @@
 
                 }
 
-              //update value and then reassign with the edit value
-                $("#proid").val(data.id);//<input type="hidden" name="proid" id="proid" /> in includes/add_edit_form.html
+              //Logic to show the data to the form so as to edit it.
+
+              //{id: 273, name: "Peanut Butter", price: "600.00", quantity: 49, unit: "kg", …}  example for this data
+
+                $("#proid").val(data.id);//I dont want to see id when click on edit so i use hidden type but it should be pass to views
+                //<input type="hidden" name="proid" id="proid" /> in includes/add_edit_form.html
                 $("#id_name").val(data.name);
                 $("#id_price").val(data.price);
                 $("#id_quantity").val(data.quantity);

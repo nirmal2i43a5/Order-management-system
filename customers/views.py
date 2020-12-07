@@ -167,7 +167,9 @@ def create(request):
 				
 			customer.save()
 			prod=Customer.objects.values()
+			# print(prod,"--------------------------")
 			customer_data =list(prod)
+			
 			return JsonResponse({'status':'Save','customer_data':customer_data,'message':'Customer is successfully submitted'},safe=False)
 		else:
 			return JsonResponse({'status':0},safe=False)

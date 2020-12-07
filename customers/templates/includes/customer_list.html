@@ -34,13 +34,13 @@
                     <td>{{customer.date_created}}</td>
                     <td>
                         <button type="button" data-cid="{{customer.id}}" data-target="#AddCustomer" data-toggle="modal" class="btn btn-success btn-sm btn-edit ">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-edit"></i></button>
             
-                            {% if request.user.is_superuser %}
+                        
                             <button type="button" data-cid="{{customer.id}}"
                                 class="ml-1 btn btn-danger btn-sm btn-del"><i
                                     class="fas fa-trash-alt"></i></button>
-                            {% endif %}
+                       
             
                             <a href="{% url 'order_app:create' customer.id %}" class="btn btn-success btn-sm">
                                 <i class="fas fa-plus"></i>

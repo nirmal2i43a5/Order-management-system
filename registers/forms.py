@@ -69,3 +69,4 @@ class UpdateCustomProfile(forms.ModelForm):
 		model = Profile
 		fields = ('fname','lname','address','contact','profile_img',)	
 	
+ 

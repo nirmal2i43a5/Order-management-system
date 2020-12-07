@@ -104,24 +104,25 @@ def search(request):
 
 
 
-def create(request):   
+def create(request):  #get form is alreasy generated from index view above 
    
     if request.method=="POST":
         form=ProductForm(request.POST)
         if form.is_valid():
-            pid =request.POST["proid"]
+            pid =request.POST["proid"]#this is hidden field 
             name=request.POST.get("name")
             price=request.POST.get("price")
             quantity=request.POST.get("quantity")
             unit=request.POST.get("unit")
             description=request.POST.get("description")
             
-            if(pid==''):
+            if(pid==''):#if there is no product id then it has to insert data clicking on save button
                 product=Product(name=name,price=price,quantity=quantity,unit=unit,description=description)
-            else:
+                
+            else:#if not id then edit data clicking on save button 
                 product=Product(id = pid,name=name,price=price,quantity=quantity,unit=unit,description=description)
                 
-            product.save()
+            product.save()#save when form is empty and i need to insert data
             prod=Product.objects.values()
             product_data =list(prod)
             return JsonResponse({'status':'Save','product_data':product_data,'message':'Product is successfully submitted'},safe=False)
