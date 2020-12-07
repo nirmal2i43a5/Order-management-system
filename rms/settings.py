@@ -98,19 +98,19 @@ Using below database is for development and postgres is for production (for post
 """
 
 
-# DATABASES = {
-#     'default': {
+DATABASES = {
+    'default': {
         
         
-#         'ENGINE': 'django.db.backends.mysql',
-#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         'NAME':'supermarket',
-#         'HOST':'127.0.0.1',
-#         'USER':config('db_user'),
-#         'PASSWORD':config('db_password')
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME':'supermarket',
+        'HOST':'127.0.0.1',
+        'USER':config('db_user'),
+        'PASSWORD':config('db_password')
         
-#     }
-# }
+    }
+}
 
 
 # Password validation
@@ -183,10 +183,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')#this makes folder media and hold ima
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_USER = 'nirmalpandey27450112@gmail.com'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')#this is the jjpassword that i use in gmail 
-EMAIL_HOST_PASSWORD = 'ffutdfvwvodrjztp'#I USE app password from gmail  BECAUSE OF ERROR DURING FORGET PASSWORD
+EMAIL_HOST_PASSWORD = 'ffutdfvwvodrjztp'#I USE app password from gmail  BECAUSE OF ERROR DURING FORGET PASSWORD and it is more secure
 # print(EMAIL_HOST_USER)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -194,10 +194,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # #retrieving value from env variables accessing bucket from aws user
 AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')#name this django storages modules
 AWS_SECRET_ACCESS_KEY=config('AWS_SECRETE_ACCESS_KEY')
-#when using heroku we use AWS_SECRETE_ACCESS_KEY but in normal AWS_SECRET_ACCESS_KEY  i.e SECRET vs SERETE (Using SECRET I GET ERROR)
+#when using heroku we use AWS_SECRETE_ACCESS_KEY but in normal(i.e for aws) AWS_SECRET_ACCESS_KEY  i.e SECRET vs SECRETE (Using SECRET I GET ERROR)
 
 AWS_STORAGE_BUCKET_NAME=config('AWS_STORAGE_BUCKET_NAME')
-# print(AWS_SECRETE_ACCESS_KEY)
+
 
 AWS_S3_FILE_OVERWRITE = False #(from django storages)if u upload any file then other cannot overwrite ur filename as same name
 AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison of django storage version also may set it to none)
