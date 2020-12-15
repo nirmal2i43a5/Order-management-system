@@ -108,7 +108,7 @@ def index(request):
 	context={
 		'customers':customers,#this is for both pagination and table list use(blc table list also should support pagination.so dont pass data for list separately)
   		
-    	'myFilter':myFilter,
+		'myFilter':myFilter,
 		'form':form,'page':page,
 		'customer_count':customer_count,
 		'start': customers.start_index(),
@@ -177,25 +177,25 @@ def create(request):
   
 
 def edit(request):
-    if request.method=="POST":
-        id=request.POST.get('cid')
-        print(id)
-        customer=Customer.objects.get(pk=id)
-        customer_data={"id":customer.id,"name":customer.name,"email":customer.email, "contact":customer.contact}
+	if request.method=="POST":
+		id=request.POST.get('cid')
+		print(id)
+		customer=Customer.objects.get(pk=id)
+		customer_data={"id":customer.id,"name":customer.name,"email":customer.email, "contact":customer.contact}
 	
-        return JsonResponse(customer_data,safe=False)
+		return JsonResponse(customer_data,safe=False)
 
 
 	
 def delete(request):
-    if request.method=="POST":
-        id=request.POST.get('cid')
-        pi=Customer.objects.get(pk=id)
-        pi.delete()
+	if request.method=="POST":
+		id=request.POST.get('cid')
+		pi=Customer.objects.get(pk=id)
+		pi.delete()
 	  
-        return JsonResponse({'status':1,'message':'Customer is successfully deleted'},safe=False)
-    else:
-        return JsonResponse({'status':0,'message':'Failed to delete data'},safe=False) 
+		return JsonResponse({'status':1,'message':'Customer is successfully deleted'},safe=False)
+	else:
+		return JsonResponse({'status':0,'message':'Failed to delete data'},safe=False) 
 
    
 
@@ -251,9 +251,50 @@ def cus_ord_view(request, cid):
 	
 	
 	
-	
- 
 
+
+import calendar
+from datetime import datetime,timedelta
+from django.db.models.functions import TruncMonth,ExtractMonth
+from django.db.models import Count,Sum
+
+def customerChart(request):
+	data = []
+	last_month = datetime.now() - timedelta(days=30)
+ 
+	#TruncDate allows you to group by date (day of month) #using TruncDate give me database time error so i use ExtractMonth
+	#values is for grouping data
+ 
+	customer = Customer.objects.\
+	annotate(month=ExtractMonth('date_created')).\
+	values('month').\
+	annotate(customer_count=Count('id')).\
+	values('month', 'customer_count').order_by()
+	#month=ExtractMonth('date_created')) => month is the look_up name in ExtractMonth which is default
+ 	# Group By month and customer_count
+	# Count('id') is used to count customer from their pk = id
+	#I can also use ExtractYear and other in same logic and gives value as values('month','year')
+
+	# print(list(customer))
+	"""
+	[{'month': 7, 'customer_count': 6}, {'month': 6, 'customer_count': 5}, {'month': 4, 'customer_count': 10}, {'month': 3, 'customer_count': 1}, {'month': 5, 'customer_count': 1}, {'month': 11, 'customer_count': 8}, {'month': 12, 'customer_count': 3}]
+	"""
+	
+ 	# customer = (Customer.objects\
+	# 	.filter(date_created__gt=last_month).extra(select={'day':'date(date_created)'}).values('day').annotate(customer_count=Count('id')).order_by())       
+
+	for cus in customer:
+		# data.append({cus['month']:cus['customer_count']})this only give month number 
+		data.append({calendar.month_name[cus['month']]:cus['customer_count']})
+  
+	# print(data)	
+ 
+ 	#[{7: 6}, {6: 5}, {4: 10}, {3: 1}, {5: 1}, {11: 8}, {12: 3}]#result with month number
+	# [{"July": 6}, {"June": 5}, {"April": 10}, {"March": 1}, {"May": 1}, {"November": 8}, {"December": 3}]#with month name
+	
+	return JsonResponse(data,safe=False)
+  
+	
 
 	
 	

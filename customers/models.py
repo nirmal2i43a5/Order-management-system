@@ -4,7 +4,8 @@ class Customer(models.Model):
     name=models.CharField(max_length=50,null=True)
     email=models.CharField(max_length=50)
     contact=models.CharField(max_length=50)
-    date_created=models.DateTimeField(auto_now=True)
+    # date_created=models.DateTimeField(auto_now=True)
+    date_created = models.DateField()#i change this when i implement date and customer count in chartjs to get group data by month
     # status=models.BooleanField()    
       
     def __str__(self):

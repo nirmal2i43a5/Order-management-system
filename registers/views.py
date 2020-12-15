@@ -61,10 +61,10 @@ def dashboard(request):
  
 	for order in today_order:
 		per_total_price = float(order.product.price) * order.quantity
-		
 		order_total_price += per_total_price
   
 	print(order_total_price)
+ 
 	# customer = Customer.objects.get(pk=cid) #but i need pk = cid(update)
 	# particular_customer_price=0.00
 	# for order in customer.order_set.all():
