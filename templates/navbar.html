@@ -63,7 +63,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
 
-                  {% if request.user.is_superuser %}
+                  {% if request.user.is_authenticated %}
                         <a class="nav-link" href="/dashboard">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-home"></i>
@@ -71,6 +71,9 @@
                             Dashboard
                         </a>
                 {% endif %}
+
+
+              
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
