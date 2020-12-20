@@ -142,10 +142,11 @@
                 })
                 
                 .done(function(data){//response bring all the data
+                    //console.log("---------",data)
                     console.log(data.customer_data)
     
-    
                             x=data.customer_data
+
                             if(data.status=="Save"){
 
                               //  $("#msg").text("Form Submitted Successfully");

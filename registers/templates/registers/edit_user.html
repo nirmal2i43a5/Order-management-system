@@ -14,7 +14,6 @@
 
 <hr>
 
-
 <div class="container">
  
      <div class="row">
@@ -22,7 +21,17 @@
             <div class="p-3" style=" background-color:white;border-radius:10px;box-shadow: 0px 0px 10px 0px #000;">
               <div class="row">
                   <div class="col-md-3 ">
+
+                    {% if profile.profile_img %}
+
                     <img id="profile-pic" src="{{user.profile.profile_img.url}}">
+
+                    {% else %}
+
+                    <img id="profile-pic" src="/media/default.png">
+
+                    {% endif %}
+
                   </div>
                   <div class="col-md-4 mt-4">
                     <h1><strong>{{user.username}}</strong></h1>

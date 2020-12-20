@@ -1,6 +1,8 @@
 
+"""this includes the search logic"""
 
 #Before you make filters.py you have to add 'django_filters' in INSTALLED_APPS and then pip install django_filter
+
 import django_filters 
 from django_filters import DateFilter,CharFilter
 #import CharFilter only when you want to search with single or more character
@@ -24,12 +26,11 @@ class CustomerFilter(django_filters.FilterSet):
     # --->icontains means igonring casesensitive
     #u--->sing this i can search even with single character
     
-    
     class Meta:
         model = Customer#make filter for model Customer
         
         fields = ('name',)#generate filter form with all first_name
        
-       
+
        
 

@@ -230,16 +230,26 @@
 
                     </div>
                 </div>
+               
                 <!--chart for content-->
 
-                {% include 'registers/customer_chart.html' %}
+                {% include 'registers/customer_order_chart.html' %}
+                <hr>
+
                 <div class="card mb-4">
 
                     <div class="row">
                         <div class="col">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>Summary Table<hr>
                              
-                
+                                <div class="row">
+                                 <div class="col"  style="margin-left:80px;">
+                                   <h5>  From</h5>
+                                 </div>
+                                 <div class="col" style="margin-right:60%;">
+                                 <h5 style="margin-right:20%;">   To</h5>
+                                 </div>
+                                </div>
                                     {% include 'registers/index_search.html' %}
                              
                         </div>

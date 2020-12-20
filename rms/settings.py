@@ -98,19 +98,19 @@ Using below database is for development and postgres is for production (for post
 """
 
 
-DATABASES = {
-    'default': {
+# DATABASES = {
+#     'default': {
         
         
-        'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME':'supermarket',
-        'HOST':'127.0.0.1',
-        'USER':config('db_user'),
-        'PASSWORD':config('db_password')
+#         'ENGINE': 'django.db.backends.mysql',
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'NAME':'supermarket',
+#         'HOST':'127.0.0.1',
+#         'USER':config('db_user'),
+#         'PASSWORD':config('db_password')
         
-    }
-}
+#     }
+# }
 
 
 # Password validation
@@ -191,6 +191,8 @@ EMAIL_HOST_PASSWORD = 'ffutdfvwvodrjztp'#I USE app password from gmail  BECAUSE 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+"""Mainly i use aws s3 for storing images but due to my aws account suspension i remove below code and store image in default system .But using below send image to aws if my account works
+
 # #retrieving value from env variables accessing bucket from aws user
 AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')#name this django storages modules
 AWS_SECRET_ACCESS_KEY=config('AWS_SECRETE_ACCESS_KEY')
@@ -204,6 +206,8 @@ AWS_DEFAULT_ACL =  None#blc giving its value can cause an issues (future verison
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_S3_REGION_NAME = 'ap-south-1' 
+
+"""
 
 # Activate Django-Heroku.
 #it configures database ,allowed hosts and many other that suits heroku env setting

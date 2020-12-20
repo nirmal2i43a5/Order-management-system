@@ -27,8 +27,9 @@ from django.views.generic import TemplateView
 
 
 
-
+from django.views.generic import RedirectView
 urlpatterns = [
+    path('favicon.ico/', RedirectView.as_view(url='/static/favicon/favicon.ico')),#this solves the erroe for favicon not found
 	path('admin/', admin.site.urls),
 	path('',views.first_page,name="home"),
 	path('dashboard/',views.dashboard,name="dashboard"),

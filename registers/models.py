@@ -17,14 +17,17 @@ class Profile(models.Model):#THis is employee profile
 	contact = models.CharField(max_length=100,null =True)
 	email=models.EmailField(max_length=100,null=True)
 	profile_img = models.ImageField(upload_to='Profile_images',default='default.png')
+
  
-	def __str__(self):
-		return self.user.username    #i use this function because i dont use null =True in user -everytime i need this
-	
-	
+
 	class Meta:
 		verbose_name_plural ='Profile'
 		db_table = 'tbl_profile'
+		# ordering = ''
+  
+	def __str__(self):
+		return self.user.username  #i use this function because i dont use null =True in user -everytime i need this
+		
 
 	def save(self,*args,**kwargs):
 		super().save(*args,**kwargs)

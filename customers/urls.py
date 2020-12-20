@@ -11,7 +11,7 @@ app_name='customer_app'
 
 urlpatterns=[
     path('create/',views.create,name='create'),
-    path('customerChart/',views.customerChart,name="customer-chart"),
+    path('customer-chart/',views.customerChart,name="customer-chart"),
     # path('',views.CustomerPagination.as_view(),name="customer_pagination"),#it assists to show page
     path('list/',views.index,name='list'),#assists to show data
     path('edit/',views.edit,name='edit'),#here i pass primary key

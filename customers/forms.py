@@ -15,16 +15,23 @@ from .models import Customer
     
     # status=forms.BooleanField(required=False)
     
+    
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+    
 class CustomerModelForm(ModelForm):
     
     name=forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Enter Full Name",}))
     email=forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Enter Email",}))
     contact=forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Enter Contact",}))
+    
+    
+    # date_created = forms.DateField(widget=DateInput)
    
     class Meta:
         model=Customer
-        fields=['name','email','contact']
+        fields=['name','email','contact',]
 
 
 

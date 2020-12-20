@@ -32,22 +32,23 @@ class Product(models.Model):
     created_at=models.DateTimeField(auto_now=True,null=True)
    
    
-   
-   
     def __str__(self):
         return self.name
+    
     class Meta:
         db_table = 'tbl_products'
+        
     def save(self,*args,**kwargs):
     	super().save(*args,**kwargs)
 
 class HistConf(models.Model):
 	item = models.ForeignKey(Product, on_delete=models.CASCADE)
 	actual= models.PositiveSmallIntegerField()#it is the actual quantity that is b4 deleting or adding 
-	transition = models.IntegerField()#it is the quantity no that is added or deleted
+	transition = models.IntegerField()#it is the quantity num that is added or deleted
 	total = models.PositiveSmallIntegerField()#quantity remains after adding or removing 
 	user = models.CharField(max_length=50)
 	time = models.DateTimeField(auto_now=True,null=True)
+
 
 	@classmethod
 	def create(cls, actual, transition, pid, user=''):

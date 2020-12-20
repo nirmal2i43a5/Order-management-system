@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <h4 class=" text-center bg-info py-2  text-light" >Monthly Customer Data</h4><hr>
+            <canvas id="customerChart" width="400" height="300" ></canvas>
+        </div>
+        <hr>
+        <div class="col-md-6">
+            <h4 class=" text-center bg-info py-2  text-light" >Monthly sales Income</h4><hr>
+            <canvas id="orderChart" width="400" height="300" ></canvas>
+        </div>
+       
+    </div>
+    
+</div>
+
+
+<script>
+
+//graph for customer  monthly  data
+var customer_state ={	
+    'x_items':[],
+    'y_values':[],
+}
+
+var dataURL = "{% url 'customer_app:customer-chart' %}"
+
+$.ajax({
+    method:'GET',
+    url:dataURL,
+   
+    success:function(response){
+
+        console.log('RESPONSE:', response)
+
+           for (i = 0 ; i<response.length ; i++){ //or// for (var i in response){
+     
+            var key = Object.keys(response[i])
+           
+            //var value = Object.values(response[i]) //this print array of each element so use [0] to access first value ie.[13] --[0] retrieve 0 value 
+            var value = Object.values(response[i])[0]
+           
+
+            customer_state.x_items.push(key)
+            customer_state.y_values.push(value)
+
+        }
+
+        console.log('STATE:', customer_state)
+        customerBuildChart()
+
+    }
+})
+
+function customerBuildChart(){
+    var ctx = document.getElementById('customerChart').getContext('2d');
+
+        var customerChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: customer_state.x_items,
+          
+                datasets: [{
+                    label: '# of Customers',
+                  
+                   data: customer_state.y_values,
+
+                   backgroundColor: [
+                   'rgba(128, 125, 255, 0.7)',
+                   'rgba(255, 99, 132, 0.2)',
+                   'rgba(54, 162, 235, 0.2)',
+                   'rgba(255, 206, 86, 0.2)',
+                   'rgba(75, 192, 192, 0.2)',
+                   'rgba(153, 102, 255, 0.2)',
+                   'rgba(255, 159, 64, 0.2)',
+                  
+               ],
+               borderColor: [
+                   'rgba(255, 99, 132, 1)',
+                 
+               ],
+               borderWidth: 1,
+                 
+                   
+                }]
+            },
+           
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+
+
+
+
+// order_chart that shows total sells income monthly
+
+    var state ={	
+        'items':[],//it receive all the keys
+        'values':[],
+    }
+    
+    var dataURL = "{% url 'order_app:order-chart' %}"
+    
+    $.ajax({
+        method:'GET',
+        url:dataURL,
+       
+        success:function(response){
+    
+            console.log('RESPONSE:', response)
+         
+    
+            for (var i in response){
+    
+                console.log("---------",response[0])
+    
+                var key = Object.keys(response[i])[0]
+                var value = Object.values(response[i])[0]
+    
+                state.items.push(key)
+                state.values.push(value)
+            }
+    
+           console.log('STATE:', state)
+    
+            orderBuildChart()
+    
+        }
+    })
+    
+    function orderBuildChart(){
+        var ctx = document.getElementById('orderChart').getContext('2d');
+    
+            var myChart = new Chart(ctx, {
+                type: 'line',
+
+                data: {
+                    labels: state.items,
+              
+                    datasets: [{
+                        label: 'Monthly Sales Income',
+                       // data: [5,10,15,20,25,30,35,40],
+                       data: state.values,
+                       
+    
+                       backgroundColor: [
+                       'rgba(128, 125, 255, 0.7)',
+                       'rgba(255, 99, 132, 0.2)',
+                       'rgba(54, 162, 235, 0.2)',
+                       'rgba(255, 206, 86, 0.2)',
+                       'rgba(75, 192, 192, 0.2)',
+                       'rgba(153, 102, 255, 0.2)',
+                       'rgba(255, 159, 64, 0.2)',
+                      
+                   ],
+                   borderColor: [
+                       'rgba(255, 99, 132, 1)',
+                     
+                   ],
+                   borderWidth: 1,
+                     
+                       
+                    }]
+                },
+               
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    
+    
+    
+    
+    
+
+</script>
+
+{% endblock %}

@@ -82,6 +82,7 @@ def dashboard(request):
 # Create your views here.
 def first_page(request):
 	current_date = datetime.now()
+
 	return render(request,'registers/firstpage.html',{'current_date':current_date})
 
 
@@ -114,19 +115,21 @@ def SignupView(request):
  
 	if request.method == 'POST':
 		form = SignupForm(request.POST)
+  
 		if form.is_valid():
+      
 			user = form.save()
 			username = form.cleaned_data.get('username')#retrieving username from save data from form
-
-			group = Group.objects.get(name='employee')#any time a user signup it is associated with employee group directly
+			role = form.cleaned_data.get('role')
+		
+			# group = Group.objects.get(name='Employee)
+			group = Group.objects.get(name=role)#any time a user signup it is associated with employee group directly
 			user.groups.add(group)
-			print("--------------",user)
 
 			messages.success(request, 'Account was created for ' + username)
 
 			return redirect('register_app:login')
 		
-
 	context = {'form':form}
 	return render(request, 'registers/register.html', context)
 
@@ -173,6 +176,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 
 def UserProfile(request):
+    
 	defaultForm = UpdateDefaultProfile(instance=request.user)
 	customForm = UpdateCustomProfile(instance=request.user.profile)
 	PassForm = PasswordChangeForm(request.user)

@@ -19,30 +19,30 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def create(request,cid):
-    '''Below I replace OrderForm with'''
-    
-    OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=5)  #access both customer and order form
-    
-    #it means maila customer lai click garda order ma bhako detail access garako xu with instance of customer
-     #parent model and then child model---
-    #we can have multiple order so we need to tell which to allow by fields
+	'''Below I replace OrderForm with'''
+	
+	OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=5)  #access both customer and order form
+	
+	#it means maila customer lai click garda order ma bhako detail access garako xu with instance of customer
+	 #parent model and then child model---
+	#we can have multiple order so we need to tell which to allow by fields
    
-    cus = Customer.objects.get(pk=cid)
-    formset = OrderFormSet(queryset=Order.objects.none(),instance=cus)#i pass instance because i am adding order of particular customer
-    # print(formset)
-    
-    #queryset =Order.objects.none() la --> already bhako product inline form ma show hudaina maila Add order ma jada
-    # form = OrderForm(initial={'customer':cus})#right customer is in model--comment this wh
-    
-    if request.method=='POST':
-        # form = OrderForm(request.POST)
-        formset = OrderFormSet(request.POST,instance = cus)
-        if formset.is_valid():
-            formset.save()
-        messages.success(request,"Order is successfully added",extra_tags = 'alert')
-        return redirect('customer_app:view', cid)
-    
-    return render(request,'orders/create.html',{'formset':formset,'customer':cus})
+	cus = Customer.objects.get(pk=cid)
+	formset = OrderFormSet(queryset=Order.objects.none(),instance=cus)#i pass instance because i am adding order of particular customer
+	# print(formset)
+	
+	#queryset =Order.objects.none() la --> already bhako product inline form ma show hudaina maila Add order ma jada
+	# form = OrderForm(initial={'customer':cus})#right customer is in model--comment this wh
+	
+	if request.method=='POST':
+		# form = OrderForm(request.POST)
+		formset = OrderFormSet(request.POST,instance = cus)
+		if formset.is_valid():
+			formset.save()
+		messages.success(request,"Order is successfully added",extra_tags = 'alert')
+		return redirect('customer_app:view', cid)
+	
+	return render(request,'orders/create.html',{'formset':formset,'customer':cus})
 
 
 
@@ -50,118 +50,154 @@ def create(request,cid):
 
 @login_required(login_url='/user/login/')
 def index(request):
-    orders=Order.objects.all().order_by("-id")
-    total_orders=orders.count()
-    # myFilter = OrderFilter(request.GET,queryset=orders)
-    # orders = myFilter.qs
-    # # customers=Customer.objects.all()
-    pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
-    delivered=orders.filter(status="Delivered").count()
-    
-    
-    # -----------------Call for pagination logic----------------------------
-    orders = pagination(request,orders)#return pagination orders data
-         
-    context={
-        'orders':orders,'total_orders':total_orders,
-        'orders_pending':pending,'orders_delivered':delivered,
-        # 'myFilter':myFilter,
-        'start':orders.start_index(),
-        'end':orders.end_index()
-        
-        }
-    return render(request,'orders/index.html',context)
+	orders=Order.objects.all().order_by("-id")
+	total_orders=orders.count()
+	# myFilter = OrderFilter(request.GET,queryset=orders)
+	# orders = myFilter.qs
+	# # customers=Customer.objects.all()
+	pending=orders.filter(status='Pending').count()#filter la choose(search)  garxa and all pending lai count garxa
+	delivered=orders.filter(status="Delivered").count()
+	
+	
+	# -----------------Call for pagination logic----------------------------
+	orders = pagination(request,orders)#return pagination orders data
+		 
+	context={
+		'orders':orders,'total_orders':total_orders,
+		'orders_pending':pending,'orders_delivered':delivered,
+		# 'myFilter':myFilter,
+		'start':orders.start_index(),
+		'end':orders.end_index()
+		
+		}
+	return render(request,'orders/index.html',context)
 
 
-        
-    
+		
+	
 
 
 def pagination(request,object):
-    page = request.GET.get('page', 1)#means page  number 1
-    paginator = Paginator(object, 5)
+	page = request.GET.get('page', 1)#means page  number 1
+	paginator = Paginator(object, 5)
   
-    try:
-        orders = paginator.page(page)
-    except PageNotAnInteger:
-        orders = paginator.page(1)
-    except EmptyPage:
-        #if page is out of range show last page
-        orders = paginator.page(paginator.num_pages)
-        
-    return orders
+	try:
+		orders = paginator.page(page)
+	except PageNotAnInteger:
+		orders = paginator.page(1)
+	except EmptyPage:
+		#if page is out of range show last page
+		orders = paginator.page(paginator.num_pages)
+		
+	return orders
 
-    
+	
 def search(request):
-    data = dict()
-    field_value = request.GET.get('query')
-    print(field_value)
-    
-    # products = Product.objects.all()
-    # myFilter = ProductFilter(request.GET,queryset=products)
-    # products = myFilter.qs
+	data = dict()
+	field_value = request.GET.get('query')
+	print(field_value)
+	
+	# products = Product.objects.all()
+	# myFilter = ProductFilter(request.GET,queryset=products)
+	# products = myFilter.qs
   
   
-    if field_value:
-        orders = Order.objects.filter(
-                                            Q(product__name__contains=field_value)
-                                           |Q(status__icontains=field_value) 
-                                        
-                                           | Q(quantity__contains=field_value)
-                                            | Q(customer__name__contains=field_value)
-                                           )
-        context = {'orders': orders}
-            
-        data['html_list'] = render_to_string('orders/get_search_orders.html',context,request=request)
-        return JsonResponse(data)
-    
+	if field_value:
+		orders = Order.objects.filter(
+											Q(product__name__contains=field_value)
+										   |Q(status__icontains=field_value) 
+										
+										   | Q(quantity__contains=field_value)
+											| Q(customer__name__contains=field_value)
+										   )
+		context = {'orders': orders}
+			
+		data['html_list'] = render_to_string('orders/get_search_orders.html',context,request=request)
+		return JsonResponse(data)
+	
 
-    else:
-        orders = Order.objects.all()
-       
-        context = {'orders': orders}
-        data['html_list'] = render_to_string('orders/get_search_orders.html',context,request=request)
+	else:
+		orders = Order.objects.all()
+	   
+		context = {'orders': orders}
+		data['html_list'] = render_to_string('orders/get_search_orders.html',context,request=request)
 
-        return JsonResponse(data)
+		return JsonResponse(data)
 
 
 def edit(request, cid, oid):    
-    # ord=Order.objects.get(pk=oid) #i get all value and show that value to next page
-    
-    ord = get_object_or_404(Order,pk = oid)
-    customer = get_object_or_404(Customer,pk=cid)
-    
-    form=OrderForm(instance=ord)
-    
-    # cus = get_object_or_404(Customer,pk = cid)
+	# ord=Order.objects.get(pk=oid) #i get all value and show that value to next page
+	
+	ord = get_object_or_404(Order,pk = oid)
+	customer = get_object_or_404(Customer,pk=cid)
+	
+	form=OrderForm(instance=ord)
+	
+	# cus = get_object_or_404(Customer,pk = cid)
    
-    
-    if(request.method=='POST'):
-        
-        form=OrderForm(request.POST,instance=ord)
-        if(form.is_valid()):
-            form.save()
-            messages.success(request,'Order is successfully updates.',extra_tags='alert')
-            
-            return redirect('customer_app:view', cid)
-            
-            # return redirect("/customers/order/", pk = cid)#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
+	
+	if(request.method=='POST'):
+		
+		form=OrderForm(request.POST,instance=ord)
+		if(form.is_valid()):
+			form.save()
+			messages.success(request,'Order is successfully updates.',extra_tags='alert')
+			
+			return redirect('customer_app:view', cid)
+			
+			# return redirect("/customers/order/", pk = cid)#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
 
-    # else:
-    #     form = ProductForm()
-        
+	# else:
+	#     form = ProductForm()
+		
   
-    return render(request,'orders/update.html',{'form':form,'customer_record':customer})
+	return render(request,'orders/update.html',{'form':form,'customer_record':customer})
 
 
 def delete(request, oid):
-        # cus=Customer.objects.get(id=pk)
-    ord = get_object_or_404(Order,pk = oid) 
-    
-    if request.method=='POST':#if i confirm in delete.html page
-        ord.delete()   #grab customer details and delete and after deleting moves to /customers/list/
-        return redirect('order_app:list')
-    
-    return render(request,'orders/delete.html',{'orders':ord})#urls.py ko url render ma url search garxa at first
+		# cus=Customer.objects.get(id=pk)
+	ord = get_object_or_404(Order,pk = oid) 
+	
+	if request.method=='POST':#if i confirm in delete.html page
+		ord.delete()   #grab customer details and delete and after deleting moves to /customers/list/
+		return redirect('order_app:list')
+	
+	return render(request,'orders/delete.html',{'orders':ord})#urls.py ko url render ma url search garxa at first
 
 
+
+import calendar
+from datetime import datetime,timedelta
+from django.db.models.functions import TruncMonth,ExtractMonth
+from django.db.models import Count,Sum
+from django.db.models import F
+from django.db.models import ExpressionWrapper, DecimalField
+
+
+"""also look at customer chart before this implementation"""
+def orderChart(request):
+	data = [] 
+	#TruncDate allows you to group by date (day of month) #using TruncDate give me database time error so i use ExtractMonth
+	#values is for grouping data
+
+	order = Order.objects.\
+	annotate(month=ExtractMonth('created_at')).\
+	values('month').\
+	annotate(total_sell_price=ExpressionWrapper(Sum(F('product__price')*F('quantity')), output_field=DecimalField())).\
+ 	values('month', 'total_sell_price')
+	
+ 
+	#look logic explaination in simpleisbetter than complex
+	#this gives the order sum in particular month
+	# [{"December": "2800.00"}, {"January": "600.00"}, {"February": "200.00"}]
+	
+	for ord in order:
+		print(ord)
+		# data.append({cus['month']:cus['customer_count']})this only give month number 
+		data.append({calendar.month_name[ord['month']]:ord['total_sell_price']})
+  
+	print(data)	
+ 
+	return JsonResponse(data,safe=False)
+  
+	
