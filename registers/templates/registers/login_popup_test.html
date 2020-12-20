@@ -1,0 +1,31 @@
+
+{% load crispy_forms_tags %}
+
+
+
+<div class="modal fade" id="loginForm" role="dialog"  data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
+<form method = 'POST'>
+  
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        {% csrf_token %}
+
+                  {{ form|crispy }}<!--This come from registers/views.py in firstpage view function-->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
