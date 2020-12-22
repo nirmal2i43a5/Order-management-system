@@ -8,17 +8,7 @@ from .models import Profile
 from django.utils.translation import ugettext_lazy as _ #for protected-
 
 
-class LoginForm(AuthenticationForm):
-	# email = EmailField(label=_("Email"), required=True,help_text=_("Required.")) #Email address is protected
-	pass
 
-	#although i write email field in models this field is compulsary for extra email authentication
-	#if i want to add contact i can also add contact and other that should be in model
-	
-	#writing meta for this is optional
-	# class Meta:
-	#     model = User
-	#     fields=('username','email','password')
 		
    
 class SignupForm(UserCreationForm):
