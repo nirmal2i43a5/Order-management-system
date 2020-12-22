@@ -37,7 +37,7 @@ from datetime import datetime, timedelta
 # @admin_only
 def dashboard(request):
 	# customer = Customer.objects.get(pk=cid)
-	customers = Customer.objects.all()
+	customers = Customer.objects.all().order_by('-id')
 	total_customers = customers.count()
 	orders = Order.objects.all()
 

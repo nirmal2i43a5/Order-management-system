@@ -276,7 +276,7 @@ def customerChart(request):
 	# Count('id') is used to count customer from their pk = id
 	#I can also use ExtractYear and other in same logic and gives value as values('month','year')
 
-	# print(list(customer))
+	print("---I am customer chart data-----",list(customer))
 	"""
 	[{'month': 7, 'customer_count': 6}, {'month': 6, 'customer_count': 5}, {'month': 4, 'customer_count': 10}, {'month': 3, 'customer_count': 1}, {'month': 5, 'customer_count': 1}, {'month': 11, 'customer_count': 8}, {'month': 12, 'customer_count': 3}]
 	"""
