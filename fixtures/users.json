@@ -1,0 +1,197 @@
+[
+{
+    "model": "registers.profile",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "fname": "Nirmal",
+        "lname": "Pandey",
+        "address": "Butwal,Nepal",
+        "contact": "9834787831",
+        "email": null,
+        "profile_img": "Profile_images/nir.jpg"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 8,
+    "fields": {
+        "user": 8,
+        "fname": "Nirmal",
+        "lname": "Pandey",
+        "address": "Sauraha Pharsatikar",
+        "contact": "9834787831",
+        "email": null,
+        "profile_img": "Profile_images/nirmal.jpg"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 9,
+    "fields": {
+        "user": 9,
+        "fname": "sanita",
+        "lname": "pandey",
+        "address": "butwal",
+        "contact": "4339393933",
+        "email": null,
+        "profile_img": "Profile_images/jarvis1.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 10,
+    "fields": {
+        "user": 10,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 11,
+    "fields": {
+        "user": 11,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 12,
+    "fields": {
+        "user": 12,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 13,
+    "fields": {
+        "user": 13,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 16,
+    "fields": {
+        "user": 16,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 26,
+    "fields": {
+        "user": 26,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 27,
+    "fields": {
+        "user": 27,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 28,
+    "fields": {
+        "user": 28,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 29,
+    "fields": {
+        "user": 29,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 30,
+    "fields": {
+        "user": 30,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 31,
+    "fields": {
+        "user": 31,
+        "fname": null,
+        "lname": null,
+        "address": null,
+        "contact": null,
+        "email": null,
+        "profile_img": "default.png"
+    }
+},
+{
+    "model": "registers.profile",
+    "pk": 32,
+    "fields": {
+        "user": 32,
+        "fname": "Ramila",
+        "lname": "Pandey",
+        "address": "Sainamaina,Bashgadhi",
+        "contact": "92728298",
+        "email": null,
+        "profile_img": "default.png"
+    }
+}
+]
