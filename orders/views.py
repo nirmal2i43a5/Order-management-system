@@ -21,7 +21,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 def create(request,cid):
 	'''Below I replace OrderForm with'''
 	
-	OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price',),extra=5)  #access both customer and order form
+	OrderFormSet = inlineformset_factory(Customer,Order,fields='__all__',exclude=('total_price'),extra=5)  #access both customer and order form
 	
 	#it means maila customer lai click garda order ma bhako detail access garako xu with instance of customer
 	 #parent model and then child model---
