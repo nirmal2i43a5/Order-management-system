@@ -1,0 +1,28 @@
+[
+{
+    "model": "products.product",
+    "pk": 273,
+    "fields": {
+        "name": "Peanut Butter",
+        "price": "600.00",
+        "quantity": 4,
+        "unit": "kg",
+        "category": null,
+        "description": "WIth Pure Deshi Butter",
+        "created_at": "2020-12-18T16:25:47.647Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 274,
+    "fields": {
+        "name": "Ashawaganda",
+        "price": "200.00",
+        "quantity": 2,
+        "unit": "kg",
+        "category": null,
+        "description": "Gorkha ayurvedic",
+        "created_at": "2020-12-01T03:47:13.266Z"
+    }
+}
+]
