@@ -125,17 +125,13 @@ def search(request):
 		return JsonResponse(data)
 
 
+
+
 def edit(request, cid, oid):    
-	# ord=Order.objects.get(pk=oid) #i get all value and show that value to next page
-	
+    
 	ord = get_object_or_404(Order,pk = oid)
 	customer = get_object_or_404(Customer,pk=cid)
-	
-	form=OrderForm(instance=ord)
-	
-	# cus = get_object_or_404(Customer,pk = cid)
-   
-	
+ 
 	if(request.method=='POST'):
 		
 		form=OrderForm(request.POST,instance=ord)
@@ -147,8 +143,9 @@ def edit(request, cid, oid):
 			
 			# return redirect("/customers/order/", pk = cid)#maila update.html ko save garda or post ma jada yo url ma redirect hunxa
 
-	# else:
-	#     form = ProductForm()
+	else:
+     
+		form=OrderForm(instance=ord)
 		
   
 	return render(request,'orders/update.html',{'form':form,'customer_record':customer})

@@ -13,5 +13,5 @@ class OrderForm(forms.ModelForm):
         fields = '__all__'
         
        
-        exclude = ('total_price',)
+        exclude = ('total_price','customer',)
        
